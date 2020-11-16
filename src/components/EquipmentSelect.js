@@ -14,7 +14,10 @@ export default ({equipmentItems, itemId, icon, ...props}) =>
       </span>
     </div>
 
-    <select class="form-control form-control-sm" disabled={!!itemId}>
+    <select 
+      class="form-control form-control-sm" 
+      disabled={!!itemId}>
+
       <option value="">Empty</option>
       {Object.keys(equipmentItems).map(equipmentId => 
       {

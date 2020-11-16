@@ -2,14 +2,14 @@
 import { app } from "hyperapp";
 import h from './hyperappjsx';
 import data from './data';
-import Characters from './components/Characters';
+import Team from './components/Team';
 
 app({
   init: data,
-  view: state =>
+  view: (state, actions) =>
     <main>
       <div class="container">
-        <Characters {...state}/>
+        <Team team={state.teams[0]} {...state}/>
       </div>
     </main>,
   node: document.getElementById("app")

@@ -2,9 +2,9 @@
 import h from '../hyperappjsx';
 import CharacterEquipmentSelectItem from './CharacterEquipmentSelectItem';
 
-export default ({characterId, character, ...props}) =>
+export default ({position, teamCharacter, character, ...props}) =>
   <ul class="list-group list-group-flush">
-    {character.equipmentSlots.map(slot =>
+    {character.equipmentSlots.map((slot, slotPosition) =>
       <CharacterEquipmentSelectItem
         type={slot.type}
         itemId={slot.itemId}
