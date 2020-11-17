@@ -487,7 +487,7 @@ export default {
       },
       "rock": {
           name: "Cliff", 
-          stats: { damageReduction: 0.01 },
+          stats: { damageReduction: 0.08 },
           images: {
               primary: "./images/pets/pet_rock_1.png"
           }
@@ -589,5 +589,35 @@ export default {
           ],
           petId: "rock"
       }
-  ]
+  ],
+  equipmentSlotTypes: {
+    "weapon": { canHaveGemId: true, itemsPath: "weapons" },
+    "shield": { canHaveGemId: true, itemsPath: "shields" },
+    "armor": { canHaveGemId: false, itemsPath: "armors" },
+    "accessory": { canHaveGemId: false, itemsPath: "accessories" }
+  },
+  stats: {
+    "health": { name: "HP", type: "number" },
+    "healthBoost": { name: "HP Boost", type: "percentage", isOptional: true },
+    "attack": { name: "ATK", type: "number" },
+    "attackBoost": { name: "ATK Boost", type: "percentage", isOptional: true },
+    "mana": { name: "MP", type: "number", isOptional: true },
+    "manaBoost": { name: "MP Boost", type: "percentage", isOptional: true },
+    "critChance": { name: "Crit Chance", type: "percentage", isOptional: true },
+    "critBonus": { name: "Crit Bonus", type: "percentage", isOptional: true },
+    "magicBoost": { name: "Magic Boost", type: "percentage" },
+    "physicalBoost": { name: "Physical Boost", type: "percentage" },
+    "evade": { name: "Evade", type: "percentage" },
+    "damageReduction": { name: "DMG Reduction", type: "percentage" },
+    "damageReflection": { name: "DMG Reflection", type: "percentage", isOptional: true },
+    "statusResist": { name: "Status Resist", type: "percentage" },
+    "healthRegen": { name: "HP Regen", type: "number", isOptional: true },
+    "manaRegen": { name: "MP Regen", type: "number", isOptional: true },
+    "essenceFind": { name: "Essence Find", type: "percentage", isOptional: true },
+    "goldFind": { name: "Gold Find", type: "percentage", isOptional: true },
+    "itemFind": { name: "Item Find", type: "number", isOptional: true },
+    "keyFind": { name: "Key Find", type: "percentage", isOptional: true },
+    "oreFind": { name: "Ore Find", type: "number", isOptional: true },
+    "xpBoost": { name: "XP Boost", type: "percentage", isOptional: true }
+  }
 };

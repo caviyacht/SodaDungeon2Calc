@@ -9,7 +9,7 @@ app({
   view: (state, actions) =>
     <main>
       <div class="container">
-        <Team team={state.teams[0]} {...state}/>
+        <Team teamId={0} team={state.teams[0]} {...state}/>
       </div>
     </main>,
   node: document.getElementById("app")

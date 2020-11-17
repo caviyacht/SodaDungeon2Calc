@@ -2,14 +2,14 @@
 import h from '../hyperappjsx';
 import TeamCharacter from './TeamCharacter';
 
-export default ({team, ...props}) =>
+export default ({teamId, team, ...props}) =>
   <div>
     <div>
-      {team.characters.map((character, position) =>
+      {team.characters.map((teamCharacter, characterNumber) =>
         <TeamCharacter
-          position={position}
-          teamCharacter={character} 
-          character={props.characters[character.characterId]} 
+          characterNumber={characterNumber}
+          teamCharacter={teamCharacter} 
+          character={props.characters[teamCharacter.characterId]}
           {...props}/>
       )}
     </div>

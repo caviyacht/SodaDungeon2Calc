@@ -4,10 +4,10 @@ import CharacterEquipmentSelectItem from './CharacterEquipmentSelectItem';
 
 export default ({position, teamCharacter, character, ...props}) =>
   <ul class="list-group list-group-flush">
-    {character.equipmentSlots.map((slot, slotPosition) =>
+    {character.equipmentSlots.map((equipmentSlot, index) =>
       <CharacterEquipmentSelectItem
-        type={slot.type}
-        itemId={slot.itemId}
+        equipmentSlotId={index}
+        equipmentSlot={equipmentSlot}
         {...props}
       />
     )}
