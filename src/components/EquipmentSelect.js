@@ -1,7 +1,40 @@
 /* eslint-disable no-undef, no-unused-vars */
 import h from '../hyperappjsx';
+import {withPayload} from '../utilities';
 
-export default ({equipmentItems, slotId, itemId, icon, ...props}) =>
+const setCharacterEquipment = (state, {characterNumber, slotId, itemId}) => ({
+  ...state,
+  teams: state.teams.map((team, teamNumber) => {
+    if (teamNumber === 0) {
+      return {
+        ...team,
+        characters: team.characters.map((character, teamCharacterNumber) => {
+          if (teamCharacterNumber === characterNumber) {
+            return {
+              ...character,
+              equipmentSlots: character.equipmentSlots.map((equipmentSlot, equipmentSlotNumber) => {
+                if (equipmentSlotNumber === slotId) {
+                  return {
+                    ...equipmentSlot,
+                    itemId
+                  };
+                }
+
+                return equipmentSlot;
+              })
+            };
+          }
+
+          return character;
+        })
+      };
+    }
+
+    return team;
+  })
+});
+
+export default ({equipmentItems, characterNumber, slotId, itemId, staticItemId, icon, ...props}) =>
   <div class="input-group input-group-sm">
     <div class="input-group-prepend">
       <span class="input-group-text">
@@ -16,7 +49,8 @@ export default ({equipmentItems, slotId, itemId, icon, ...props}) =>
 
     <select 
       class="form-control form-control-sm" 
-      disabled={!!itemId}>
+      oninput={withPayload(e => [setCharacterEquipment, {characterNumber, slotId, itemId: e.target.value}])}
+      disabled={!!staticItemId}>
 
       <option value="">Empty</option>
       

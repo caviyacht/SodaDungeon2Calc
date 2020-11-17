@@ -1,0 +1,1 @@
+export const withPayload = (filter) => (_, x) => filter(x);
