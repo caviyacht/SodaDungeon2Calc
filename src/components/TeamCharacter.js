@@ -5,10 +5,10 @@ import CharacterEquipmentSelect from './CharacterEquipmentSelect';
 import TeamCharacterStats from './TeamCharacterStats';
 
 export default ({characterNumber, teamCharacter, character, ...props}) =>
-  <div class="card m-1">
+  <div class="card">
     <div class="card-header py-1 bg-dark">
       <div class="row">
-        <div class="col pl-0">
+        <div class="col pl-1">
           <img src={character.images.portraits.primary} alt={character.name} width="30" height="30"/>
         </div>
         
