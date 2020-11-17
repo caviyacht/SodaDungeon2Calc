@@ -34,7 +34,7 @@ const setCharacterEquipment = (state, {characterNumber, slotId, itemId}) => ({
   })
 });
 
-export default ({type, equipmentItems, characterNumber, slotId, itemId, staticItemId, icon, ...props}) =>
+export default ({type, equipmentItems, characterNumber, slotId, itemId, staticItemId, icon, itemImage, isEnabled, ...props}) =>
   <div class="input-group input-group-sm">
     <div class="input-group-prepend">
       <span class="input-group-text">
@@ -43,6 +43,7 @@ export default ({type, equipmentItems, characterNumber, slotId, itemId, staticIt
               width: "20px",
               height: "20px",
               backgroundImage: `url(${icon})`,
+              backgroundRepeat: "no-repeat",
               backgroundSize: "contain"
             }
           : {
@@ -58,7 +59,7 @@ export default ({type, equipmentItems, characterNumber, slotId, itemId, staticIt
     <select 
       class="form-control form-control-sm" 
       oninput={withPayload(e => [setCharacterEquipment, {characterNumber, slotId, itemId: e.target.value}])}
-      disabled={!!staticItemId}>
+      disabled={!isEnabled || (!isEnabled && !!staticItemId)}>
 
       <option value="">Empty</option>
       

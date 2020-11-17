@@ -9,6 +9,15 @@ export default {
           "ore": "./images/items/resources/i16.png"
       }
   },
+  images: {
+    items: {
+      "99": "./images/items/weapons/i99.png",
+      "103": "./images/items/weapons/i103.png",
+      "120": "./images/items/weapons/i120.png",
+      "156": "./images/items/weapons/i156.png",
+      "178": "./images/items/weapons/i178.png"
+    }
+  },
   items: {
       shields: {
           "142": { name: "Power Shield", hasGemSlot: true, stats: { health: 62, attack: 33 } },
