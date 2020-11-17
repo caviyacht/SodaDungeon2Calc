@@ -3,9 +3,10 @@ export default {
       icons: {
           "accessory": "./images/icons/icon_accessory.png",
           "armor": "./images/icons/icon_armor.png",
-          "gem": "./images/icons/icon_gem.png",
           "shield": "./images/icons/icon_shield.png",
           "weapon": "./images/icons/icon_weapon.png",
+          "gem": "./images/icons/icon_craft_gem.png",
+          "ore": "./images/items/resources/i16.png"
       }
   },
   items: {
@@ -19,6 +20,7 @@ export default {
           "99": { name: "Aphotic Blade", isCharacterSpecific: true, stats: { attack: 5, critChance: 0.40, critBonus: 0.50 } },
           "103": { name: "Saber", stats: { attack: 26, critChance: 0.39, critBonus: 0.59, evade: 0.29 } },
           "120": { name: "Skull Blade", stats: { attack: 33, critChance: 0.34, critBonus: 0.84, damageReduction: 0.19 } },
+          "156": { name: "Grand Scepter", hasGemSlot: true, stats: { } },
           "178": { name: "Iron Skillet", isCharacterSpecific: true, stats: { attack: 20 } }
       },
       armors: {

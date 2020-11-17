@@ -34,16 +34,24 @@ const setCharacterEquipment = (state, {characterNumber, slotId, itemId}) => ({
   })
 });
 
-export default ({equipmentItems, characterNumber, slotId, itemId, staticItemId, icon, ...props}) =>
+export default ({type, equipmentItems, characterNumber, slotId, itemId, staticItemId, icon, ...props}) =>
   <div class="input-group input-group-sm">
     <div class="input-group-prepend">
       <span class="input-group-text">
-        <div style={{
-          width: "20px",
-          height: "20px",
-          backgroundColor: "black",
-            "-webkit-mask-box-image": `url(${icon})`
-        }}/>
+        <div style={/gem|ore/i.test(type)
+          ? {
+              width: "20px",
+              height: "20px",
+              backgroundImage: `url(${icon})`,
+              backgroundSize: "contain"
+            }
+          : {
+              width: "20px",
+              height: "20px",
+              backgroundColor: "black",
+              "-webkit-mask-box-image": `url(${icon})`
+            }
+        }/>
       </span>
     </div>
 
