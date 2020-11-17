@@ -33,6 +33,13 @@ export default {
       },
       gems: {
           "153": { name: "Pearl Gem", stats: { healthBoost: 0.10, attackBoost: 0.10, magicBoost: 0.05 } }
+      },
+      ores: {
+        "15": { name: "Copper Ore", stats: { } },
+        "16": { name: "Silver Ore", stats: { } },
+        "17": { name: "Gold Ore", stats: { } },
+        "18": { name: "Platinum Ore", stats: { } },
+        "19": { name: "Uranium Ore", stats: { } }
       }
   },
   characters: {
