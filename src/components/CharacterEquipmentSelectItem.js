@@ -12,6 +12,46 @@ const getEquipmentItems = (type, props) =>
 const getEquipment = ({type, itemId}, props) => props.items[props.equipmentSlotTypes[type].itemsPath][itemId];
 const isAccessorySlot = ({type}) => type === "accessory";
 
+const EquipmentSelect2 = ({...props}) =>
+  <div class="input-group input-group-sm">
+    <div class="input-group-prepend">
+      <span class="input-group-text">
+        <div style={/gem|ore/i.test(type)
+          ? {
+              width: "20px",
+              height: "20px",
+              backgroundImage: `url(${icon})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "contain"
+            }
+          : {
+              width: "20px",
+              height: "20px",
+              backgroundColor: "black",
+              "-webkit-mask-box-image": `url(${icon})`
+            }
+        }/>
+      </span>
+    </div>
+
+    <select 
+      class="form-control form-control-sm" 
+      disabled={!isEnabled || (!isEnabled && !!staticItemId)}>
+
+      <option value="">Empty</option>
+      
+      {Object.keys(equipmentItems).map(equipmentId => 
+      {
+        let equipment = equipmentItems[equipmentId];
+        let isSelected = equipmentId === itemId;
+
+        return <option value={equipmentId} selected={isSelected} disabled={!!equipment.isCharacterSpecific}>
+          {equipment.name}
+        </option>;
+      })}
+    </select>
+  </div>;
+
 export default ({characterNumber, equipmentSlotId, equipmentSlot, characterEquipmentSlot, ...props}) =>
   <li class="list-group-item py-1 px-0">
     <EquipmentSelect
