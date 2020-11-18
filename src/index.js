@@ -12,24 +12,24 @@ const getIcon = (id, props) => props.ui.icons[id];
 const TeamCharacterHeaderNavItem = ({href, isActive, icon, ...props}) =>
   <li class="nav-item">
     <a class={["nav-link", "px-0", {active: isActive}]} data-toggle="tab" href={href}>
-      <img src={icon} alt="" height="40" />
+      <img class="rounded" src={icon} alt="" height="40" />
     </a>
   </li>;
 
 const getItemImageOrDefault = (itemId, defaultImage, props) => itemId ? props.images.items[itemId] : defaultImage;
 
-const TeamCharacterHeader = ({character, ...props}) =>
+const TeamCharacterHeader = ({id, character, ...props}) =>
   <div class="card-header bg-dark">
     <ul class="nav nav-tabs nav-fill card-header-tabs">
       <TeamCharacterHeaderNavItem 
-        href="#character" 
+        href={`#${id}-character`}
         isActive={true} 
         icon={getCharacterPortrait(character.characterId, props)}
         {...props}/>
 
       {character.equipmentSlots.map((slot, slotNumber) =>
         <TeamCharacterHeaderNavItem 
-          href={`#${slot.type}`} 
+          href={`#${id}-${slot.type}-${slotNumber}`} 
           isActive={false} 
           icon={getItemImageOrDefault(slot.itemId, getIcon(`craft_${slot.type}`, props), props)}
           {...props}/>
@@ -37,49 +37,58 @@ const TeamCharacterHeader = ({character, ...props}) =>
     </ul>
   </div>
 
-const TeamCharacterBody = ({character, ...props}) =>
+const getItemDataForSlot = (slot, props) => props.items[props.equipmentSlotTypes[slot.type].itemsPath];
+
+const TeamCharacterBody = ({id, character, ...props}) =>
   <div class="card-body">
     <div class="tab-content">
       <TeamCharacterBodyTabPane
-        id="character"
+        id={`${id}-character`}
         isActive={true}
         type="character"
         itemData={props.characters}
-        groups={["default"]}
         {...props}/>
 
-      <TeamCharacterBodyTabPane
-        id="weapon"
-        isActive={false}
-        type="weapon"
-        itemData={props.items.weapons}
-        groups={["default", "resource", "gem"]}
-        {...props}/>
+      {character.equipmentSlots.map((slot, slotNumber) =>
+        <TeamCharacterBodyTabPane
+          id={`${id}-${slot.type}-${slotNumber}`}
+          isActive={false}
+          type={slot.type}
+          itemData={getItemDataForSlot(slot, props)}
+          {...props}/>
+      )}
 
-      <TeamCharacterBodyTabPane
-        id="shield"
-        isActive={false}
-        type="shield"
-        itemData={props.items.shields}
-        groups={["default", "resource", "gem"]}
-        {...props}/>
-
-      <TeamCharacterBodyTabPane
-        id="armor"
-        isActive={false}
-        type="armor"
-        itemData={props.items.armors}
-        groups={["default", "resource"]}
-        {...props}/>
-
-      <TeamCharacterBodyTabPane
-        id="accessory"
-        isActive={false}
-        type="accessory"
-        itemData={props.items.accessories}
-        groups={["default"]}
+      <TeamCharacterBodyTabPaneStats
+        id={`${id}-stats`}
+        character={character}
+        characterData={props.characters[character.characterId]}
         {...props}/>
     </div>
+  </div>;
+
+const TeamCharacterBodyTabPaneStats = ({id, character, characterData, ...props}) =>
+  <div class="tab-pane fade" id={id}>
+    <table class="table table-striped table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Stat</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.keys(characterData.stats).filter(statId => {
+          return !props.stats[statId].isOptional;
+        }).map(statId =>
+          <tr>
+            <th class="table-secondary">{props.stats[statId].name}</th>
+            <td>{props.stats[statId].type === "number"
+              ? characterData.stats[statId]
+              : `${(characterData.stats[statId] * 100).toFixed(2)}%`
+            }</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
   </div>;
 
 const TeamCharacterBodyTabPaneInputGroup = ({icon, itemData, ...props}) =>
@@ -102,7 +111,7 @@ const getInputGroupIconForType = (type, props) =>
     ? props.ui.portraits["mystery"]
     : props.ui.icons[`craft_${type}`];
 
-const TeamCharacterBodyTabPane = ({id, isActive, type, itemData, groups, ...props}) =>
+const TeamCharacterBodyTabPane = ({id, isActive, type, itemData, ...props}) =>
   <div class={["tab-pane", "fade", {show: isActive, active: isActive}]} id={id}>
     <TeamCharacterBodyTabPaneInputGroup icon={getInputGroupIconForType(type, props)} itemData={itemData} class={["mb-3"]} {...props}/>
     
@@ -110,10 +119,28 @@ const TeamCharacterBodyTabPane = ({id, isActive, type, itemData, groups, ...prop
     {!/character|accessory/.test(type) && <TeamCharacterBodyTabPaneInputGroup icon={getIcon("craft_gem", props)} itemData={props.items.gems} {...props}/>}
   </div>;
 
-const TeamCharacter = ({character, ...props}) =>
+const TeamCharacterFooter = ({id, character, props}) =>
+  <div class="card-footer px-2">
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <a class="nav-link active px-0" data-toggle="pill" href={`#${id}-equipment`}>Equipment</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link px-0" data-toggle="pill" href={`#${id}-stats`}>Stats</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link px-0" data-toggle="pill" href={`#${id}-survivability`}>Survivability</a>
+      </li>
+    </ul>
+  </div>;
+
+const TeamCharacter = ({id, character, ...props}) =>
   <div class="card">
-    <TeamCharacterHeader character={character} {...props}/>
-    <TeamCharacterBody character={character} {...props}/>
+    <TeamCharacterHeader id={id} character={character} {...props}/>
+    <TeamCharacterBody id={id} character={character} {...props}/>
+    <TeamCharacterFooter id={id} character={character} {...props}/>
   </div>;
 
 app({
@@ -122,9 +149,12 @@ app({
     <main>
       <div class="container">
         <div class="row row-cols-1 row-cols-lg-2">
-          {state.teams[0].characters.map(character =>
+          {state.teams[0].characters.map((character, characterNumber) =>
             <div class="col mb-4">
-              <TeamCharacter character={character} {...state}/>
+              <TeamCharacter 
+                id={`${character.characterId}-${characterNumber}`} 
+                character={character} 
+                {...state}/>
             </div>
           )}
         </div>
