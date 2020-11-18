@@ -7,36 +7,20 @@ import Team from './components/Team';
 const getCharacterData = (characterId, props) => props.characters[characterId];
 const getCharacterPortrait = (characterId, props) => getCharacterData(characterId, props).images.portraits.primary;
 
-const getEquipment = (type, props) => 
-  type === "weapon"
-    ? props.items.weapons
-    : type === "shield"
-      ? props.items.shields
-      : type === "armor"
-        ? props.items.armors
-        : props.items.accessories;
-
 const getIcon = (id, props) => props.ui.icons[id];
-const getPotrait = (id, props) => props.ui.portraits[id];
 
 const TeamCharacterHeaderNavItem = ({href, isActive, icon, ...props}) =>
   <li class="nav-item">
-    <a class={["nav-link", {active: isActive}]} data-toggle="tab" href={href}>
+    <a class={["nav-link", "px-0", {active: isActive}]} data-toggle="tab" href={href}>
       <img src={icon} alt="" height="40" />
     </a>
   </li>;
-
-const getEquipmentSlot = (character, type) => character.equipmentSlots.filter(slot => slot.type === type)[0];
-const getEquippedWeaponId = (character) => getEquipmentSlot(character, "weapon").itemId;
-const getEquippedShieldId = (character) => getEquipmentSlot(character, "shield").itemId;
-const getEquippedArmorId = (character) => getEquipmentSlot(character, "armor").itemId;
-const getEquippedAccessoryId = (character) => getEquipmentSlot(character, "accessory").itemId;
 
 const getItemImageOrDefault = (itemId, defaultImage, props) => itemId ? props.images.items[itemId] : defaultImage;
 
 const TeamCharacterHeader = ({character, ...props}) =>
   <div class="card-header bg-dark">
-    <ul class="nav nav-tabs card-header-tabs">
+    <ul class="nav nav-tabs nav-fill card-header-tabs">
       <TeamCharacterHeaderNavItem 
         href="#character" 
         isActive={true} 
@@ -118,23 +102,6 @@ const getInputGroupIconForType = (type, props) =>
     ? props.ui.portraits["mystery"]
     : props.ui.icons[`craft_${type}`];
 
-const getItemDataForType = (type, props) =>
-  type === "character"
-    ? props.characters
-    : type === "weapon"
-      ? props.items.weapons
-      : type === "shield"
-        ? props.items.shields
-        : type === "armor"
-          ? props.items.armors
-          : type === "accessory"
-            ? props.items.accessories
-            : type === "gem"
-              ? props.items.gems
-              : type === "ore"
-                ? props.items.ores
-                : {};
-
 const TeamCharacterBodyTabPane = ({id, isActive, type, itemData, groups, ...props}) =>
   <div class={["tab-pane", "fade", {show: isActive, active: isActive}]} id={id}>
     <TeamCharacterBodyTabPaneInputGroup icon={getInputGroupIconForType(type, props)} itemData={itemData} class={["mb-3"]} {...props}/>
@@ -154,9 +121,11 @@ app({
   view: (state, actions) =>
     <main>
       <div class="container">
-        <div class="card-deck">
+        <div class="row row-cols-1 row-cols-lg-2">
           {state.teams[0].characters.map(character =>
-            <TeamCharacter character={character} {...state}/>
+            <div class="col mb-4">
+              <TeamCharacter character={character} {...state}/>
+            </div>
           )}
         </div>
       </div>
