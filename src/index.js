@@ -20,7 +20,7 @@ const getItemImageOrDefault = (itemId, defaultImage, props) => itemId ? props.im
 
 const TeamCharacterHeader = ({id, character, ...props}) =>
   <div class="card-header bg-dark">
-    <ul class="nav nav-tabs nav-fill card-header-tabs">
+    <ul class="nav nav-tabs nav-justified card-header-tabs">
       <TeamCharacterHeaderNavItem 
         href={`#${id}-character`}
         isActive={true} 
@@ -34,6 +34,12 @@ const TeamCharacterHeader = ({id, character, ...props}) =>
           icon={getItemImageOrDefault(slot.itemId, getIcon(`craft_${slot.type}`, props), props)}
           {...props}/>
       )}
+
+      <TeamCharacterHeaderNavItem 
+        href={`#${id}-allsight`}
+        isActive={false} 
+        icon={props.images.upgrades.allsight}
+        {...props}/>
     </ul>
   </div>
 
@@ -58,15 +64,15 @@ const TeamCharacterBody = ({id, character, ...props}) =>
           {...props}/>
       )}
 
-      <TeamCharacterBodyTabPaneStats
-        id={`${id}-stats`}
+      <TeamCharacterBodyTabPaneAllsight
+        id={`${id}-allsight`}
         character={character}
         characterData={props.characters[character.characterId]}
         {...props}/>
     </div>
   </div>;
 
-const TeamCharacterBodyTabPaneStats = ({id, character, characterData, ...props}) =>
+const TeamCharacterBodyTabPaneAllsight = ({id, character, characterData, ...props}) =>
   <div class="tab-pane fade" id={id}>
     <table class="table table-striped table-sm">
       <thead class="thead-dark">
@@ -87,6 +93,24 @@ const TeamCharacterBodyTabPaneStats = ({id, character, characterData, ...props})
             }</td>
           </tr>
         )}
+      </tbody>
+      <tbody>
+        <tr class="table-dark clickable" data-toggle="collapse" data-target={`#${id}-stats-other`}>
+          <th colspan="2">Other Stats</th>
+        </tr>
+      </tbody>
+      <tbody class="collapse" id={`${id}-stats-other`}>
+        {Object.keys(characterData.stats).filter(statId => {
+            return props.stats[statId].isOptional;
+          }).map(statId =>
+            <tr>
+              <th class="table-secondary">{props.stats[statId].name}</th>
+              <td>{props.stats[statId].type === "number"
+                ? characterData.stats[statId]
+                : `${(characterData.stats[statId] * 100).toFixed(2)}%`
+              }</td>
+            </tr>
+          )}
       </tbody>
     </table>
   </div>;
@@ -119,28 +143,10 @@ const TeamCharacterBodyTabPane = ({id, isActive, type, itemData, ...props}) =>
     {!/character|accessory/.test(type) && <TeamCharacterBodyTabPaneInputGroup icon={getIcon("craft_gem", props)} itemData={props.items.gems} {...props}/>}
   </div>;
 
-const TeamCharacterFooter = ({id, character, props}) =>
-  <div class="card-footer px-2">
-    <ul class="nav nav-pills nav-fill">
-      <li class="nav-item">
-        <a class="nav-link active px-0" data-toggle="pill" href={`#${id}-equipment`}>Equipment</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link px-0" data-toggle="pill" href={`#${id}-stats`}>Stats</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link px-0" data-toggle="pill" href={`#${id}-survivability`}>Survivability</a>
-      </li>
-    </ul>
-  </div>;
-
 const TeamCharacter = ({id, character, ...props}) =>
   <div class="card">
     <TeamCharacterHeader id={id} character={character} {...props}/>
     <TeamCharacterBody id={id} character={character} {...props}/>
-    <TeamCharacterFooter id={id} character={character} {...props}/>
   </div>;
 
 app({

@@ -36,6 +36,9 @@ export default {
       "127": "./images/items/accessories/i127.png",
       "129": "./images/items/accessories/i129.png",
       "130": "./images/items/accessories/i130.png"
+    },
+    upgrades: {
+      "allsight": "./images/upgrades/thumbnail_allsight.png"
     }
   },
   items: {
