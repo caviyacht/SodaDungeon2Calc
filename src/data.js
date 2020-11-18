@@ -1,6 +1,16 @@
 export default {
   ui: {
+      portraits: {
+        "mystery": "./images/portraits/char_portrait_mystery_1.png"
+      },
       icons: {
+          "craft_accessory": "./images/icons/icon_craft_accessory.png",
+          "craft_shield": "./images/icons/icon_craft_shield.png",
+          "craft_armor": "./images/icons/icon_craft_armor.png",
+          "craft_weapon": "./images/icons/icon_craft_weapon.png",
+          "craft_resource": "./images/icons/icon_craft_resource.png",
+          "craft_gem": "./images/icons/icon_craft_gem.png",
+
           "accessory": "./images/icons/icon_accessory.png",
           "armor": "./images/icons/icon_armor.png",
           "shield": "./images/icons/icon_shield.png",
@@ -15,7 +25,17 @@ export default {
       "103": "./images/items/weapons/i103.png",
       "120": "./images/items/weapons/i120.png",
       "156": "./images/items/weapons/i156.png",
-      "178": "./images/items/weapons/i178.png"
+      "178": "./images/items/weapons/i178.png",
+
+      "167": "./images/items/shields/i167.png",
+
+      "143": "./images/items/armors/i143_male.png",
+      "162": "./images/items/armors/i162_male.png",
+
+      "100": "./images/items/accessories/i100.png",
+      "127": "./images/items/accessories/i127.png",
+      "129": "./images/items/accessories/i129.png",
+      "130": "./images/items/accessories/i130.png"
     }
   },
   items: {
