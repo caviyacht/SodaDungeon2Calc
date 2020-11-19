@@ -51,8 +51,7 @@ export default {
       "psychic": "./images/portraits/char_portrait_psychic_1.png",
       "soda_junkie": "./images/portraits/char_portrait_soda_junkie_1.png",
       "thief": "./images/portraits/char_portrait_thief_1.png",
-    },
-    upgrades: {
+
       "allsight": "./images/upgrades/thumbnail_allsight.png"
     },
     portraits: {
@@ -68,7 +67,8 @@ export default {
     "resource_ore": { name: "Ore" },
     "character": { name: "Character" },
     "character_special": { name: "Special Character" },
-    "weapon_special": { name: "Special Weapon" }
+    "weapon_special": { name: "Special Weapon" },
+    "upgrade": { name: "Upgrade" }
   },
   slotTypes: {
     "weapon_special_1": { itemType: "weapon_special" },
@@ -117,6 +117,8 @@ export default {
     "prevents_back_atk_bonus": { name: "Prevents Back Attack Bonus", valueType: "boolean", isOptional: true }
   },
   items: {
+    "allsight": { type: "upgrade", name: "Allsight", stats: { }, slots: [] },
+
     "whale": { type: "pet", name: "Finn", stats: { "hp_boost": 0.08 }, slots: [] },
     "platypus": { type: "pet", name: "Patty", stats: { "status_resist": 0.08 }, slots: [] },
     "hedgehog": { type: "pet", name: "Spike", stats: { "dmg_reflection": 0.08 }, slots: [] },

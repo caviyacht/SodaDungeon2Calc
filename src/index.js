@@ -7,31 +7,31 @@ const TeamCharacterHeader = ({character, ...props}) =>
   <div class="card-header bg-dark">
     <ul class="nav nav-tabs nav-justified card-header-tabs">
       <TeamCharacterHeaderNavItem 
-        href={`#${character.id}-character`}
+        itemId={character.itemId}
+        href={`#${character.id}`}
         isActive={true} 
-        icon={getItemImage(character.itemId, props)}
         {...props}/>
 
-      {getTeamCharacterSlots(character).map(slot =>
+      {getSlots(character).map(slot =>
         <TeamCharacterHeaderNavItem 
+          itemId={slot.itemId}
           href={`#${character.id}-${slot.id}`} 
           isActive={false} 
-          icon={getItemImage(slot.itemId, props)}
           {...props}/>
       )}
 
       <TeamCharacterHeaderNavItem 
+        itemId="allsight"
         href={`#${character.id}-allsight`}
         isActive={false} 
-        icon={props.images.upgrades.allsight}
         {...props}/>
     </ul>
   </div>
 
-const TeamCharacterHeaderNavItem = ({href, isActive, icon, ...props}) =>
+const TeamCharacterHeaderNavItem = ({itemId, href, isActive, ...props}) =>
   <li class="nav-item">
     <a class={["nav-link", "px-0", {active: isActive}]} data-toggle="tab" href={href}>
-      <img class="rounded" src={icon} alt="" height="40" />
+      <img class="rounded" src={getItemImage(itemId, props)} alt="" height="40" />
     </a>
   </li>;
 
@@ -39,18 +39,18 @@ const TeamCharacterBody = ({character, ...props}) =>
   <div class="card-body">
     <div class="tab-content">
       <TeamCharacterBodyTabPane
-        id={`${character.id}-character`}
+        id={`${character.id}`}
+        slot={character}
         isActive={true}
-        type="character"
-        itemData={getItemsForType("character", props)}
+        hasSlots={false}
         {...props}/>
 
-      {getTeamCharacterSlots(character).map(slot =>
+      {getSlots(character).map(slot =>
         <TeamCharacterBodyTabPane
           id={`${character.id}-${slot.id}`}
+          slot={slot}
           isActive={false}
-          type={slot.type}
-          itemData={getItemsForType(slot.type, props)}
+          hasSlots={true}
           {...props}/>
       )}
 
@@ -61,26 +61,21 @@ const TeamCharacterBody = ({character, ...props}) =>
     </div>
   </div>;
 
-const TeamCharacterBodyTabPane = ({id, isActive, type, itemData, ...props}) =>
+const TeamCharacterBodyTabPane = ({id, slot, isActive, hasSlots, ...props}) =>
   <div class={["tab-pane", "fade", {show: isActive, active: isActive}]} id={id}>
     <TeamCharacterBodyTabPaneInputGroup
-      icon={getIconForType(type, props)} 
-      itemData={itemData} 
+      icon={getIconForType(slot.type, props)} 
+      itemData={getItemsForSlot(slot.id, props)} 
       class={["mb-3"]} 
       {...props}/>
-    
-    {!/character|accessory/.test(type) && 
-      <TeamCharacterBodyTabPaneInputGroup 
-        icon={getIcon("craft_resource", props)} 
-        itemData={getItemsForType("resource_ore", props)} 
-        class={["mb-3"]} 
-        {...props}/>}
 
-    {!/character|accessory/.test(type) && 
+    {hasSlots && getSlots(slot).map(slot =>
       <TeamCharacterBodyTabPaneInputGroup 
-        icon={getIcon("craft_gem", props)} 
-        itemData={getItemsForType("gem", props)} 
-        {...props}/>}
+        icon={getIconForType(slot.type, props)} 
+        itemData={getItemsForSlot(slot.id, props)} 
+        class={["mb-3"]} 
+        {...props}/>
+    )}
   </div>;
 
 const TeamCharacterBodyTabPaneInputGroup = ({icon, itemData, ...props}) =>
@@ -92,8 +87,8 @@ const TeamCharacterBodyTabPaneInputGroup = ({icon, itemData, ...props}) =>
     </div>
     <select class="form-control">
       <option value="">Empty</option>
-        {Object.keys(itemData).map(key =>
-          <option value={key}>{itemData[key].name}</option>
+        {itemData.map(item =>
+          <option value={item.id}>{item.name}</option>
         )}
     </select>
   </div>;
@@ -177,21 +172,40 @@ const getTeamCharacters = (team) =>
     .filter(id => /^character/.test(id))
     .map(id => ({id, ...team.slots[id]}));
 
-const getTeamCharacterSlots = (character) =>
+const getSlots = (item) =>
   Object
-    .keys(character.slots)
-    .map(id => ({id, ...character.slots[id]}));
+    .keys(item.slots)
+    .map(id => ({id, ...item.slots[id]}));
 
-const getItemsForType = (type, state) =>
-  Object
+const getItemsForSlot = (id, state) => {
+  let itemType = state.slotTypes[id].itemType;
+
+  if(!Array.isArray(itemType)) {
+    itemType = [itemType];
+  }
+
+  let itemTypeLookup = itemType.reduce((o, value) => {
+    o[value] = true;
+    
+    return o;
+  }, { });
+
+  return Object
     .keys(state.items)
     .map(id => ({id, ...state.items[id]}))
-    .filter(item => item.type === type);
+    .filter(item => itemTypeLookup[item.type]);
+};
 
 const getIconForType = (type, state) => {
   switch (type) {
-    case "character": return state.images.portraits["mystery"];
-    case "weapon": return state.images.icons["craft_weapon"];
+    case "character":
+    case "character_special":
+      return state.images.portraits["mystery"];
+
+    case "weapon":
+    case "weapon_special":
+      return state.images.icons["craft_weapon"];
+
     case "shield": return state.images.icons["craft_shield"];
     case "armor": return state.images.icons["craft_armor"];
     case "accessory": return state.images.icons["craft_accessory"];
