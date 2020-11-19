@@ -5,7 +5,7 @@
   "plugins": [
     "transform-runtime",
     "@babel/plugin-syntax-jsx",
-    ["@babel/plugin-transform-react-jsx", { "pragma": "h" }]
+    ["@babel/plugin-transform-react-jsx", { "pragma": "h", "pragmaFrag": "hfrag" }]
   ],
   "parserOpts": {
     "plugins": [
