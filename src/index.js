@@ -1,13 +1,32 @@
 /* eslint-disable no-undef, no-unused-vars */
 import { app } from "hyperapp";
 import h from './hyperappjsx';
-import data from './data';
-import Team from './components/Team';
+import data from './data2';
 
-const getCharacterData = (characterId, props) => props.characters[characterId];
-const getCharacterPortrait = (characterId, props) => getCharacterData(characterId, props).images.portraits.primary;
+const TeamCharacterHeader = ({character, ...props}) =>
+  <div class="card-header bg-dark">
+    <ul class="nav nav-tabs nav-justified card-header-tabs">
+      <TeamCharacterHeaderNavItem 
+        href={`#${character.id}-character`}
+        isActive={true} 
+        icon={getItemImage(character.itemId, props)}
+        {...props}/>
 
-const getIcon = (id, props) => props.ui.icons[id];
+      {getTeamCharacterSlots(character).map(slot =>
+        <TeamCharacterHeaderNavItem 
+          href={`#${character.id}-${slot.id}`} 
+          isActive={false} 
+          icon={getItemImage(slot.itemId, props)}
+          {...props}/>
+      )}
+
+      <TeamCharacterHeaderNavItem 
+        href={`#${character.id}-allsight`}
+        isActive={false} 
+        icon={props.images.upgrades.allsight}
+        {...props}/>
+    </ul>
+  </div>
 
 const TeamCharacterHeaderNavItem = ({href, isActive, icon, ...props}) =>
   <li class="nav-item">
@@ -16,103 +35,52 @@ const TeamCharacterHeaderNavItem = ({href, isActive, icon, ...props}) =>
     </a>
   </li>;
 
-const getItemImageOrDefault = (itemId, defaultImage, props) => itemId ? props.images.items[itemId] : defaultImage;
-
-const TeamCharacterHeader = ({id, character, ...props}) =>
-  <div class="card-header bg-dark">
-    <ul class="nav nav-tabs nav-justified card-header-tabs">
-      <TeamCharacterHeaderNavItem 
-        href={`#${id}-character`}
-        isActive={true} 
-        icon={getCharacterPortrait(character.characterId, props)}
-        {...props}/>
-
-      {character.equipmentSlots.map((slot, slotNumber) =>
-        <TeamCharacterHeaderNavItem 
-          href={`#${id}-${slot.type}-${slotNumber}`} 
-          isActive={false} 
-          icon={getItemImageOrDefault(slot.itemId, getIcon(`craft_${slot.type}`, props), props)}
-          {...props}/>
-      )}
-
-      <TeamCharacterHeaderNavItem 
-        href={`#${id}-allsight`}
-        isActive={false} 
-        icon={props.images.upgrades.allsight}
-        {...props}/>
-    </ul>
-  </div>
-
-const getItemDataForSlot = (slot, props) => props.items[props.equipmentSlotTypes[slot.type].itemsPath];
-
-const TeamCharacterBody = ({id, character, ...props}) =>
+const TeamCharacterBody = ({character, ...props}) =>
   <div class="card-body">
     <div class="tab-content">
       <TeamCharacterBodyTabPane
-        id={`${id}-character`}
+        id={`${character.id}-character`}
         isActive={true}
         type="character"
-        itemData={props.characters}
+        itemData={getItemsForType("character", props)}
         {...props}/>
 
-      {character.equipmentSlots.map((slot, slotNumber) =>
+      {getTeamCharacterSlots(character).map(slot =>
         <TeamCharacterBodyTabPane
-          id={`${id}-${slot.type}-${slotNumber}`}
+          id={`${character.id}-${slot.id}`}
           isActive={false}
           type={slot.type}
-          itemData={getItemDataForSlot(slot, props)}
+          itemData={getItemsForType(slot.type, props)}
           {...props}/>
       )}
 
       <TeamCharacterBodyTabPaneAllsight
-        id={`${id}-allsight`}
-        character={character}
-        characterData={props.characters[character.characterId]}
+        id={`${character.id}-allsight`}
+        itemData={getItem(character.itemId, props)}
         {...props}/>
     </div>
   </div>;
 
-const TeamCharacterBodyTabPaneAllsight = ({id, character, characterData, ...props}) =>
-  <div class="tab-pane fade" id={id}>
-    <table class="table table-striped table-sm">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Stat</th>
-          <th scope="col">Value</th>
-        </tr>
-      </thead>
-      <tbody>
-        {Object.keys(characterData.stats).filter(statId => {
-          return !props.stats[statId].isOptional;
-        }).map(statId =>
-          <tr>
-            <th class="table-secondary">{props.stats[statId].name}</th>
-            <td>{props.stats[statId].type === "number"
-              ? characterData.stats[statId]
-              : `${(characterData.stats[statId] * 100).toFixed(2)}%`
-            }</td>
-          </tr>
-        )}
-      </tbody>
-      <tbody>
-        <tr class="table-dark clickable" data-toggle="collapse" data-target={`#${id}-stats-other`}>
-          <th colspan="2">Other Stats</th>
-        </tr>
-      </tbody>
-      <tbody class="collapse" id={`${id}-stats-other`}>
-        {Object.keys(characterData.stats).filter(statId => {
-            return props.stats[statId].isOptional;
-          }).map(statId =>
-            <tr>
-              <th class="table-secondary">{props.stats[statId].name}</th>
-              <td>{props.stats[statId].type === "number"
-                ? characterData.stats[statId]
-                : `${(characterData.stats[statId] * 100).toFixed(2)}%`
-              }</td>
-            </tr>
-          )}
-      </tbody>
-    </table>
+const TeamCharacterBodyTabPane = ({id, isActive, type, itemData, ...props}) =>
+  <div class={["tab-pane", "fade", {show: isActive, active: isActive}]} id={id}>
+    <TeamCharacterBodyTabPaneInputGroup
+      icon={getIconForType(type, props)} 
+      itemData={itemData} 
+      class={["mb-3"]} 
+      {...props}/>
+    
+    {!/character|accessory/.test(type) && 
+      <TeamCharacterBodyTabPaneInputGroup 
+        icon={getIcon("craft_resource", props)} 
+        itemData={getItemsForType("resource_ore", props)} 
+        class={["mb-3"]} 
+        {...props}/>}
+
+    {!/character|accessory/.test(type) && 
+      <TeamCharacterBodyTabPaneInputGroup 
+        icon={getIcon("craft_gem", props)} 
+        itemData={getItemsForType("gem", props)} 
+        {...props}/>}
   </div>;
 
 const TeamCharacterBodyTabPaneInputGroup = ({icon, itemData, ...props}) =>
@@ -124,47 +92,123 @@ const TeamCharacterBodyTabPaneInputGroup = ({icon, itemData, ...props}) =>
     </div>
     <select class="form-control">
       <option value="">Empty</option>
-      {Object.keys(itemData).map(key =>
-        <option value={key}>{itemData[key].name}</option>
-      )}
+        {Object.keys(itemData).map(key =>
+          <option value={key}>{itemData[key].name}</option>
+        )}
     </select>
   </div>;
 
-const getInputGroupIconForType = (type, props) =>
-  type === "character"
-    ? props.ui.portraits["mystery"]
-    : props.ui.icons[`craft_${type}`];
-
-const TeamCharacterBodyTabPane = ({id, isActive, type, itemData, ...props}) =>
-  <div class={["tab-pane", "fade", {show: isActive, active: isActive}]} id={id}>
-    <TeamCharacterBodyTabPaneInputGroup icon={getInputGroupIconForType(type, props)} itemData={itemData} class={["mb-3"]} {...props}/>
-    
-    {!/character|accessory/.test(type) && <TeamCharacterBodyTabPaneInputGroup icon={getIcon("craft_resource", props)} itemData={props.items.ores} class={["mb-3"]} {...props}/>}
-    {!/character|accessory/.test(type) && <TeamCharacterBodyTabPaneInputGroup icon={getIcon("craft_gem", props)} itemData={props.items.gems} {...props}/>}
+const TeamCharacterBodyTabPaneAllsight = ({id, itemData, ...props}) =>
+  <div class="tab-pane fade" id={id}>
+    <table class="table table-striped table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Stat</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {getStats(itemData)
+          .filter(stat => !props.statTypes[stat.id].isOptional)
+          .map(stat =>
+            <tr>
+              <th class="table-secondary">{props.statTypes[stat.id].name}</th>
+              <td>{formatStat(stat, props)}</td>
+            </tr>
+          )
+        }
+      </tbody>
+      <tbody>
+        <tr class="table-dark clickable" data-toggle="collapse" data-target={`#${id}-stats-other`}>
+          <th colspan="2">Other Stats</th>
+        </tr>
+      </tbody>
+      <tbody class="collapse" id={`${id}-stats-other`}>
+        {getStats(itemData)
+          .filter(stat => props.statTypes[stat.id].isOptional)
+          .map(stat =>
+            <tr>
+              <th class="table-secondary">{props.statTypes[stat.id].name}</th>
+              <td>{formatStat(stat, props)}</td>
+            </tr>
+          )
+        }
+      </tbody>
+    </table>
   </div>;
 
-const TeamCharacter = ({id, character, ...props}) =>
+const TeamCharacter = ({character, ...props}) =>
   <div class="card">
-    <TeamCharacterHeader id={id} character={character} {...props}/>
-    <TeamCharacterBody id={id} character={character} {...props}/>
+    <TeamCharacterHeader character={character} {...props}/>
+    <TeamCharacterBody character={character} {...props}/>
   </div>;
+
+const Team = ({team, ...props}) =>
+  <div class="row row-cols-1 row-cols-lg-2">
+    {getTeamCharacters(team).map(character =>
+      <div class="col mb-4">
+        <TeamCharacter character={character} {...props}/>
+      </div>
+    )}
+  </div>;
+
 
 app({
   init: data,
   view: (state, actions) =>
     <main>
       <div class="container">
-        <div class="row row-cols-1 row-cols-lg-2">
-          {state.teams[0].characters.map((character, characterNumber) =>
-            <div class="col mb-4">
-              <TeamCharacter 
-                id={`${character.characterId}-${characterNumber}`} 
-                character={character} 
-                {...state}/>
-            </div>
-          )}
-        </div>
+        <Team team={getTeam("default", state)} {...state}/>
       </div>
     </main>,
   node: document.getElementById("app")
 });
+
+const getIcon = (id, state) => state.images.icons[id];
+const getItem = (id, state) => state.items[id];
+const getItemImage = (id, state) => state.images.items[id];
+
+const getTeam = (id, state) => ({id, ...state.teams[id]});
+
+// TODO: Find a different way of doing this
+const getTeamCharacters = (team) =>
+  Object
+    .keys(team.slots)
+    .filter(id => /^character/.test(id))
+    .map(id => ({id, ...team.slots[id]}));
+
+const getTeamCharacterSlots = (character) =>
+  Object
+    .keys(character.slots)
+    .map(id => ({id, ...character.slots[id]}));
+
+const getItemsForType = (type, state) =>
+  Object
+    .keys(state.items)
+    .map(id => ({id, ...state.items[id]}))
+    .filter(item => item.type === type);
+
+const getIconForType = (type, state) => {
+  switch (type) {
+    case "character": return state.images.portraits["mystery"];
+    case "weapon": return state.images.icons["craft_weapon"];
+    case "shield": return state.images.icons["craft_shield"];
+    case "armor": return state.images.icons["craft_armor"];
+    case "accessory": return state.images.icons["craft_accessory"];
+    case "gem": return state.images.icons["craft_gem"];
+    case "resource_ore": return state.images.icons["craft_resource"];
+    default: return null;
+  }
+};
+
+const formatStat = (stat, state) => {
+  switch (state.statTypes[stat.id].valueType) {
+    case "percentage": return `${(100 * stat.value).toFixed(2)}%`;
+    default: return stat.value;
+  }
+};
+
+const getStats = (item) =>
+  Object
+    .keys(item.stats)
+    .map(id => ({id, value: item.stats[id]}));

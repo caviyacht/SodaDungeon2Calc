@@ -54,6 +54,9 @@ export default {
     },
     upgrades: {
       "allsight": "./images/upgrades/thumbnail_allsight.png"
+    },
+    portraits: {
+      "mystery": "./images/portraits/char_portrait_mystery_1.png"
     }
   },
   itemTypes: {
@@ -424,7 +427,7 @@ export default {
         },
         "character_2": {
           type: "character",
-          itemId: "theif",
+          itemId: "thief",
           slots: {
             "weapon_1": {
               type: "weapon", 
