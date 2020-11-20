@@ -1,16 +1,19 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
+import { TeamContext } from "../contexts/TeamContext";
 import TeamCharacter from "./TeamCharacter";
 
-export default (props) => {
+export default ({team, ...props}) => {
   return (
-    <Row xs={1} lg={2}>
-      {getSlots(props.team).map(slot =>
-        <Col className={["mb-4"]}>
-          <TeamCharacter slot={slot} data={props.data}/>
-        </Col>
-      )}
-    </Row>
+    <TeamContext.Provider value={team}>
+      <Row xs={1} lg={2}>
+        {getSlots(team).map(slot =>
+          <Col className={["mb-4"]}>
+            <TeamCharacter teamCharacter={slot}/>
+          </Col>
+        )}
+      </Row>
+    </TeamContext.Provider>
   );
 }
 
