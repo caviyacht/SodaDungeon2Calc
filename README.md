@@ -1,2 +1,2 @@
-# SodaDungeon2Calc
+# Soda Dungeon 2 Calc
 Created with CodeSandbox

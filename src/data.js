@@ -382,9 +382,9 @@ export default {
     "162": { type: "armor", name: "Platinum Armor", stats: { "hp": 227, "hp_boost": 0.14, "dmg_reduction": 0.24 }, slots: ["resource_ore_1"] },
 
     "100": { type: "accessory", name: "Phantasmal Claw", stats: { }, slots: [] },
-    "127": { type: "accessory", name: "Dark Amulet", stats: { "prevents_burn": 1.00, "prevents_stone": 1.00 }, slots: [] },
+    "127": { type: "accessory", name: "Dark Amulet", stats: { "prevents_burn": true, "prevents_stone": true }, slots: [] },
     "129": { type: "accessory", name: "Silver Necklace", stats: { "dmg_reduction": 0.10, "item_find": 10 }, slots: [] },
-    "130": { type: "accessory", name: "Back Protector", stats: { "hp_boost": 0.10, "prevents_back_atk_bonus": 1.00 }, slots: [] },
+    "130": { type: "accessory", name: "Back Protector", stats: { "hp_boost": 0.10, "prevents_back_atk_bonus": true }, slots: [] },
 
     "153": { type: "gem", name: "Pearl Gem", stats: { "hp_boost": 0.10, "atk_boost": 0.10, "magic_boost": 0.05 }, slots: [] },
 
@@ -398,7 +398,7 @@ export default {
     "default": {
       name: "Default",
       slots: {
-        "pet_1": { type: "pet", itemId: "rock" },
+        "pet_1": { type: "pet", itemId: "rock", slots: [] },
         "character_1": {
           type: "character",
           itemId: "nurse",
