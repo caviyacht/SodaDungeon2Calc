@@ -1,4 +1,6 @@
-export default {
+import React from "react";
+
+const DataContext = React.createContext({
   images: {
     icons: {
       "accessory": "./images/icons/icon_accessory.png",
@@ -394,6 +396,7 @@ export default {
     "18": { type: "resource_ore", name: "Platinum Ore", stats: { }, slots: [] },
     "19": { type: "resource_ore", name: "Uranium Ore", stats: { }, slots: [] }
   },
+
   teams: {
     "default": {
       name: "Default",
@@ -556,4 +559,6 @@ export default {
       }
     }
   }
-};
+});
+
+export { DataContext };
