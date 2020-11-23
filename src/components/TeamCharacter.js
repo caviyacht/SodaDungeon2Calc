@@ -1,186 +1,79 @@
 import React from "react";
-import { Card, FormControl, InputGroup, Nav, Tab } from "react-bootstrap";
-import { DataContext } from "../contexts/DataContext";
-import { TeamCharacterContext } from "../contexts/TeamCharacterContext";
+import { Card, Nav, Tab } from "react-bootstrap";
 import ItemStats from "./ItemStats";
+import ItemNavItem from "./ItemNavItem";
+import SlotItemTabPane from "./SlotItemTabPane";
+import SlotItemInputGroup from "./SlotItemInputGroup";
+import DataContext from "../contexts/DataContext";
 
-const ItemNavItem = ({eventKey, itemId, ...props}) => {
+export default ({team, slot, ...props}) => {
   return (
-    <Nav.Item>
-      <Nav.Link eventKey={eventKey} className={["px-0"]}>
-        <DataContext.Consumer>
-          {context =>
-            <img class="rounded" src={getItemImage(itemId, context)} alt={itemId} height="40"/>
-          }
-        </DataContext.Consumer>
-      </Nav.Link>
-    </Nav.Item>
-  );
-}
+    <Card>
+      <Tab.Container defaultActiveKey={slot.id}>
+        <Card.Header className={["bg-dark"]}>
+          <Nav justify variant="tabs">
+            <ItemNavItem eventKey={slot.id} item={slot.item}/>
 
-const SlotItemTabPane = ({eventKey, slotId, itemId, ...props}) => {
-  return (
-    <Tab.Pane eventKey={eventKey}>
-      <SlotItemInputGroup slotId={slotId}/>
-
-      {/* TODO: This seems wrong */}
-      {props.children}
-
-      <ItemStats id={eventKey} itemId={itemId}/>
-    </Tab.Pane>
-  );
-}
-
-const SlotItemInputGroup = ({slotId, ...props}) => {
-  return (
-    <InputGroup>
-      <InputGroup.Prepend>
-        <InputGroup.Text className={["bg-dark"]}>
-          <DataContext.Consumer>
-            {dataContext =>
-              <img src={getIconForSlot(slotId, dataContext)} style={{width: "20px", height: "20px"}} alt=""/>
-            }
-          </DataContext.Consumer>
-        </InputGroup.Text>
-      </InputGroup.Prepend>
-
-      <SlotItemSelect slotId={slotId}/>
-    </InputGroup>
-  );
-}
-
-const SlotItemSelect = ({slotId, ...props}) => {
-  return (
-    <FormControl as="select">
-      <option value="">{`<Empty>`}</option>
-
-      <DataContext.Consumer>
-        {dataContext =>
-          getItemsForSlot(slotId, dataContext).map(item =>
-            <option value={item.id}>{item.name}</option>
-          )
-        }
-      </DataContext.Consumer>
-    </FormControl>
-  );
-}
-
-export default ({teamCharacter, ...props}) => {
-  return (
-    <TeamCharacterContext.Provider value={teamCharacter}>
-      <Card>
-        <Tab.Container defaultActiveKey={teamCharacter.id}>
-          <Card.Header className={["bg-dark"]}>
-            <Nav justify variant="tabs">
-              <ItemNavItem eventKey={teamCharacter.id} itemId={teamCharacter.itemId}/>
-
-              {getSlots(teamCharacter).map(slot =>
-                <ItemNavItem eventKey={`${teamCharacter.id}-${slot.id}`} itemId={slot.itemId}/>
+            <DataContext.Consumer>
+              {context => getSlots(slot.item, context).map(equipmentSlot =>
+                <ItemNavItem eventKey={`${slot.id}-${equipmentSlot.id}`} item={equipmentSlot.item}/>
               )}
+            </DataContext.Consumer>
 
-              <ItemNavItem eventKey={`${teamCharacter.id}-allsight`} itemId={"allsight"}/>
-            </Nav>
-          </Card.Header>
+            <DataContext.Consumer>
+              {context =>
+                <ItemNavItem eventKey={`${slot.id}-allsight`} item={getUpgradeItem("allsight", context)}/>
+              }
+            </DataContext.Consumer>
+          </Nav>
+        </Card.Header>
 
-          <Card.Body>
-            <Tab.Content>
-              <SlotItemTabPane eventKey={teamCharacter.id} slotId={teamCharacter.id} itemId={teamCharacter.itemId}/>
+        <Card.Body>
+          <Tab.Content>
+            <SlotItemTabPane eventKey={slot.id} slot={slot}/>
 
-              {getSlots(teamCharacter).map(slot =>
-                <SlotItemTabPane eventKey={`${teamCharacter.id}-${slot.id}`} slotId={slot.id} itemId={slot.itemId}>
-                  {getSlots(slot).map(slot =>
-                    <SlotItemInputGroup slotId={slot.id}/>
+            <DataContext.Consumer>
+              {context => getSlots(slot.item, context).map(equipmentSlot =>
+                <SlotItemTabPane eventKey={`${slot.id}-${equipmentSlot.id}`} slot={equipmentSlot}>
+                  {getSlots(equipmentSlot.item, context).map(resourceSlot =>
+                    <SlotItemInputGroup slot={resourceSlot}/>
                   )}
                 </SlotItemTabPane>
               )}
+            </DataContext.Consumer>
 
-              <Tab.Pane eventKey={`${teamCharacter.id}-allsight`}>
-                <ItemStats id="" itemId={teamCharacter.itemId}/>
-              </Tab.Pane>
-            </Tab.Content>
-          </Card.Body>
-        </Tab.Container>
-      </Card>
-    </TeamCharacterContext.Provider>
+            <Tab.Pane eventKey={`${slot.id}-allsight`}>
+              <ItemStats item={slot.item}/>
+            </Tab.Pane>
+          </Tab.Content>
+        </Card.Body>
+      </Tab.Container>
+    </Card>
   );
 }
 
-const getItemImage = (id, context) => context.images.items[id];
+const getUpgradeItem = (itemId, context) =>
+  ({
+    itemId,
+    ...context.upgrades[itemId],
+    image: context.images.upgrades[itemId]
+  });
 
-const getSlots = (item) =>
+const getSlots = (character, context) =>
   Object
-    .keys(item.slots)
-    .map(id => ({id, ...item.slots[id]}));
+    .keys(character.slots || {})
+    .map(id => {
+      const slot = character.slots[id];
+      const slotType = context.types.slots[id];
+      const item = context[slotType.collection][slot.itemId];
 
-// TODO: This is the worst; find another way.
-const getIconForSlot = (id, context) => {
-  if (/^(?:character|pet)/.test(id)) {
-    return context.images.portraits["mystery"];
-  }
-
-  if (/^weapon/.test(id)) {
-    return context.images.icons["craft_weapon"];
-  }
-
-  if (/^shield/.test(id)) {
-    return context.images.icons["craft_shield"];
-  }
-
-  if (/^armor/.test(id)) {
-    return context.images.icons["craft_armor"];
-  }
-
-  if (/^accessory/.test(id)) {
-    return context.images.icons["craft_accessory"];
-  }
-
-  if (/^gem/.test(id)) {
-    return context.images.icons["craft_gem"];
-  }
-
-  if (/^resource_ore/.test(id)) {
-    return context.images.icons["craft_resource"];
-  }
-
-  return null;
-};
-
-const getIconForType = (type, context) => {
-  switch (type) {
-    case "pet":
-    case "character":
-    case "character_special":
-      return context.images.portraits["mystery"];
-
-    case "weapon":
-    case "weapon_special":
-      return context.images.icons["craft_weapon"];
-
-    case "shield": return context.images.icons["craft_shield"];
-    case "armor": return context.images.icons["craft_armor"];
-    case "accessory": return context.images.icons["craft_accessory"];
-    case "gem": return context.images.icons["craft_gem"];
-    case "resource_ore": return context.images.icons["craft_resource"];
-
-    default: return null;
-  }
-};
-
-const getItemsForSlot = (id, context) => {
-  let itemType = context.slotTypes[id].itemType;
-
-  if(!Array.isArray(itemType)) {
-    itemType = [itemType];
-  }
-
-  let itemTypeLookup = itemType.reduce((o, value) => {
-    o[value] = true;
-    
-    return o;
-  }, { });
-
-  return Object
-    .keys(context.items)
-    .map(id => ({id, ...context.items[id]}))
-    .filter(item => itemTypeLookup[item.type]);
-};
+      return {
+        id,
+        item: {
+          ...item,
+          image: context.images[slotType.collection][slot.itemId],
+          ...slot
+        },
+        ...slotType
+      };
+    });

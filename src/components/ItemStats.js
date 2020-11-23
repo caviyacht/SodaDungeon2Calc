@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Table } from "react-bootstrap";
-import { DataContext } from "../contexts/DataContext";
+import DataContext from "../contexts/DataContext";
 
-export default ({id, itemId, ...props}) => {
+export default ({id, item, ...props}) => {
+  const context = useContext(DataContext);
+  const stats = getItemStats(item, context);
+
   return (
     <Table striped size="sm">
       <thead className="thead-dark">
@@ -12,37 +15,31 @@ export default ({id, itemId, ...props}) => {
         </tr>
       </thead>
       <tbody>
-        <DataContext.Consumer>
-          {context =>
-            getItemStats(itemId, context)
-              .filter(stat => !stat.isOptional)
-              .map(stat =>
-                <tr>
-                  <th className="table-secondary">{context.statTypes[stat.id].name}</th>
-                  <td>{formatStat(stat, context)}</td>
-                </tr>
-              )
-          }
-        </DataContext.Consumer>
+        {stats
+          .filter(stat => stat.scope !== "team")
+          .map(stat =>
+            <tr>
+              <th className="table-secondary">{stat.name}</th>
+              <td>{formatStat(stat)}</td>
+            </tr>
+          )
+        }
       </tbody>
       <tbody>
-        <tr className="table-dark clickable" data-toggle="collapse" data-target={`#${id}-stats-other`}>
+        <tr className="table-dark clickable" data-toggle="collapse" data-target={`#${id}-${item.itemId}-stats-team`}>
           <th colspan="2">Other Stats</th>
         </tr>
       </tbody>
-      <tbody className="collapse" id={`${id}-stats-other`}>
-        <DataContext.Consumer>
-          {context =>
-            getItemStats(itemId, context)
-              .filter(stat => stat.isOptional)
-              .map(stat =>
-                <tr>
-                  <th className="table-secondary">{context.statTypes[stat.id].name}</th>
-                  <td>{formatStat(stat)}</td>
-                </tr>
-              )
-          }
-        </DataContext.Consumer>
+      <tbody className="collapse" id={`${id}-${item.itemId}-stats-team`}>
+        {stats
+          .filter(stat => stat.scope === "team")
+          .map(stat =>
+            <tr>
+              <th className="table-secondary">{stat.name}</th>
+              <td>{formatStat(stat)}</td>
+            </tr>
+          )
+        }
       </tbody>
     </Table>
   );
@@ -50,27 +47,19 @@ export default ({id, itemId, ...props}) => {
 
 const formatStat = (stat) => {
   switch (stat.valueType) {
-    case "percentage":
+    case "percent":
       return `${(100 * stat.value).toFixed(2)}%`;
 
     default: return `${stat.value}`;
   }
 };
 
-const getItemStats = (id, context) =>
+const getItemStats = (item, context) =>
   Object
-    .keys(context.items[id].stats)
-    .map(statId => {
-      let statType = getStatType(statId, context);
-      let item = context.items[id];
-
-      return {
-        ...statType,
-        value: item.stats[statId],
-        isOptional: item.type === "accessory"
-          ? false
-          : statType.isOptional
-      }
-    });
-
-const getStatType = (id, context) => ({id, ...context.statTypes[id]});
+    .keys(item.stats || {})
+    .map(id => ({
+      id,
+      ...context.types.stats[id],
+      value: item.stats[id],
+      ...item.stats[id]
+    }));
