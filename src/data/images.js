@@ -65,7 +65,39 @@ export default {
   upgrades: {
     "allsight": "./images/upgrades/thumbnail_allsight.png"
   },
-  portraits: {
+  char_portraits: {
     "mystery": "./images/portraits/char_portrait_mystery_1.png"
+  },
+  relic_tabs: {
+    "class": "./images/icons/relic_tab_class.png",
+    "stat": "./images/icons/relic_tab_stat.png"
+  },
+  relics: {
+    "hp": "./images/relics/relic_1.png",
+    "atk": "./images/relics/relic_2.png",
+    "mp": "./images/relics/relic_3.png",
+    "gold_find": "./images/relics/relic_7.png",
+    "crit_chance": "./images/relics/relic_8.png",
+    "crit_bonus": "./images/relics/relic_11.png",
+    "essence_find": "./images/relics/relic_12.png",
+    "hp_regen": "./images/relics/relic_13.png",
+    "phys_boost": "./images/relics/relic_14.png",
+    "magic_boost": "./images/relics/relic_15.png",
+    "chance_for_dungeon_keys": "./images/relics/relic_4.png",
+    "mastery_xp_boost": "./images/relics/relic_5.png",
+    "ore_find": "./images/relics/relic_6.png",
+    "status_resist": "./images/relics/relic_9.png",
+    "dmg_reflection": "./images/relics/relic_10.png",
+    "soda_junkie": "./images/relics/relic_100.png",
+    "carpenter": "./images/relics/relic_101.png",
+    "miner": "./images/relics/relic_102.png",
+    "nurse": "./images/relics/relic_103.png",
+    "psychic": "./images/relics/relic_104.png",
+    "thief": "./images/relics/relic_105.png",
+    "huntress": "./images/relics/relic_106.png",
+    "darkmage": "./images/relics/relic_107.png",
+    "dual_wield": "./images/relics/relic_108.png",
+    "dark_lord": "./images/relics/relic_109.png",
+    "chef": "./images/relics/relic_110.png"
   }
 };
