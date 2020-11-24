@@ -3,10 +3,10 @@ import { Tab } from "react-bootstrap";
 import SlotItemInputGroup from "./SlotItemInputGroup";
 import ItemStats from "./ItemStats";
 
-export default ({eventKey, slot, ...props}) => {
+export default ({eventKey, slot, setItem, ...props}) => {
   return (
     <Tab.Pane eventKey={eventKey}>
-      <SlotItemInputGroup slot={slot} />
+      <SlotItemInputGroup slot={slot} setItem={setItem} />
 
       {/* TODO: This seems wrong */}
       {props.children}

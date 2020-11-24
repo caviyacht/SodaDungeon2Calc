@@ -1,9 +1,10 @@
 import React from "react";
 import { InputGroup } from "react-bootstrap";
 import { useDataContext } from "../contexts/DataContext";
+import { getSlotIcon } from "../utils";
 import SlotItemSelect from "./SlotItemSelect";
 
-export default ({slot, ...props}) => {
+export default ({slot, setItem, ...props}) => {
   const dataContext = useDataContext();
 
   return (
@@ -14,21 +15,7 @@ export default ({slot, ...props}) => {
         </InputGroup.Text>
       </InputGroup.Prepend>
 
-      <SlotItemSelect slot={slot}/>
+      <SlotItemSelect slot={slot} setItem={setItem} />
     </InputGroup>
   );
-}
-
-// TODO: Find a better way.
-const getSlotIcon = (slot, dataContext) => {
-  const slotType = slot.id.split('_')[0];
-
-  switch (slotType) {
-    case "pet":
-    case "character":
-      return dataContext.images.portraits["mystery"];
-
-    default:
-      return dataContext.images.icons["craft_" + slotType];
-  }
-}
+};

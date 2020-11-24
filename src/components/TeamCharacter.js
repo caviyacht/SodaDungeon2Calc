@@ -5,39 +5,64 @@ import ItemNavItem from "./ItemNavItem";
 import SlotItemTabPane from "./SlotItemTabPane";
 import SlotItemInputGroup from "./SlotItemInputGroup";
 import { useDataContext } from "../contexts/DataContext";
+import { usePlayerContext } from "../contexts/PlayerContext";
+import { getSlotIcon } from "../utils";
 
-export default ({team, slot, ...props}) => {
+export default ({team, character, ...props}) => {
   const dataContext = useDataContext();
+  const playerContext = usePlayerContext();
+
+  const setCharacter = slot => (itemId) => playerContext.dispatch({
+    type: "SET_CHARACTER",
+    payload: { team, character: { itemId }, slot }
+  });
+
+  const setEquipment = slot => (itemId) => playerContext.dispatch({
+    type: "SET_CHARACTER_EQUIPMENT",
+    payload: { team, character, equipment: { itemId }, slot }
+  });
+
+  const setEquipmentExtra = (equipment, slot) => (itemId) => playerContext.dispatch({
+    type: "SET_CHARACTER_EQUIPMENT_EXTRA",
+    payload: { team, character, equipment, extra: { itemId }, slot }
+  });
 
   return (
     <Card>
-      <Tab.Container defaultActiveKey={slot.id}>
+      <Tab.Container defaultActiveKey={character.id}>
         <Card.Header className={["bg-dark"]}>
           <Nav justify variant="tabs">
-            <ItemNavItem eventKey={slot.id} item={slot.item}/>
+            <ItemNavItem eventKey={character.id} item={character.item} defaultIcon={getSlotIcon(character, dataContext)} />
 
-            {getSlots(slot.item, dataContext).map(equipmentSlot =>
-              <ItemNavItem eventKey={`${slot.id}-${equipmentSlot.id}`} item={equipmentSlot.item}/>
+            {getSlots(character.item, dataContext).map(equipmentSlot =>
+              <ItemNavItem
+                eventKey={`${character.id}-${equipmentSlot.id}`} 
+                item={equipmentSlot.item}
+                defaultIcon={getSlotIcon(equipmentSlot, dataContext)} />
             )}
 
-            <ItemNavItem eventKey={`${slot.id}-allsight`} item={getUpgradeItem("allsight", dataContext)}/>
+            <ItemNavItem eventKey={`${character.id}-allsight`} item={getUpgradeItem("allsight", dataContext)}/>
           </Nav>
         </Card.Header>
 
         <Card.Body>
           <Tab.Content>
-            <SlotItemTabPane eventKey={slot.id} slot={slot}/>
+            <SlotItemTabPane eventKey={character.id} slot={character} setItem={setCharacter(character)} />
 
-            {getSlots(slot.item, dataContext).map(equipmentSlot =>
-              <SlotItemTabPane eventKey={`${slot.id}-${equipmentSlot.id}`} slot={equipmentSlot}>
-                {getSlots(equipmentSlot.item, dataContext).map(resourceSlot =>
-                  <SlotItemInputGroup slot={resourceSlot}/>
+            {getSlots(character.item, dataContext).map(equipmentSlot =>
+              <SlotItemTabPane 
+                eventKey={`${character.id}-${equipmentSlot.id}`} 
+                slot={equipmentSlot} 
+                setItem={setEquipment(equipmentSlot)}>
+
+                {getSlots(equipmentSlot.item, dataContext).map(equipmentExtraSlot =>
+                  <SlotItemInputGroup slot={equipmentExtraSlot} setItem={setEquipmentExtra(equipmentSlot, equipmentExtraSlot)} />
                 )}
               </SlotItemTabPane>
             )}
 
-            <Tab.Pane eventKey={`${slot.id}-allsight`}>
-              <ItemStats item={slot.item}/>
+            <Tab.Pane eventKey={`${character.id}-allsight`}>
+              <ItemStats item={character.item}/>
             </Tab.Pane>
           </Tab.Content>
         </Card.Body>

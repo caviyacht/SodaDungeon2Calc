@@ -2,11 +2,11 @@ import React from "react";
 import { FormControl } from "react-bootstrap";
 import { useDataContext } from "../contexts/DataContext";
 
-export default ({slot, ...props}) => {
+export default ({slot, setItem, ...props}) => {
   const dataContext = useDataContext();
 
   return (
-    <FormControl as="select">
+    <FormControl as="select" onChange={e => setItem(e.target.value)}>
       <option value="">{`<Empty>`}</option>
 
       {getItemsForSlot(slot, dataContext).map(item =>

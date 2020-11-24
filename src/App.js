@@ -23,5 +23,5 @@ const PlayerTeam = ({...props}) => {
 }
 
 const getTeam = (teamId, playerContext) => ({
-  id: teamId, ...playerContext.player.teams[teamId]
+  id: teamId, ...playerContext.state.teams[teamId]
 });

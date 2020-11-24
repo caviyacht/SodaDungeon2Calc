@@ -1,3 +1,3 @@
 export default {
-  "allsight": { name: "Allsight" }
+  "allsight": { type: "upgrade", name: "Allsight" }
 };

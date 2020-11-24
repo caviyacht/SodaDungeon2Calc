@@ -9,15 +9,15 @@ export default ({team, ...props}) => {
 
   return (
     <Row xs={1} lg={2}>
-      {getSlots(team, "pets", dataContext).map(slot =>
+      {getSlots(team, "pets", dataContext).map(pet =>
         <Col className={["mb-4"]}>
-          <TeamPet team={team} slot={slot} />
+          <TeamPet team={team} pet={pet} />
         </Col>
       )}
 
-      {getSlots(team, "characters", dataContext).map(slot =>
+      {getSlots(team, "characters", dataContext).map(character =>
         <Col className={["mb-4"]}>
-          <TeamCharacter team={team} slot={slot} />
+          <TeamCharacter team={team} character={character} />
         </Col>
       )}
     </Row>

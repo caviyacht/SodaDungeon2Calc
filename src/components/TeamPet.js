@@ -4,26 +4,34 @@ import ItemStats from "./ItemStats";
 import ItemNavItem from "./ItemNavItem";
 import { useDataContext } from "../contexts/DataContext";
 import SlotItemTabPane from "./SlotItemTabPane";
+import { usePlayerContext } from "../contexts/PlayerContext";
+import { getSlotIcon } from "../utils";
 
-export default ({team, slot, ...props}) => {
+export default ({team, pet, ...props}) => {
   const dataContext = useDataContext();
+  const playerContext = usePlayerContext();
+
+  const setPet = slot => (itemId) => playerContext.dispatch({
+    type: "SET_PET",
+    payload: { team, pet: { itemId }, slot }
+  });
 
   return (
     <Card>
-      <Tab.Container defaultActiveKey={slot.id}>
+      <Tab.Container defaultActiveKey={pet.id}>
         <Card.Header className={["bg-dark"]}>
           <Nav justify variant="tabs">
-            <ItemNavItem eventKey={slot.id} item={slot.item}/>
-            <ItemNavItem eventKey={`${slot.id}-allsight`} item={getUpgradeItem("allsight", dataContext)}/>
+            <ItemNavItem eventKey={pet.id} item={pet.item} defaultIcon={getSlotIcon(pet, dataContext)} />
+            <ItemNavItem eventKey={`${pet.id}-allsight`} item={getUpgradeItem("allsight", dataContext)} />
           </Nav>
         </Card.Header>
 
         <Card.Body>
           <Tab.Content>
-            <SlotItemTabPane eventKey={slot.id} slot={slot}/>
+            <SlotItemTabPane eventKey={pet.id} slot={pet} setItem={setPet(pet)} />
 
-            <Tab.Pane eventKey={`${slot.id}-allsight`}>
-              <ItemStats id={`${slot.id}-allsight`} item={slot.item}/>
+            <Tab.Pane eventKey={`${pet.id}-allsight`}>
+              <ItemStats id={`${pet.id}-allsight`} item={pet.item} />
             </Tab.Pane>
           </Tab.Content>
         </Card.Body>
