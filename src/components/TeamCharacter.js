@@ -4,9 +4,11 @@ import ItemStats from "./ItemStats";
 import ItemNavItem from "./ItemNavItem";
 import SlotItemTabPane from "./SlotItemTabPane";
 import SlotItemInputGroup from "./SlotItemInputGroup";
-import DataContext from "../contexts/DataContext";
+import { useDataContext } from "../contexts/DataContext";
 
 export default ({team, slot, ...props}) => {
+  const dataContext = useDataContext();
+
   return (
     <Card>
       <Tab.Container defaultActiveKey={slot.id}>
@@ -14,17 +16,11 @@ export default ({team, slot, ...props}) => {
           <Nav justify variant="tabs">
             <ItemNavItem eventKey={slot.id} item={slot.item}/>
 
-            <DataContext.Consumer>
-              {context => getSlots(slot.item, context).map(equipmentSlot =>
-                <ItemNavItem eventKey={`${slot.id}-${equipmentSlot.id}`} item={equipmentSlot.item}/>
-              )}
-            </DataContext.Consumer>
+            {getSlots(slot.item, dataContext).map(equipmentSlot =>
+              <ItemNavItem eventKey={`${slot.id}-${equipmentSlot.id}`} item={equipmentSlot.item}/>
+            )}
 
-            <DataContext.Consumer>
-              {context =>
-                <ItemNavItem eventKey={`${slot.id}-allsight`} item={getUpgradeItem("allsight", context)}/>
-              }
-            </DataContext.Consumer>
+            <ItemNavItem eventKey={`${slot.id}-allsight`} item={getUpgradeItem("allsight", dataContext)}/>
           </Nav>
         </Card.Header>
 
@@ -32,15 +28,13 @@ export default ({team, slot, ...props}) => {
           <Tab.Content>
             <SlotItemTabPane eventKey={slot.id} slot={slot}/>
 
-            <DataContext.Consumer>
-              {context => getSlots(slot.item, context).map(equipmentSlot =>
-                <SlotItemTabPane eventKey={`${slot.id}-${equipmentSlot.id}`} slot={equipmentSlot}>
-                  {getSlots(equipmentSlot.item, context).map(resourceSlot =>
-                    <SlotItemInputGroup slot={resourceSlot}/>
-                  )}
-                </SlotItemTabPane>
-              )}
-            </DataContext.Consumer>
+            {getSlots(slot.item, dataContext).map(equipmentSlot =>
+              <SlotItemTabPane eventKey={`${slot.id}-${equipmentSlot.id}`} slot={equipmentSlot}>
+                {getSlots(equipmentSlot.item, dataContext).map(resourceSlot =>
+                  <SlotItemInputGroup slot={resourceSlot}/>
+                )}
+              </SlotItemTabPane>
+            )}
 
             <Tab.Pane eventKey={`${slot.id}-allsight`}>
               <ItemStats item={slot.item}/>
@@ -52,26 +46,26 @@ export default ({team, slot, ...props}) => {
   );
 }
 
-const getUpgradeItem = (itemId, context) =>
+const getUpgradeItem = (itemId, dataContext) =>
   ({
     itemId,
-    ...context.upgrades[itemId],
-    image: context.images.upgrades[itemId]
+    ...dataContext.upgrades[itemId],
+    image: dataContext.images.upgrades[itemId]
   });
 
-const getSlots = (character, context) =>
+const getSlots = (character, dataContext) =>
   Object
     .keys(character.slots || {})
     .map(id => {
       const slot = character.slots[id];
-      const slotType = context.types.slots[id];
-      const item = context[slotType.collection][slot.itemId];
+      const slotType = dataContext.types.slots[id];
+      const item = dataContext[slotType.collection][slot.itemId];
 
       return {
         id,
         item: {
           ...item,
-          image: context.images[slotType.collection][slot.itemId],
+          image: dataContext.images[slotType.collection][slot.itemId],
           ...slot
         },
         ...slotType

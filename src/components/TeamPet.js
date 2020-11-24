@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Card, Nav, Tab } from "react-bootstrap";
 import ItemStats from "./ItemStats";
 import ItemNavItem from "./ItemNavItem";
-import DataContext from "../contexts/DataContext";
+import { useDataContext } from "../contexts/DataContext";
 import SlotItemTabPane from "./SlotItemTabPane";
 
 export default ({team, slot, ...props}) => {
-  const context = useContext(DataContext);
+  const dataContext = useDataContext();
 
   return (
     <Card>
@@ -14,7 +14,7 @@ export default ({team, slot, ...props}) => {
         <Card.Header className={["bg-dark"]}>
           <Nav justify variant="tabs">
             <ItemNavItem eventKey={slot.id} item={slot.item}/>
-            <ItemNavItem eventKey={`${slot.id}-allsight`} item={getUpgradeItem("allsight", context)}/>
+            <ItemNavItem eventKey={`${slot.id}-allsight`} item={getUpgradeItem("allsight", dataContext)}/>
           </Nav>
         </Card.Header>
 
@@ -32,9 +32,9 @@ export default ({team, slot, ...props}) => {
   );
 }
 
-const getUpgradeItem = (itemId, context) =>
+const getUpgradeItem = (itemId, dataContext) =>
   ({
     itemId,
-    ...context.upgrades[itemId],
-    image: context.images.upgrades[itemId]
+    ...dataContext.upgrades[itemId],
+    image: dataContext.images.upgrades[itemId]
   });

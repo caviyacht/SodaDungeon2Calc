@@ -1,0 +1,237 @@
+export default {
+  "soda_junkie": {
+    type: "character",
+    name: "Soda Junkie",
+    stats: {
+      "hp": 62,
+      "hp_boost": 0.09,
+      "atk": 19,
+      "atk_boost": 0.09,
+      "mp": 16,
+      "crit_chance": 0.02,
+      "crit_bonus": 0.07,
+      "phys_boost": 0.05,
+      "evade": 0.08,
+      "dmg_reduction": 0.02,
+      "status_resist": 0.02,
+      "hp_regen": 6,
+      "essence_find": 0.03,
+      "gold_find": 0.02,
+      "item_find": 1,
+    },
+    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+  },
+  "carpenter": {
+    type: "character",
+    name: "Carpenter",
+    stats: {
+      "hp": 63,
+      "hp_boost": 0.09,
+      "atk": 23,
+      "atk_boost": 0.12,
+      "mp": 23,
+      "crit_chance": 0.02,
+      "crit_bonus": 0.07,
+      "phys_boost": 0.05,
+      "evade": 0.04,
+      "dmg_reduction": 0.04,
+      "status_resist": 0.02,
+      "hp_regen": 6,
+      "essence_find": 0.03,
+      "gold_find": 0.02,
+      "item_find": 1
+    },
+    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+  },
+  "miner": {
+    type: "character",
+    name: "Miner",
+    stats: {
+      "hp": 61,
+      "hp_boost": 0.09,
+      "atk": 20,
+      "atk_boost": 0.09,
+      "mp": 33,
+      "crit_chance": 0.02,
+      "crit_bonus": 0.07,
+      "phys_boost": 0.05,
+      "dmg_reduction": 0.02,
+      "status_resist": 0.02,
+      "hp_regen": 6,
+      "essence_find": 0.03,
+      "gold_find": 0.02,
+      "item_find": 1,
+      "ore_find": 27
+    },
+    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+  },
+  "nurse": { 
+    type: "character", 
+    name: "Nurse", 
+    stats: {
+      "hp": 63,
+      "hp_boost": 0.09,
+      "atk": 19,
+      "atk_boost": 0.09,
+      "mp": 43,
+      "crit_chance": 0.02,
+      "crit_bonus": 0.07,
+      "phys_boost": 0.05,
+      "dmg_reduction": 0.02,
+      "status_resist": 0.14,
+      "hp_regen": 6,
+      "essence_find": 0.03,
+      "gold_find": 0.02,
+      "item_find": 1
+    }, 
+    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"] 
+  },
+  "psychic": {
+    type: "character",
+    name: "Mystic",
+    stats: {
+      "hp": 65,
+      "hp_boost": 0.09,
+      "atk": 21,
+      "atk_boost": 0.09,
+      "mp": 41,
+      "crit_chance": 0.02,
+      "crit_bonus": 0.07,
+      "magic_boost": 0.34,
+      "phys_boost": 0.05,
+      "dmg_reduction": 0.02,
+      "status_resist": 0.02,
+      "hp_regen": 6,
+      "mp_regen": 9,
+      "essence_find": 0.03,
+      "gold_find": 0.02,
+      "item_find": 1
+    },
+    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+  },
+  "thief": {
+    type: "character",
+    name: "Thief",
+    stats: {
+      "hp": 67,
+      "hp_boost": 0.09,
+      "atk": 20,
+      "atk_boost": 0.09,
+      "mp": 18,
+      "crit_chance": 0.02,
+      "crit_bonus": 0.07,
+      "phys_boost": 0.05,
+      "evade": 0.06,
+      "dmg_reduction": 0.02,
+      "status_resist": 0.02,
+      "hp_regen": 6,
+      "essence_find": 0.03,
+      "gold_find": 0.02,
+      "item_find": 1
+    },
+    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+  },
+  "huntress": {
+    type: "character",
+    name: "Huntress",
+    stats: {
+      "hp": 67,
+      "hp_boost": 0.09,
+      "atk": 20,
+      "atk_boost": 0.09,
+      "mp": 18,
+      "crit_chance": 0.02,
+      "crit_bonus": 0.07,
+      "phys_boost": 0.05,
+      "dmg_reduction": 0.02,
+      "dmg_reflection": 0.16,
+      "status_resist": 0.02,
+      "hp_regen": 6,
+      "essence_find": 0.03,
+      "gold_find": 0.02,
+      "item_find": 1
+    },
+    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1", "accessory_2"]
+  },
+  "darkmage": {
+    type: "character",
+    name: "Darkmage",
+    stats: {
+      "hp": 69,
+      "hp_boost": 0.09,
+      "atk": 21,
+      "atk_boost": 0.09,
+      "mp": 43,
+      "crit_chance": 0.02,
+      "crit_bonus": 0.07,
+      "magic_boost": 0.25,
+      "phys_boost": 0.05,
+      "dmg_reduction": 0.07,
+      "status_resist": 0.02,
+      "hp_regen": 6,
+      "essence_find": 0.03,
+      "gold_find": 0.02,
+      "item_find": 1
+    },
+    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1", "accessory_2"]
+  },
+  "dual_wield": {
+    type: "character",
+    name: "Blademaster",
+    stats: {
+      "hp": 70,
+      "hp_boost": 0.09,
+      "atk": 36,
+      "atk_boost": 0.09,
+      "crit_chance": 0.02,
+      "crit_bonus": 0.07,
+      "phys_boost": 0.05,
+      "dmg_reduction": 0.07,
+      "status_resist": 0.02,
+      "hp_regen": 6,
+      "essence_find": 0.03,
+      "gold_find": 0.02,
+      "item_find": 1
+    },
+    slots: ["weapon_1", "weapon_2", "armor_1", "accessory_1"]
+  },
+  "dark_lord": {
+    type: "character_special", 
+    name: "Dark Lord", 
+    stats: {
+      "hp": 100,
+      "hp_boost": 0.09,
+      "atk": 38,
+      "atk_boost": 0.09,
+      "mp": 43,
+      "crit_chance": 0.02,
+      "crit_bonus": 0.07,
+      "phys_boost": 0.05,
+      "dmg_reduction": 0.07,
+      "status_resist": 0.02,
+      "hp_regen": 6,
+      "essence_find": 0.03,
+      "gold_find": 0.02,
+      "item_find": 1
+    }, 
+    slots: ["weapon_special_1", "accessory_1", "accessory_2", "accessory_3"] 
+  },
+  "chef": { 
+    type: "character_special", 
+    name: "Chef", 
+    stats: {
+      "hp": 43,
+      "hp_boost": 0.02,
+      "atk": 14,
+      "atk_boost": 0.02,
+      "dmg_reduction": 0.05,
+      "essence_find": 0.08,
+      "gold_find": 0.20,
+      "item_find": 10,
+      "chance_for_dungeon_keys": 0.02,
+      "ore_find": 4,
+      "mastery_xp_boost": 0.07
+    }, 
+    slots: ["weapon_special_1", "armor_1", "accessory_1"] 
+  }
+};

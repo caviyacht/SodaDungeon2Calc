@@ -1,18 +1,16 @@
 import React from "react";
 import { InputGroup } from "react-bootstrap";
-import DataContext from "../contexts/DataContext";
+import { useDataContext } from "../contexts/DataContext";
 import SlotItemSelect from "./SlotItemSelect";
 
 export default ({slot, ...props}) => {
+  const dataContext = useDataContext();
+
   return (
     <InputGroup className={["mb-3"]}>
       <InputGroup.Prepend>
         <InputGroup.Text className={["bg-dark"]}>
-          <DataContext.Consumer>
-            {context =>
-              <img src={getSlotIcon(slot, context)} style={{width: "20px", height: "20px"}} alt=""/>
-            }
-          </DataContext.Consumer>
+          <img src={getSlotIcon(slot, dataContext)} style={{width: "20px", height: "20px"}} alt=""/>
         </InputGroup.Text>
       </InputGroup.Prepend>
 
@@ -22,15 +20,15 @@ export default ({slot, ...props}) => {
 }
 
 // TODO: Find a better way.
-const getSlotIcon = (slot, context) => {
+const getSlotIcon = (slot, dataContext) => {
   const slotType = slot.id.split('_')[0];
 
   switch (slotType) {
     case "pet":
     case "character":
-      return context.images.portraits["mystery"];
+      return dataContext.images.portraits["mystery"];
 
     default:
-      return context.images.icons["craft_" + slotType];
+      return dataContext.images.icons["craft_" + slotType];
   }
 }

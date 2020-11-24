@@ -1,19 +1,27 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import Team from "./components/Team";
-import DataContext from "./contexts/DataContext";
+import { PlayerProvider, usePlayerContext } from "./contexts/PlayerContext";
 import "./styles.css";
 
 export default (props) => {
   return (
     <Container>
-      <DataContext.Consumer>
-        {context =>
-          <Team team={getTeam("default", context.player)}/>
-        }
-      </DataContext.Consumer>
+      <PlayerProvider>
+        <PlayerTeam/>
+      </PlayerProvider>
     </Container>
   );
 }
 
-const getTeam = (id, player) => ({id, ...player.teams[id]});
+const PlayerTeam = ({...props}) => {
+  const playerContext = usePlayerContext();
+
+  return (
+    <Team team={getTeam("default", playerContext)}/>
+  );
+}
+
+const getTeam = (teamId, playerContext) => ({
+  id: teamId, ...playerContext.player.teams[teamId]
+});

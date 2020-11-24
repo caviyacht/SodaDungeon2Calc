@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
-import { Table } from "react-bootstrap";
-import DataContext from "../contexts/DataContext";
+import React, { useState } from "react";
+import { Collapse, Table } from "react-bootstrap";
+import { useDataContext } from "../contexts/DataContext";
 
 export default ({id, item, ...props}) => {
-  const context = useContext(DataContext);
-  const stats = getItemStats(item, context);
+  const dataContext = useDataContext();
+  const stats = getItemStats(item, dataContext);
+  const [open, setOpen] = useState(false);
 
   return (
     <Table striped size="sm">
@@ -26,21 +27,23 @@ export default ({id, item, ...props}) => {
         }
       </tbody>
       <tbody>
-        <tr className="table-dark clickable" data-toggle="collapse" data-target={`#${id}-${item.itemId}-stats-team`}>
+        <tr className="table-dark" onClick={() => setOpen(!open)}>
           <th colspan="2">Other Stats</th>
         </tr>
       </tbody>
-      <tbody className="collapse" id={`${id}-${item.itemId}-stats-team`}>
-        {stats
-          .filter(stat => stat.scope === "team")
-          .map(stat =>
-            <tr>
-              <th className="table-secondary">{stat.name}</th>
-              <td>{formatStat(stat)}</td>
-            </tr>
-          )
-        }
-      </tbody>
+      <Collapse in={open}>
+        <tbody>
+          {stats
+            .filter(stat => stat.scope === "team")
+            .map(stat =>
+              <tr>
+                <th className="table-secondary">{stat.name}</th>
+                <td>{formatStat(stat)}</td>
+              </tr>
+            )
+          }
+        </tbody>
+      </Collapse>
     </Table>
   );
 }
@@ -54,12 +57,12 @@ const formatStat = (stat) => {
   }
 };
 
-const getItemStats = (item, context) =>
+const getItemStats = (item, dataContext) =>
   Object
     .keys(item.stats || {})
     .map(id => ({
       id,
-      ...context.types.stats[id],
+      ...dataContext.types.stats[id],
       value: item.stats[id],
       ...item.stats[id]
     }));
