@@ -11,7 +11,7 @@ export default ({eventKey, slot, setItem, ...props}) => {
       {/* TODO: This seems wrong */}
       {props.children}
 
-      <ItemStats id="default" item={slot.item}/>
+      <ItemStats item={slot.item}/>
     </Tab.Pane>
   );
 }

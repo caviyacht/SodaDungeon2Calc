@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Collapse, Table } from "react-bootstrap";
 import { useDataContext } from "../contexts/DataContext";
 
-export default ({id, item, ...props}) => {
+export default ({item, ...props}) => {
   const dataContext = useDataContext();
   const stats = getItemStats(item, dataContext);
   const [open, setOpen] = useState(false);

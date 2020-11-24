@@ -6,7 +6,7 @@ import SlotItemTabPane from "./SlotItemTabPane";
 import SlotItemInputGroup from "./SlotItemInputGroup";
 import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
-import { getSlotIcon } from "../utils";
+import { getSlotIcon, getUpgradeItem } from "../utils";
 
 export default ({team, character, ...props}) => {
   const dataContext = useDataContext();
@@ -70,13 +70,6 @@ export default ({team, character, ...props}) => {
     </Card>
   );
 }
-
-const getUpgradeItem = (itemId, dataContext) =>
-  ({
-    itemId,
-    ...dataContext.upgrades[itemId],
-    image: dataContext.images.upgrades[itemId]
-  });
 
 const getSlots = (character, dataContext) =>
   Object

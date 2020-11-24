@@ -5,11 +5,18 @@ const getSlotIcon = (slot, dataContext) => {
   switch (baseSlotType) {
     case "pet":
     case "character":
-      return dataContext.images.portraits["mystery"];
+      return dataContext.images.char_portraits["mystery"];
 
     default:
       return dataContext.images.icons["craft_" + baseSlotType];
   }
 }
 
-export { getSlotIcon };
+const getUpgradeItem = (itemId, dataContext) =>
+  ({
+    itemId,
+    ...dataContext.upgrades[itemId],
+    image: dataContext.images.upgrades[itemId]
+  });
+
+export { getSlotIcon, getUpgradeItem };

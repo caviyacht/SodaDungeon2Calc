@@ -5,7 +5,7 @@ import ItemNavItem from "./ItemNavItem";
 import { useDataContext } from "../contexts/DataContext";
 import SlotItemTabPane from "./SlotItemTabPane";
 import { usePlayerContext } from "../contexts/PlayerContext";
-import { getSlotIcon } from "../utils";
+import { getSlotIcon, getUpgradeItem } from "../utils";
 
 export default ({team, pet, ...props}) => {
   const dataContext = useDataContext();
@@ -31,7 +31,7 @@ export default ({team, pet, ...props}) => {
             <SlotItemTabPane eventKey={pet.id} slot={pet} setItem={setPet(pet)} />
 
             <Tab.Pane eventKey={`${pet.id}-allsight`}>
-              <ItemStats id={`${pet.id}-allsight`} item={pet.item} />
+              <ItemStats item={pet.item} />
             </Tab.Pane>
           </Tab.Content>
         </Card.Body>
@@ -39,10 +39,3 @@ export default ({team, pet, ...props}) => {
     </Card>
   );
 }
-
-const getUpgradeItem = (itemId, dataContext) =>
-  ({
-    itemId,
-    ...dataContext.upgrades[itemId],
-    image: dataContext.images.upgrades[itemId]
-  });
