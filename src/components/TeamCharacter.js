@@ -2,8 +2,7 @@ import React from "react";
 import { Card, Nav, Tab } from "react-bootstrap";
 import ItemStats from "./ItemStats";
 import ItemNavItem from "./ItemNavItem";
-import SlotItemTabPane from "./SlotItemTabPane";
-import SlotItemInputGroup from "./SlotItemInputGroup";
+import SlotItemSelect from "./SlotItemSelect";
 import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
 import { getSlotIcon, getUpgradeItem } from "../utils";
@@ -47,18 +46,18 @@ export default ({team, character, ...props}) => {
 
         <Card.Body>
           <Tab.Content>
-            <SlotItemTabPane eventKey={character.id} slot={character} setItem={setCharacter(character)} />
+            <Tab.Pane eventKey={`${character.id}`}>
+              <SlotItemSelect slot={character} setItem={setCharacter(character)} />
+            </Tab.Pane>
 
             {character.item.slots.map(equipmentSlot =>
-              <SlotItemTabPane 
-                eventKey={`${character.id}-${equipmentSlot.id}`} 
-                slot={equipmentSlot} 
-                setItem={setEquipment(equipmentSlot)}>
+              <Tab.Pane eventKey={`${character.id}-${equipmentSlot.id}`}>
+                <SlotItemSelect slot={equipmentSlot} setItem={setEquipment(equipmentSlot)} />
 
                 {equipmentSlot.item.slots.map(equipmentExtraSlot =>
-                  <SlotItemInputGroup slot={equipmentExtraSlot} setItem={setEquipmentExtra(equipmentSlot, equipmentExtraSlot)} />
+                  <SlotItemSelect slot={equipmentExtraSlot} setItem={setEquipmentExtra(equipmentSlot, equipmentExtraSlot)} />
                 )}
-              </SlotItemTabPane>
+              </Tab.Pane>
             )}
 
             <Tab.Pane eventKey={`${character.id}-allsight`}>

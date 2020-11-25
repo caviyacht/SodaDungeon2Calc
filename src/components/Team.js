@@ -3,20 +3,31 @@ import { Col, Row } from "react-bootstrap";
 import { useDataContext } from "../contexts/DataContext";
 import TeamPet from "./TeamPet";
 import TeamCharacter from "./TeamCharacter";
+import { usePlayerContext } from "../contexts/PlayerContext";
+import Player from "./Player";
+import { useTeamContext } from "../contexts/TeamContext";
 
 export default ({team, ...props}) => {
   const dataContext = useDataContext();
+  const playerContext = usePlayerContext();
+  const teamContext = useTeamContext();
+
+  teamContext.setTeam(team);
 
   return (
     <Row xs={1} lg={2}>
+      <Col className="mb-4">
+        <Player player={playerContext.state} />
+      </Col>
+    
       {getSlots(team.pets, dataContext).map(pet =>
-        <Col className={["mb-4"]}>
+        <Col className="mb-4">
           <TeamPet team={team} pet={pet} />
         </Col>
       )}
 
       {getSlots(team.characters, dataContext).map(character =>
-        <Col className={["mb-4"]}>
+        <Col className="mb-4">
           <TeamCharacter team={team} character={character} />
         </Col>
       )}

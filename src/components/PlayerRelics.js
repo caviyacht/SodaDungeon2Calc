@@ -59,6 +59,7 @@ const RelicTabPane = ({relics, groupId, ...props}) => {
               backgroundPosition: "50% 50%"
             }}/>
           </InputGroup.Prepend>
+          
           <FormControl type="number" min="1" value={relic.item.level} />
 
           {relic.item.type === "maxable" &&

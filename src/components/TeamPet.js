@@ -3,9 +3,9 @@ import { Card, Nav, Tab } from "react-bootstrap";
 import ItemStats from "./ItemStats";
 import ItemNavItem from "./ItemNavItem";
 import { useDataContext } from "../contexts/DataContext";
-import SlotItemTabPane from "./SlotItemTabPane";
 import { usePlayerContext } from "../contexts/PlayerContext";
 import { getSlotIcon, getUpgradeItem } from "../utils";
+import SlotItemSelect from "./SlotItemSelect";
 
 export default ({team, pet, ...props}) => {
   const dataContext = useDataContext();
@@ -28,7 +28,9 @@ export default ({team, pet, ...props}) => {
 
         <Card.Body>
           <Tab.Content>
-            <SlotItemTabPane eventKey={pet.id} slot={pet} setItem={setPet(pet)} />
+            <Tab.Pane eventKey={pet.id}>
+              <SlotItemSelect slot={pet} setItem={setPet(pet)} />
+            </Tab.Pane>
 
             <Tab.Pane eventKey={`${pet.id}-allsight`}>
               <ItemStats item={pet.item} />
