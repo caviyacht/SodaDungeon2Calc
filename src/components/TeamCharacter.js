@@ -34,7 +34,7 @@ export default ({team, character, ...props}) => {
           <Nav justify variant="tabs">
             <ItemNavItem eventKey={character.id} item={character.item} defaultIcon={getSlotIcon(character, dataContext)} />
 
-            {getSlots(character.item, dataContext).map(equipmentSlot =>
+            {character.item.slots.map(equipmentSlot =>
               <ItemNavItem
                 eventKey={`${character.id}-${equipmentSlot.id}`} 
                 item={equipmentSlot.item}
@@ -49,20 +49,20 @@ export default ({team, character, ...props}) => {
           <Tab.Content>
             <SlotItemTabPane eventKey={character.id} slot={character} setItem={setCharacter(character)} />
 
-            {getSlots(character.item, dataContext).map(equipmentSlot =>
+            {character.item.slots.map(equipmentSlot =>
               <SlotItemTabPane 
                 eventKey={`${character.id}-${equipmentSlot.id}`} 
                 slot={equipmentSlot} 
                 setItem={setEquipment(equipmentSlot)}>
 
-                {getSlots(equipmentSlot.item, dataContext).map(equipmentExtraSlot =>
+                {equipmentSlot.item.slots.map(equipmentExtraSlot =>
                   <SlotItemInputGroup slot={equipmentExtraSlot} setItem={setEquipmentExtra(equipmentSlot, equipmentExtraSlot)} />
                 )}
               </SlotItemTabPane>
             )}
 
             <Tab.Pane eventKey={`${character.id}-allsight`}>
-              <ItemStats item={character.item}/>
+              <ItemStats item={character.item} shouldAggregate={true} />
             </Tab.Pane>
           </Tab.Content>
         </Card.Body>
@@ -70,22 +70,3 @@ export default ({team, character, ...props}) => {
     </Card>
   );
 }
-
-const getSlots = (character, dataContext) =>
-  Object
-    .keys(character.slots || {})
-    .map(id => {
-      const slot = character.slots[id];
-      const slotType = dataContext.types.slots[id];
-      const item = dataContext[slotType.collection][slot.itemId];
-
-      return {
-        id,
-        item: {
-          ...item,
-          image: dataContext.images[slotType.collection][slot.itemId],
-          ...slot
-        },
-        ...slotType
-      };
-    });

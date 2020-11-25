@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Collapse, Table } from "react-bootstrap";
-import { useDataContext } from "../contexts/DataContext";
 
-export default ({item, ...props}) => {
-  const dataContext = useDataContext();
-  const stats = getItemStats(item, dataContext);
+export default ({item, shouldAggregate, ...props}) => {
   const [open, setOpen] = useState(false);
+
+  const stats = shouldAggregate
+    ? getAggregatedStats(item)
+    : item.stats;
 
   return (
     <Table striped size="sm">
@@ -48,6 +49,35 @@ export default ({item, ...props}) => {
   );
 }
 
+const getAggregatedStats = (item) => {
+  const childStats = [].concat(...item.slots.map(slot => getAggregatedStats(slot.item)));
+
+  const aggregatedStats = childStats.reduce((result, stat) => {
+    if (result[stat.id] && stat.valueType !== "boolean") {
+      result[stat.id] = {
+        ...result[stat.id],
+        value: result[stat.id].value + stat.value
+      };
+    }
+    else {
+      result[stat.id] = {...stat};
+    }
+
+    return result;
+  }, item.stats.reduce((result, stat) => {
+    const {id, ...statData} = stat;
+
+    result[stat.id] = {...statData};
+
+    return result;
+  }, {}))
+
+  return Object.keys(aggregatedStats).map(id => ({
+    id,
+    ...aggregatedStats[id]
+  }));
+}
+
 const formatStat = (stat) => {
   switch (stat.valueType) {
     case "percent":
@@ -56,13 +86,3 @@ const formatStat = (stat) => {
     default: return `${stat.value}`;
   }
 };
-
-const getItemStats = (item, dataContext) =>
-  Object
-    .keys(item.stats || {})
-    .map(id => ({
-      id,
-      ...dataContext.types.stats[id],
-      value: item.stats[id],
-      ...item.stats[id]
-    }));

@@ -9,13 +9,13 @@ export default ({team, ...props}) => {
 
   return (
     <Row xs={1} lg={2}>
-      {getSlots(team, "pets", dataContext).map(pet =>
+      {getSlots(team.pets, dataContext).map(pet =>
         <Col className={["mb-4"]}>
           <TeamPet team={team} pet={pet} />
         </Col>
       )}
 
-      {getSlots(team, "characters", dataContext).map(character =>
+      {getSlots(team.characters, dataContext).map(character =>
         <Col className={["mb-4"]}>
           <TeamCharacter team={team} character={character} />
         </Col>
@@ -24,20 +24,40 @@ export default ({team, ...props}) => {
   );
 }
 
-const getSlots = (team, collection, dataContext) =>
+const getItem = (collection, itemId, dataContext) => 
+{
+  const item = dataContext[collection][itemId];
+
+  return {
+    ...item,
+    stats: getItemStats(item, dataContext),
+    image: dataContext.images[collection][itemId]
+  };
+}
+
+const getItemStats = (item, dataContext) =>
   Object
-    .keys(team[collection])
+    .keys((item || {}).stats || {})
+    .map(id => ({
+      id,
+      ...dataContext.types.stats[id],
+      value: item.stats[id],
+      ...item.stats[id]
+    }));
+
+const getSlots = (slots, dataContext) =>
+  Object
+    .keys(slots || {})
     .map(id => {
-      const slot = team[collection][id];
+      const slot = slots[id];
       const slotType = dataContext.types.slots[id];
-      const item = dataContext[slotType.collection][slot.itemId];
 
       return {
         id,
         item: {
-          ...item,
-          image: dataContext.images[slotType.collection][slot.itemId],
-          ...slot
+          ...getItem(slotType.collection, slot.itemId, dataContext),
+          ...slot,
+          slots: getSlots(slot.slots, dataContext)
         },
         ...slotType
       };
