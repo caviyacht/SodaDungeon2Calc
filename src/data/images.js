@@ -9,7 +9,8 @@ export default {
     "craft_shield": "./images/icons/icon_craft_shield.png",
     "craft_weapon": "./images/icons/icon_craft_weapon.png",
     "shield": "./images/icons/icon_shield.png",
-    "weapon": "./images/icons/icon_weapon.png"
+    "weapon": "./images/icons/icon_weapon.png",
+    "stairs": "./images/icons/icon_stairs.png"
   },
   pets: {
     "angel": "./images/pets/pet_angel_1.png",
@@ -71,6 +72,9 @@ export default {
   relic_tabs: {
     "class": "./images/icons/relic_tab_class.png",
     "stat": "./images/icons/relic_tab_stat.png"
+  },
+  skills: {
+    "burp": "./images/skills/skill_burp.png"
   },
   relics: {
     "hp": "./images/relics/relic_1.png",
