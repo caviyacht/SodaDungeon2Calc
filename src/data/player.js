@@ -1,15 +1,10 @@
 export default {
   floor: 6000000,
-  collections: {
-    pets: {
-      "rock": { level: 8, isFavorite: true }
-    },
-    characters: { 
-      "nurse": { level: 50 }
-    },
-    weapons: {
-      "103": { level: 10, isFavorite: true }
-    }
+  items: {
+    "rock": { level: 8, isFavorite: true },
+    "nurse": { level: 50 },
+    "103": { level: 10, isFavorite: true },
+    "kitchen": { level: 10 }
   },
   relics: {
     "hp": { level: 210000, isFavorite: true },

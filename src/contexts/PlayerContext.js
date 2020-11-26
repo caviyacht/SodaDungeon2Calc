@@ -16,7 +16,7 @@ const getSlotsTemplateForItem = (item) =>
   }, {});
 
 const createSlots = (currentSlots, item) =>
-  Object.entries(currentSlots).reduce((result, [id, value]) => {
+  Object.entries(currentSlots || {}).reduce((result, [id, value]) => {
     if (result[id] && !result[id].itemId) {
       result[id] = { ...value };
     }
@@ -123,6 +123,24 @@ const reducer = dataContext => (state, action) => {
 
     case "SET_MEMBER_EQUIPMENT_SLOT_SLOT":
       return setMemberEquipmentSlotSlot(state, payload, dataContext);
+
+    case "SET_FLOOR":
+      return {
+        ...state,
+        floor: payload.floor
+      };
+
+    case "SET_ITEM_LEVEL":
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          [payload.itemId]: {
+            ...state.items[payload.itemId],
+            level: payload.level
+          }
+        }
+      };
 
     default: throw new Error();
   }

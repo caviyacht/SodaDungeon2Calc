@@ -83,7 +83,8 @@ export default {
     "166": "./images/items/gems/i166.png",
   },
   upgrades: {
-    "allsight": "./images/upgrades/thumbnail_allsight.png"
+    "allsight": "./images/upgrades/thumbnail_allsight.png",
+    "kitchen": "./images/upgrades/thumbnail_kitchen.png"
   },
   char_portraits: {
     "mystery": "./images/portraits/char_portrait_mystery_1.png"

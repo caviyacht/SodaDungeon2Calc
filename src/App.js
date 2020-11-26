@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Tab } from "react-bootstrap";
+import { Col, Container, Tab } from "react-bootstrap";
 import Navigation from "./components/Navigation";
 import PlayerRelics from "./components/PlayerRelics";
 import Team from "./components/Team";
@@ -9,14 +9,31 @@ import { TeamProvider, useTeamContext } from "./contexts/TeamContext";
 import "./styles.css";
 import { loadTeam } from "./utils";
 import playerData from "./data/player";
+import Player from "./components/Player";
 
 export default ({...props}) => {
+  return (
+    <PlayerProvider data={loadPlayer()}>
+      <TeamProvider>
+        <AppContent/>
+      </TeamProvider>
+    </PlayerProvider>
+  );
+}
+
+const AppContent = ({...props}) => {
+  const playerContext = usePlayerContext();
+  const teamContext = useTeamContext();
   const [activeKey, setActiveKey] = useState("home");
-  const [currentTeamId, setCurrentTeamId] = useState(null);
+  const [teamId, setTeamId] = useState(null);
 
   const onSelect = key => {
     if (/^team-/.test(key)) {
-      setCurrentTeamId(key.split('-').pop());
+      const teamId = key.split('-').pop();
+
+      teamContext.setTeam(playerContext.player.teams[teamId]);
+
+      setTeamId(teamId);
       setActiveKey("team");
     }
     else {
@@ -25,30 +42,37 @@ export default ({...props}) => {
   };
 
   return (
-    <PlayerProvider data={loadPlayer()}>
-      <TeamProviderWrapper teamId={currentTeamId}>
-        <Tab.Container activeKey={activeKey}>
-          <Navigation setActiveKey={onSelect} />
-          
-          <Container>
-            <Tab.Content>
-              <Tab.Pane eventKey="home">
-              </Tab.Pane>
+    <Tab.Container activeKey={activeKey}>
+      <Navigation setActiveKey={onSelect} />
+      
+      <Container>
+        <Tab.Content>
+          <Tab.Pane eventKey="home">
+            <PlayerWrapper/>
+          </Tab.Pane>
 
-              <Tab.Pane eventKey="relics">
-                <PlayerRelics/>
-              </Tab.Pane>
+          <Tab.Pane eventKey="relics">
+            <PlayerRelics/>
+          </Tab.Pane>
 
-              <Tab.Pane eventKey="team">
-                <TeamWrapper teamId={currentTeamId} />
-              </Tab.Pane>
-            </Tab.Content>
-          </Container>
-        </Tab.Container>
-      </TeamProviderWrapper>
-    </PlayerProvider>
+          <Tab.Pane eventKey="team">
+            <TeamWrapper teamId={teamId} />
+          </Tab.Pane>
+        </Tab.Content>
+      </Container>
+    </Tab.Container>
   );
 }
+
+const PlayerWrapper = ({...props}) => {
+  const playerContext = usePlayerContext();
+
+  return (
+    <Col className="mb-4">
+        <Player player={playerContext.player} />
+    </Col>
+  );
+};
 
 const TeamWrapper = ({teamId, ...props}) => {
   const dataContext = useDataContext();
@@ -57,16 +81,6 @@ const TeamWrapper = ({teamId, ...props}) => {
   return (
     <Team team={loadTeam(teamId, playerContext, dataContext)} />
   );
-}
-
-const TeamProviderWrapper = ({teamId, children}) => {
-  const playerContext = usePlayerContext();
-
-  return (
-    <TeamProvider data={playerContext.player.teams[teamId]}>
-      {children}
-    </TeamProvider>
-  );
-}
+};
 
 const loadPlayer = () => playerData;
