@@ -3,17 +3,20 @@ import { Container, Tab } from "react-bootstrap";
 import Navigation from "./components/Navigation";
 import PlayerRelics from "./components/PlayerRelics";
 import Team from "./components/Team";
+import { useDataContext } from "./contexts/DataContext";
 import { PlayerProvider, usePlayerContext } from "./contexts/PlayerContext";
-import { TeamProvider } from "./contexts/TeamContext";
+import { TeamProvider, useTeamContext } from "./contexts/TeamContext";
 import "./styles.css";
+import { loadTeam } from "./utils";
+import playerData from "./data/player";
 
-export default (props) => {
+export default ({...props}) => {
   const [activeKey, setActiveKey] = useState("home");
-  const [currentTeamId, setCurrentTeamId] = useState(undefined);
+  const [currentTeamId, setCurrentTeamId] = useState("default");
 
   const onSelect = key => {
     if (/^team-/.test(key)) {
-      setCurrentTeamId(key.split('-')[1]);
+      setCurrentTeamId(key.split('-').pop());
       setActiveKey("team");
     }
     else {
@@ -22,8 +25,8 @@ export default (props) => {
   };
 
   return (
-    <PlayerProvider>
-      <TeamProvider>
+    <PlayerProvider data={loadPlayer()}>
+      <TeamProviderWrapper teamId={currentTeamId}>
         <Tab.Container activeKey={activeKey}>
           <Navigation setActiveKey={onSelect} />
           
@@ -37,24 +40,33 @@ export default (props) => {
               </Tab.Pane>
 
               <Tab.Pane eventKey="team">
-                <PlayerTeam teamId={currentTeamId} />
+                <TeamWrapper teamId={currentTeamId} />
               </Tab.Pane>
             </Tab.Content>
           </Container>
         </Tab.Container>
-      </TeamProvider>
+      </TeamProviderWrapper>
     </PlayerProvider>
   );
 }
 
-const PlayerTeam = ({teamId, ...props}) => {
+const TeamWrapper = ({teamId, ...props}) => {
+  const dataContext = useDataContext();
   const playerContext = usePlayerContext();
 
   return (
-    <Team team={getTeam(teamId, playerContext)}/>
+    <Team team={loadTeam(teamId, playerContext, dataContext)} />
   );
 }
 
-const getTeam = (teamId, playerContext) => ({
-  id: teamId, ...playerContext.state.teams[teamId]
-});
+const TeamProviderWrapper = ({teamId, children}) => {
+  const playerContext = usePlayerContext();
+
+  return (
+    <TeamProvider data={playerContext.player.teams[teamId]}>
+      {children}
+    </TeamProvider>
+  );
+}
+
+const loadPlayer = () => playerData;

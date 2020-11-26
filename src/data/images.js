@@ -15,7 +15,7 @@ export default {
   pets: {
     "angel": "./images/pets/pet_angel_1.png",
     "cat": "./images/pets/pet_cat_1.png",
-    "chameleon": "./images/pets/pet_chamelon_1.png",
+    "chameleon": "./images/pets/pet_chameleon_1.png",
     "fairy": "./images/pets/pet_fairy_1.png",
     "hedgehog": "./images/pets/pet_hedgehog_1.png",
     "mosquito": "./images/pets/pet_mosquito_1.png",
@@ -57,7 +57,7 @@ export default {
     "129": "./images/items/accessories/i129.png",
     "130": "./images/items/accessories/i130.png"
   },
-  resources: {
+  resource_ores: {
 
   },
   gems: {

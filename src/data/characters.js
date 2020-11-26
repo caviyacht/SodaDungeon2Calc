@@ -19,7 +19,7 @@ export default {
       "gold_find": 0.02,
       "item_find": 1,
     },
-    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
   },
   "carpenter": {
     type: "character",
@@ -41,7 +41,7 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     },
-    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
   },
   "miner": {
     type: "character",
@@ -63,10 +63,10 @@ export default {
       "item_find": 1,
       "ore_find": 27
     },
-    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
   },
   "nurse": { 
-    type: "character", 
+    type: "character",
     name: "Nurse", 
     stats: {
       "hp": 63,
@@ -84,7 +84,7 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     }, 
-    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"] 
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"] 
   },
   "psychic": {
     type: "character",
@@ -107,7 +107,7 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     },
-    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
   },
   "thief": {
     type: "character",
@@ -129,7 +129,7 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     },
-    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
   },
   "huntress": {
     type: "character",
@@ -151,7 +151,7 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     },
-    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1", "accessory_2"]
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1", "accessory_2"]
   },
   "darkmage": {
     type: "character",
@@ -173,7 +173,7 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     },
-    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1", "accessory_2"]
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1", "accessory_2"]
   },
   "dual_wield": {
     type: "character",
@@ -193,10 +193,10 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     },
-    slots: ["weapon_1", "weapon_2", "armor_1", "accessory_1"]
+    equipmentSlots: ["weapon_1", "weapon_2", "armor_1", "accessory_1"]
   },
   "dark_lord": {
-    type: "character_special", 
+    type: "character",
     name: "Dark Lord", 
     stats: {
       "hp": 100,
@@ -214,10 +214,10 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     }, 
-    slots: ["weapon_special_1", "accessory_1", "accessory_2", "accessory_3"] 
+    equipmentSlots: [{ id: "weapon_1", itemId: "99" }, "accessory_1", "accessory_2", "accessory_3"] 
   },
   "chef": { 
-    type: "character_special", 
+    type: "character",
     name: "Chef", 
     stats: {
       "hp": 43,
@@ -232,6 +232,6 @@ export default {
       "ore_find": 4,
       "mastery_xp_boost": 0.07
     }, 
-    slots: ["weapon_special_1", "armor_1", "accessory_1"] 
+    equipmentSlots: [{ id: "weapon_1", itemId: "178" }, "armor_1", "accessory_1"] 
   }
 };

@@ -6,25 +6,29 @@ import gems from "../data/gems";
 import images from "../data/images";
 import pets from "../data/pets";
 import relics from "../data/relics";
-import resources from "../data/resources";
+import resource_ores from "../data/resource_ores";
 import shields from "../data/shields";
-import types from "../data/types";
+import slots from "../data/slots";
+import stats from "../data/stats";
 import upgrades from "../data/upgrades";
 import weapons from "../data/weapons";
 
 const DataContext = createContext({
-  accessories,
-  armors,
-  characters,
-  gems,
+  items: {
+    ...accessories,
+    ...armors,
+    ...characters,
+    ...gems,
+    ...pets,
+    ...resource_ores,
+    ...shields,
+    ...upgrades,
+    ...weapons
+  },
   images,
-  pets,
   relics,
-  resources,
-  shields,
-  types,
-  upgrades,
-  weapons
+  slots,
+  stats
 });
 
 const useDataContext = () => {

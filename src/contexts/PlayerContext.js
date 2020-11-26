@@ -1,159 +1,140 @@
-import React, { createContext, useContext, useReducer, useState } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import { useDataContext } from "./DataContext";
-import player from "../data/player";
 
 const PlayerContext = createContext();
 
-const createTeamCharacter = (slot, itemId, dataContext) => {
-  const item = dataContext.characters[itemId];
-  const slots = item.slots || [];
-  const currentSlots = slot.item.slots || {};
+const getSlotsTemplateForItem = (item) =>
+  (item.equipmentSlots || item.slots || []).reduce((result, value) => {
+    if (value instanceof Object) {
+      result[value.id] = { itemId: value.itemId };
+    }
+    else {
+      result[value] = { itemId: null };
+    }
 
-  return {
-    itemId,
-    slots: slots.reduce((o, slotId) => {
-      o[slotId] = copyCharacterEquipment(slotId, currentSlots[slotId]);
+    return result;
+  }, {});
 
-      return o;
-    }, {})
-  };
-};
+const createSlots = (currentSlots, item) =>
+  Object.entries(currentSlots).reduce((result, [id, value]) => {
+    if (result[id] && !result[id].itemId) {
+      result[id] = { ...value };
+    }
 
-const copyCharacterEquipment = (slotId, currentSlot) => {
-  if (!currentSlot) {
-    return { itemId: null };
+    return result;
+  }, getSlotsTemplateForItem(item));
+
+const createMember = (currentMember, itemId, dataContext) => {
+  const item = dataContext.items[itemId];
+
+  // TODO: Find a better way without hardcoding this value.
+  if (item.type === "pet") {
+    return { itemId };
   }
 
   return {
-    ...currentSlot
-  };
-};
-
-const createCharacterEquipment = (slot, itemId, dataContext) => {
-  const item = dataContext[slot.collection][itemId];
-  const slots = item.slots || [];
-  const currentSlots = slot.item.slots || {};
-
-  console.log(slot, currentSlots);
-
-  return {
     itemId,
-    slots: slots.reduce((o, slotId) => {
-      o[slotId] = {
-        itemId: currentSlots[slotId]
-          ? currentSlots[slotId].itemId
-          : null
-      };
-
-      return o;
-    }, {})
+    equipmentSlots: createSlots(currentMember.equipmentSlots, item)
   };
 };
 
-// TODO: Figure out some other way to handle super nested state.
+const createMemberEquipmentSlot = (currentEquipmentSlot, itemId, dataContext) => ({
+  itemId,
+  slots: createSlots(currentEquipmentSlot.slots, dataContext.items[itemId])
+});
+
+const createMemberEquipmentSlotSlot = (currentSlot, itemId, dataContext) => ({ itemId });
+
+const setMember = (state, { teamId, memberId, itemId }, dataContext) => ({
+  ...state,
+  teams: {
+    ...state.teams,
+    [teamId]: {
+      ...state.teams[teamId],
+      members: {
+        ...state.teams[teamId].members,
+        [memberId]: createMember(state.teams[teamId].members[memberId], itemId, dataContext)
+      }
+    }
+  }
+});
+
+const setMemberEquipmentSlot = (state, { teamId, memberId, equipmentId, itemId }, dataContext) => ({
+  ...state,
+  teams: {
+    ...state.teams,
+    [teamId]: {
+      ...state.teams[teamId],
+      members: {
+        ...state.teams[teamId].members,
+        [memberId]: {
+          ...state.teams[teamId].members[memberId],
+          equipmentSlots: {
+            ...state.teams[teamId].members[memberId].equipmentSlots,
+            [equipmentId]: createMemberEquipmentSlot(
+              state.teams[teamId].members[memberId].equipmentSlots[equipmentId],
+              itemId,
+              dataContext)
+          }
+        }
+      }
+    }
+  }
+});
+
+const setMemberEquipmentSlotSlot = (state, { teamId, memberId, equipmentId, slotId, itemId }, dataContext) => ({
+  ...state,
+  teams: {
+    ...state.teams,
+    [teamId]: {
+      ...state.teams[teamId],
+      members: {
+        ...state.teams[teamId].members,
+        [memberId]: {
+          ...state.teams[teamId].members[memberId],
+          equipmentSlots: {
+            ...state.teams[teamId].members[memberId].equipmentSlots,
+            [equipmentId]: {
+              ...state.teams[teamId].members[memberId].equipmentSlots[equipmentId],
+              slots: {
+                ...state.teams[teamId].members[memberId].equipmentSlots[equipmentId].slots,
+                [slotId]: createMemberEquipmentSlotSlot(
+                  state.teams[teamId].members[memberId].equipmentSlots[equipmentId].slots[slotId],
+                  itemId,
+                  dataContext)
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+});
+
 const reducer = dataContext => (state, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case "SET_PET":
-      return {
-        ...state,
-        teams: {
-          ...state.teams,
-          [payload.team.id]: {
-            ...state.teams[payload.team.id],
-            pets: {
-              [payload.slot.id]: {
-                itemId: payload.pet.itemId
-              }
-            }
-          }
-        }
-      };
+    case "SET_MEMBER":
+      return setMember(state, payload, dataContext);
 
-    case "SET_CHARACTER":
-      return {
-        ...state,
-        teams: {
-          ...state.teams,
-          [payload.team.id]: {
-            ...state.teams[payload.team.id],
-            characters: {
-              ...state.teams[payload.team.id].characters,
-              [payload.slot.id]: createTeamCharacter(
-                payload.slot,
-                payload.character.itemId, 
-                dataContext
-              )
-            }
-          }
-        }
-      };
+    case "SET_MEMBER_EQUIPMENT_SLOT":
+      return setMemberEquipmentSlot(state, payload, dataContext);;
 
-    case "SET_CHARACTER_EQUIPMENT":
-        return {
-          ...state,
-          teams: {
-            ...state.teams,
-            [payload.team.id]: {
-              ...state.teams[payload.team.id],
-              characters: {
-                ...state.teams[payload.team.id].characters,
-                [payload.character.id]: {
-                  ...state.teams[payload.team.id].characters[payload.character.id],
-                  slots: {
-                    ...state.teams[payload.team.id].characters[payload.character.id].slots,
-                    [payload.slot.id]: createCharacterEquipment(
-                      payload.slot,
-                      payload.equipment.itemId,
-                      dataContext
-                    )
-                  }
-                }
-              }
-            }
-          }
-        };
-
-    case "SET_CHARACTER_EQUIPMENT_EXTRA":
-      return {
-        ...state,
-        teams: {
-          ...state.teams,
-          [payload.team.id]: {
-            ...state.teams[payload.team.id],
-            characters: {
-              ...state.teams[payload.team.id].characters,
-              [payload.character.id]: {
-                ...state.teams[payload.team.id].characters[payload.character.id],
-                slots: {
-                  ...state.teams[payload.team.id].characters[payload.character.id].slots,
-                  [payload.equipment.id]: {
-                    ...state.teams[payload.team.id].characters[payload.character.id].slots[payload.equipment.id],
-                    slots: {
-                      ...state.teams[payload.team.id].characters[payload.character.id].slots[payload.equipment.id].slots,
-                      [payload.slot.id]: {
-                        itemId: payload.extra.itemId
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      };
+    case "SET_MEMBER_EQUIPMENT_SLOT_SLOT":
+      return setMemberEquipmentSlotSlot(state, payload, dataContext);
 
     default: throw new Error();
   }
 };
 
-const PlayerProvider = ({children}) => {
+const PlayerProvider = ({data, children}) => {
   const dataContext = useDataContext();
-  const [state, dispatch] = useReducer(reducer(dataContext), player);
+  const [player, dispatch] = useReducer(reducer(dataContext), data);
+  const value = { player, dispatch };
 
   return (
-    <PlayerContext.Provider value={{state, dispatch}}>
+    <PlayerContext.Provider value={value}>
       {children}
     </PlayerContext.Provider>
   );

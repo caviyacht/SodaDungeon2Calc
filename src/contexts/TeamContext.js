@@ -2,12 +2,12 @@ import React, { createContext, useContext, useState } from "react";
 
 const TeamContext = createContext();
 
-const TeamProvider = ({children}) => {
-  const [state, setTeam] = useState({});
-  const providerValue = { state, setTeam };
+const TeamProvider = ({data, children}) => {
+  const [team, setTeam] = useState(data);
+  const value = { team, setTeam };
 
   return (
-    <TeamContext.Provider value={providerValue}>
+    <TeamContext.Provider value={value}>
       {children}
     </TeamContext.Provider>
   );
