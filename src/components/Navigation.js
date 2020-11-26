@@ -4,7 +4,7 @@ import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
 import { useTeamContext } from "../contexts/TeamContext";
 
-export default ({setActiveKey, currentTeamName, ...props}) => {
+export default ({setActiveKey, currentTeamName}) => {
   const dataContext = useDataContext();
   const playerContext = usePlayerContext();
   const teamContext = useTeamContext();
@@ -24,8 +24,8 @@ export default ({setActiveKey, currentTeamName, ...props}) => {
       <Navbar.Collapse>
         <Nav className="mr-auto">
           <Nav.Link eventKey="home">Home</Nav.Link>
-          <NavDropdown id="teams-dropdown" title={getTeamsDropdownTitle(teamContext.state)}>
-            {getPlayerTeams(playerContext.state).map(team =>
+          <NavDropdown id="teams-dropdown" title={getTeamsDropdownTitle(teamContext)}>
+            {getPlayerTeams(playerContext).map(team =>
               <NavDropdown.Item eventKey={`team-${team.id}`}>{team.name}</NavDropdown.Item>
             )}
             <NavDropdown.Divider/>
@@ -40,15 +40,15 @@ export default ({setActiveKey, currentTeamName, ...props}) => {
   );
 }
 
-const getTeamsDropdownTitle = (team) =>
-  team && team.name
-    ? `Teams (${team.name})`
+const getTeamsDropdownTitle = (teamContext) =>
+  teamContext.team && teamContext.team.name
+    ? `Teams (${teamContext.team.name})`
     : "Teams";
 
-const getPlayerTeams = (player) =>
+const getPlayerTeams = (playerContext) =>
   Object
-    .keys(player.teams)
+    .keys(playerContext.player.teams)
     .map(id => ({
       id,
-      ...player.teams[id]
+      ...playerContext.player.teams[id]
     }));

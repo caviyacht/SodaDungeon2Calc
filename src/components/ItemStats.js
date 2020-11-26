@@ -4,9 +4,11 @@ import { Collapse, Table } from "react-bootstrap";
 export default ({item, shouldAggregate, ...props}) => {
   const [open, setOpen] = useState(false);
 
-  const stats = shouldAggregate
-    ? getAggregatedStats(item)
-    : item.stats;
+  const stats = item.stats;
+
+  //const stats = shouldAggregate
+    //? getAggregatedStats(item)
+    //: item.stats;
 
   return (
     <Table striped size="sm">

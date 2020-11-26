@@ -11,14 +11,14 @@ export default ({...props}) => {
   return (
     <Row xs={1} lg={2}>
       <Col className={["mb-4"]}>
-        <PlayerRelicCollection relics={getRelics(playerContext.state, dataContext)}/>
+        <PlayerRelicCollection relics={getRelics(playerContext, dataContext)}/>
       </Col>
     </Row>
   );
 }
 
 // TEMP
-const PlayerRelicCollection = ({relics, ...props}) => {
+const PlayerRelicCollection = ({relics}) => {
   const dataContext = useDataContext();
 
   return (
@@ -79,12 +79,12 @@ const getRelicTabAsItem = (itemId, dataContext) =>
     image: dataContext.images.relic_tabs[itemId]
   });
 
-const getRelics = (player, dataContext) =>
+const getRelics = (playerContext, dataContext) =>
   Object
     .keys(dataContext.relics)
     .map(id => {
       const item = dataContext.relics[id];
-      const playerRelic = player.relics[id] || {};
+      const playerRelic = playerContext.player.relics[id] || {};
 
       return {
         id,

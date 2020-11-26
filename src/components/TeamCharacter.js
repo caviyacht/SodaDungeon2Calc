@@ -5,57 +5,64 @@ import ItemNavItem from "./ItemNavItem";
 import SlotItemSelect from "./SlotItemSelect";
 import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
-import { getSlotIcon, getUpgradeItem } from "../utils";
+import { getIconForSlot, loadItem } from "../utils";
 
-export default ({team, character, ...props}) => {
+export default ({team, character}) => {
   const dataContext = useDataContext();
   const playerContext = usePlayerContext();
 
-  const setCharacter = slot => (itemId) => playerContext.dispatch({
-    type: "SET_CHARACTER",
-    payload: { team, character: { itemId }, slot }
+  const setMember = (itemId) => playerContext.dispatch({
+    type: "SET_MEMBER",
+    payload: { teamId: team.id, memberId: character.id, itemId }
   });
 
-  const setEquipment = slot => (itemId) => playerContext.dispatch({
-    type: "SET_CHARACTER_EQUIPMENT",
-    payload: { team, character, equipment: { itemId }, slot }
+  const setMemberEquipmentSlot = (equipmentId) => (itemId) => playerContext.dispatch({
+    type: "SET_MEMBER_EQUIPMENT_SLOT",
+    payload: { teamId: team.id, memberId: character.id, equipmentId, itemId }
   });
 
-  const setEquipmentExtra = (equipment, slot) => (itemId) => playerContext.dispatch({
-    type: "SET_CHARACTER_EQUIPMENT_EXTRA",
-    payload: { team, character, equipment, extra: { itemId }, slot }
+  const setMemberEquipmentSlotSlot = (equipmentId, slotId) => (itemId) => playerContext.dispatch({
+    type: "SET_MEMBER_EQUIPMENT_SLOT_SLOT",
+    payload: { teamId: team.id, memberId: character.id, equipmentId, slotId, itemId }
   });
 
   return (
     <Card>
       <Tab.Container defaultActiveKey={character.id}>
-        <Card.Header className={["bg-dark"]}>
+        <Card.Header className="bg-dark">
           <Nav justify variant="tabs">
-            <ItemNavItem eventKey={character.id} item={character.item} defaultIcon={getSlotIcon(character, dataContext)} />
+            <ItemNavItem 
+              eventKey={character.id} 
+              item={character.item} 
+              defaultIcon={getIconForSlot(character, dataContext)} />
 
-            {character.item.slots.map(equipmentSlot =>
+            {character.equipmentSlots.map(equipmentSlot =>
               <ItemNavItem
                 eventKey={`${character.id}-${equipmentSlot.id}`} 
                 item={equipmentSlot.item}
-                defaultIcon={getSlotIcon(equipmentSlot, dataContext)} />
+                defaultIcon={getIconForSlot(equipmentSlot, dataContext)} />
             )}
 
-            <ItemNavItem eventKey={`${character.id}-allsight`} item={getUpgradeItem("allsight", dataContext)}/>
+            <ItemNavItem 
+              eventKey={`${character.id}-allsight`} 
+              item={loadItem("allsight", dataContext)} />
           </Nav>
         </Card.Header>
 
         <Card.Body>
           <Tab.Content>
             <Tab.Pane eventKey={`${character.id}`}>
-              <SlotItemSelect slot={character} setItem={setCharacter(character)} />
+              <SlotItemSelect slot={character} setItem={setMember} />
             </Tab.Pane>
 
-            {character.item.slots.map(equipmentSlot =>
+            {character.equipmentSlots.map(equipmentSlot =>
               <Tab.Pane eventKey={`${character.id}-${equipmentSlot.id}`}>
-                <SlotItemSelect slot={equipmentSlot} setItem={setEquipment(equipmentSlot)} />
+                <SlotItemSelect slot={equipmentSlot} setItem={setMemberEquipmentSlot(equipmentSlot.id)} />
 
-                {equipmentSlot.item.slots.map(equipmentExtraSlot =>
-                  <SlotItemSelect slot={equipmentExtraSlot} setItem={setEquipmentExtra(equipmentSlot, equipmentExtraSlot)} />
+                {equipmentSlot.slots.map(slot =>
+                  <SlotItemSelect 
+                    slot={slot} 
+                    setItem={setMemberEquipmentSlotSlot(equipmentSlot.id, slot.id)} />
                 )}
               </Tab.Pane>
             )}
