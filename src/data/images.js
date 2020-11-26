@@ -39,9 +39,12 @@ export default {
   },
   weapons: {
     "99": "./images/items/weapons/i99.png",
+    "102": "./images/items/weapons/i102.png",
     "103": "./images/items/weapons/i103.png",
     "120": "./images/items/weapons/i120.png",
+    "140": "./images/items/weapons/i140.png",
     "156": "./images/items/weapons/i156.png",
+    "170": "./images/items/weapons/i170.png",
     "178": "./images/items/weapons/i178.png"
   },
   shields: {
@@ -52,16 +55,32 @@ export default {
     "162": "./images/items/armors/i162_male.png"
   },
   accessories: {
+    "98": "./images/items/accessories/i98.png",
     "100": "./images/items/accessories/i100.png",
     "127": "./images/items/accessories/i127.png",
     "129": "./images/items/accessories/i129.png",
     "130": "./images/items/accessories/i130.png"
   },
   resource_ores: {
-
+    "15": "./images/items/resource_ores/i15.png",
+    "16": "./images/items/resource_ores/i16.png",
+    "17": "./images/items/resource_ores/i17.png",
+    "18": "./images/items/resource_ores/i18.png",
+    "19": "./images/items/resource_ores/i19.png"
   },
   gems: {
-
+    "11": "./images/items/gems/i11.png",
+    "67": "./images/items/gems/i67.png",
+    "121": "./images/items/gems/i121.png",
+    "137": "./images/items/gems/i137.png",
+    "138": "./images/items/gems/i138.png",
+    "144": "./images/items/gems/i144.png",
+    "148": "./images/items/gems/i148.png",
+    "153": "./images/items/gems/i153.png",
+    "163": "./images/items/gems/i163.png",
+    "164": "./images/items/gems/i164.png",
+    "165": "./images/items/gems/i165.png",
+    "166": "./images/items/gems/i166.png",
   },
   upgrades: {
     "allsight": "./images/upgrades/thumbnail_allsight.png"

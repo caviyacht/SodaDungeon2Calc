@@ -16,7 +16,7 @@ const getIconForSlot = (slot, dataContext) => {
 const loadTeam = (teamId, playerContext, dataContext) => ({
   id: teamId,
   ...playerContext.player.teams[teamId],
-  members: loadTeamMembers(playerContext.player.teams[teamId].members, dataContext)
+  members: loadTeamMembers((playerContext.player.teams[teamId] || {}).members, dataContext)
 })
 
 const loadTeamMembers = (members, dataContext) =>

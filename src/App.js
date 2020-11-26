@@ -12,7 +12,7 @@ import playerData from "./data/player";
 
 export default ({...props}) => {
   const [activeKey, setActiveKey] = useState("home");
-  const [currentTeamId, setCurrentTeamId] = useState("default");
+  const [currentTeamId, setCurrentTeamId] = useState(null);
 
   const onSelect = key => {
     if (/^team-/.test(key)) {

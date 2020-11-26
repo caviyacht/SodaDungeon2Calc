@@ -31,9 +31,12 @@ export default ({setActiveKey, currentTeamName}) => {
             <NavDropdown.Divider/>
             <NavDropdown.Item eventKey="newTeam">New Team</NavDropdown.Item>
           </NavDropdown>
-          <NavDropdown id="data-dropdown" title="Data">
+          <Nav.Link eventKey="relics">Relics</Nav.Link>
+          <Nav.Link eventKey="characters">Characters</Nav.Link>
+          <Nav.Link eventKey="items">Items</Nav.Link>
+          {/*<NavDropdown id="data-dropdown" title="Data">
             <NavDropdown.Item eventKey="relics">Relics</NavDropdown.Item>
-          </NavDropdown>
+            </NavDropdown>*/}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

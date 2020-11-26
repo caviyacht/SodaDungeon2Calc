@@ -76,6 +76,65 @@ export default {
           }
         }
       }
+    },
+    "mining": {
+      name: "Mining",
+      members: {
+        "pet_1": { itemId: "chameleon" },
+        "character_1": {
+          itemId: "miner",
+          equipmentSlots: {
+            "weapon_1": { itemId: "102", slots: { "resource_ore_1": { itemId: null } } },
+            "shield_1": { itemId: "154", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "164" } } },
+            "armor_1": { itemId: "143", slots: { "resource_ore_1": { itemId: null } } },
+            "accessory_1": { itemId: "129" }
+          }
+        },
+        "character_2": {
+          itemId: "miner",
+          equipmentSlots: {
+            "weapon_1": { itemId: "140", slots: { "resource_ore_1": { itemId: null } } },
+            "shield_1": { itemId: "154", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "164" } } },
+            "armor_1": { itemId: "143", slots: { "resource_ore_1": { itemId: null } } },
+            "accessory_1": { itemId: "129" }
+          }
+        },
+        "character_3": {
+          itemId: "miner",
+          equipmentSlots: {
+            "weapon_1": { itemId: "170", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "164" } } },
+            "shield_1": { itemId: "154", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "164" } } },
+            "armor_1": { itemId: "143", slots: { "resource_ore_1": { itemId: null } } },
+            "accessory_1": { itemId: "129" }
+          }
+        },
+        "character_4": {
+          itemId: "miner",
+          equipmentSlots: {
+            "weapon_1": { itemId: "170", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "166" } } },
+            "shield_1": { itemId: "154", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "164" } } },
+            "armor_1": { itemId: "143", slots: { "resource_ore_1": { itemId: null } } },
+            "accessory_1": { itemId: "98" }
+          }
+        },
+        "character_5": {
+          itemId: "miner",
+          equipmentSlots: {
+            "weapon_1": { itemId: "170", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "164" } } },
+            "shield_1": { itemId: "154", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "164" } } },
+            "armor_1": { itemId: "143", slots: { "resource_ore_1": { itemId: null } } },
+            "accessory_1": { itemId: "100" }
+          }
+        },
+        "character_6": {
+          itemId: "chef",
+          equipmentSlots: {
+            "weapon_1": { itemId: "178" },
+            "armor_1": { itemId: "162", slots: { "resource_ore_1": { itemId: null } } },
+            "accessory_1": { itemId: "129" }
+          }
+        }
+      }
     }
   }
 };
