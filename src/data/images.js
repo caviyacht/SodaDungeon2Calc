@@ -48,6 +48,9 @@ export default {
     "178": "./images/items/weapons/i178.png"
   },
   shields: {
+    "142": "./images/items/shields/i142.png",
+    "150": "./images/items/shields/i150.png",
+    "154": "./images/items/shields/i154.png",
     "167": "./images/items/shields/i167.png"
   },
   armors: {
