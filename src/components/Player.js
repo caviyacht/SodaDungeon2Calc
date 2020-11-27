@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, FormControl, InputGroup } from "react-bootstrap";
+import { Col, Form } from "react-bootstrap";
 import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
 
@@ -18,39 +18,28 @@ export default ({player, ...props}) => {
   })
 
   return (
-    <Card>
-      <Card.Body>
-        <FormControlContainer image={dataContext.images.icons.stairs}>
-          <FormControl type="number" min="1" value={player.floor} onChange={e => setFloor(e.target.value)} />
-        </FormControlContainer>
+    <Form>
+      <Form.Row>
+        <Col md={4} lg={2}>
+          <Form.Group>
+            <Form.Label>Dungeon Floor</Form.Label>
+            <Form.Control type="number" min="1" value={player.floor} onChange={e => setFloor(e.target.value)} />
+          </Form.Group>
+        </Col>
+      </Form.Row>
 
-        <FormControlContainer image={dataContext.images.upgrades.kitchen}>
-          <FormControl as="select" onChange={e => setItemLevel("kitchen", e.target.value)}>
-            {[...Array(dataContext.items.kitchen.maxLevel + 1).keys()].map(level =>
-              <option value={level}>{level}</option>
-            )}
-          </FormControl>
-        </FormControlContainer>
-      </Card.Body>
-    </Card>
-  );
-}
-
-const FormControlContainer = ({image, children}) => {
-  return (
-    <InputGroup className="mb-3">
-      <InputGroup.Prepend>
-        <span className="mr-2" style={{
-          width: "38px",//"calc(1.5em + 1rem + 8px)",
-          height: "38px",//"calc(1.5em + 1rem + 8px)",
-          backgroundImage: `url(${image})`,
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "50% 50%"
-        }}/>
-      </InputGroup.Prepend>
-
-      {children}
-    </InputGroup>
+      <Form.Row>
+        <Col md={4} lg={2}>
+          <Form.Group>
+            <Form.Label>Kitchen Level</Form.Label>
+            <Form.Control as="select" onChange={e => setItemLevel("kitchen", e.target.value)}>
+              {[...Array(dataContext.items.kitchen.maxLevel + 1).keys()].map(level =>
+                <option value={level}>{level}</option>
+              )}
+            </Form.Control>
+          </Form.Group>
+        </Col>
+      </Form.Row>
+    </Form>
   );
 }

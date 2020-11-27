@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Col, Container, Tab } from "react-bootstrap";
+import { Col, Container, Jumbotron, Row, Tab } from "react-bootstrap";
 import Navigation from "./components/Navigation";
 import PlayerRelics from "./components/PlayerRelics";
 import Team from "./components/Team";
@@ -43,22 +43,32 @@ const AppContent = ({...props}) => {
 
   return (
     <Tab.Container activeKey={activeKey}>
-      <Navigation setActiveKey={onSelect} />
-      
-      <Container>
-        <Tab.Content>
-          <Tab.Pane eventKey="home">
-            <PlayerWrapper/>
-          </Tab.Pane>
+      <Container fluid className="px-0">
+        <Row noGutters className="min-vh-100 flex-column flex-md-row">
+          <Col as="aside" sm={12} md={2} lg={1} className="p-0 bg-dark flex-shrink-1">
+            <Navigation setActiveKey={onSelect} />
+          </Col>
+        
+          <Col as="main" className="bg-faded flex-grow-1">
+            <Jumbotron className="py-3 px-3">
+              <h1 className="display-4">{getTitle(activeKey)}</h1>
+            </Jumbotron>
 
-          <Tab.Pane eventKey="relics">
-            <PlayerRelics/>
-          </Tab.Pane>
+            <Tab.Content className="px-3">
+              <Tab.Pane eventKey="home">
+                <PlayerWrapper/>
+              </Tab.Pane>
 
-          <Tab.Pane eventKey="team">
-            <TeamWrapper teamId={teamId} />
-          </Tab.Pane>
-        </Tab.Content>
+              <Tab.Pane eventKey="relics">
+                <PlayerRelics/>
+              </Tab.Pane>
+
+              <Tab.Pane eventKey="team">
+                <TeamWrapper teamId={teamId} />
+              </Tab.Pane>
+            </Tab.Content>
+          </Col>
+        </Row>
       </Container>
     </Tab.Container>
   );
@@ -68,9 +78,7 @@ const PlayerWrapper = ({...props}) => {
   const playerContext = usePlayerContext();
 
   return (
-    <Col className="mb-4">
-        <Player player={playerContext.player} />
-    </Col>
+    <Player player={playerContext.player} />
   );
 };
 
@@ -84,3 +92,17 @@ const TeamWrapper = ({teamId, ...props}) => {
 };
 
 const loadPlayer = () => playerData;
+
+// TODO: This feels wrong...
+const getTitle = (activeKey) => {
+  switch (activeKey) {
+    case "home": return "Player";
+    case "relics": return "Relics";
+    case "characters": return "Characters";
+    case "pets": return "Pets";
+    default:
+      if (/^team/.test(activeKey)) {
+        return "Teams (" + activeKey.split('-').pop() + ")";
+      }
+  }
+}
