@@ -45,7 +45,7 @@ const AppContent = ({...props}) => {
     <Tab.Container activeKey={activeKey}>
       <Container fluid className="px-0">
         <Row noGutters className="min-vh-100 flex-column flex-md-row">
-          <Col as="aside" sm={12} md={2} lg={1} className="p-0 bg-dark flex-shrink-1">
+          <Col as="aside" sm={12} md="auto" className="p-0 bg-dark flex-shrink-1">
             <Navigation setActiveKey={onSelect} />
           </Col>
         

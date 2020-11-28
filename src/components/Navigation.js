@@ -1,8 +1,10 @@
 import React from "react";
 import { Dropdown, Navbar, Nav, NavItem, NavLink } from "react-bootstrap";
+import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
 
 export default ({setActiveKey}) => {
+  const dataContext = useDataContext();
   const playerContext = usePlayerContext();
 
   return (
@@ -11,6 +13,10 @@ export default ({setActiveKey}) => {
       variant="dark"
       onSelect={setActiveKey}
       className="flex-md-column flex-row align-items-start py-2">
+
+      <Navbar.Brand>
+        <img src={dataContext.images.skills.burp} alt="Burp" style={{width: "30px", height: "30px"}}/>
+      </Navbar.Brand>
 
       <Navbar.Collapse>
         <Nav className="flex-md-column flex-row w-100 justify-content-between">

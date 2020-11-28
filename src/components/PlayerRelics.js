@@ -1,5 +1,6 @@
 import React from "react";
-import { Col, FormControl, FormGroup, FormLabel, InputGroup, Jumbotron, Nav, Row, Tab } from "react-bootstrap";
+import { Col,  FormControl, FormGroup, FormLabel, InputGroup, Nav, Row, Tab } from "react-bootstrap";
+import FormGroupImage from "./FormGroupImage";
 import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
 
@@ -19,7 +20,7 @@ export default ({...props}) => {
             <Nav.Link eventKey="3">Character</Nav.Link>
           </Nav>
         </Col>
-        <Col>
+        <Col lg={10}>
           <Tab.Content>
             <RelicTabPane relics={relics} groupId="1" />
             <RelicTabPane relics={relics} groupId="2" />
@@ -31,23 +32,31 @@ export default ({...props}) => {
   );
 }
 
-const RelicTabPane = ({relics, groupId, ...props}) => {
+const RelicTabPane = ({relics, groupId}) => {
   return (
     <Tab.Pane eventKey={groupId}>
-      {relics.filter(relic => relic.item.groupId === groupId).map(relic =>
-      <FormGroup className="mb-3">
-        <FormLabel>{relic.item.name}</FormLabel>
-        <InputGroup>
-          <FormControl type="number" min="1" value={relic.item.level} />
+      <Row xs={1} lg={2}>
+        {relics.filter(relic => relic.item.groupId === groupId).map(relic =>
+          <Col className="d-flex">
+            <div className="mr-2" style={{flex: "0 0 70px"}}>
+              <FormGroupImage src={relic.item.image}/>
+            </div>
 
-          {relic.item.type === "maxable" &&
-            <InputGroup.Append>
-              <InputGroup.Text className="bg-dark text-light">{"/" + relic.item.maxLevel}</InputGroup.Text>
-            </InputGroup.Append>
-          }
-        </InputGroup>
-        </FormGroup>
-      )}
+            <FormGroup className="w-100">
+              <FormLabel htmlFor={`relic-${relic.id}`}>{relic.item.name}</FormLabel>
+              <InputGroup>
+                <FormControl id={`relic-${relic.id}`} type="number" min="1" value={relic.item.level} />
+
+                {relic.item.type === "maxable" &&
+                  <InputGroup.Append>
+                    <InputGroup.Text className="bg-dark text-light">{"/" + relic.item.maxLevel}</InputGroup.Text>
+                  </InputGroup.Append>
+                }
+              </InputGroup>
+            </FormGroup>
+          </Col>
+        )}
+      </Row>
     </Tab.Pane>
   );
 }
