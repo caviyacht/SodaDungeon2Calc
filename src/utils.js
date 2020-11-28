@@ -93,12 +93,49 @@ const loadItemStats = (item, dataContext) =>
       ...stat // Handle { value: <>, scope: <> }
     }));
 
+const loadRelics = (playerContext, dataContext) =>
+  Object
+    .keys(dataContext.relics)
+    .map(relicId => loadRelic(relicId, dataContext, playerContext));
+
+const loadRelic = (relicId, dataContext, playerContext) => {
+  const relic = { id: relicId, type: null, ...dataContext.relics[relicId] };
+  const playerRelic = playerContext.player.relics[relic.id] || { level: 0 };
+
+  return {
+    ...relic,
+    name: (dataContext.stats[relicId] || dataContext.items[relicId]).name, // TODO: Maybe put this somewhere else?
+    stats: loadRelicStats(relic, playerRelic, dataContext),
+    image: dataContext.images.relics[relicId],
+    ...playerRelic
+  };
+}
+
+const loadRelicStats = (relic, playerRelic, dataContext) =>
+  Object
+    .entries((relic || {}).stats || {})
+    .map(([statId, stat]) => {
+      let { value, scope } = stat;
+
+      if (value === undefined) {
+        value = stat;
+      }
+
+      return {
+        id: statId,
+        ...dataContext.stats[statId],
+        value: value * playerRelic.level,
+        scope
+      };
+    });
+
 export {
   loadTeam,
   loadTeamMembers,
   loadTeamMemberEquipmentSlots,
   loadItem,
   loadItemStats,
+  loadRelics,
 
   getIconForSlot
 };

@@ -37,6 +37,7 @@ export default ({setActiveKey}) => {
             <Dropdown.Menu align={{md: "left"}}>
               <Dropdown.Item eventKey="relics">Relics</Dropdown.Item>
               <Dropdown.Item eventKey="characters">Characters</Dropdown.Item>
+              <Dropdown.Item eventKey="pets">Pets</Dropdown.Item>
               <Dropdown.Item eventKey="items">Items</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

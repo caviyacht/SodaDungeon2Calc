@@ -11,6 +11,7 @@ import { loadTeam } from "./utils";
 import playerData from "./data/player";
 import Player from "./components/Player";
 import PlayerCharacters from "./components/PlayerCharacters";
+import PlayerPets from "./components/PlayerPets";
 
 export default ({...props}) => {
   return (
@@ -23,6 +24,7 @@ export default ({...props}) => {
 }
 
 const AppContent = ({...props}) => {
+  const dataContext = useDataContext();
   const playerContext = usePlayerContext();
   const teamContext = useTeamContext();
   const [activeKey, setActiveKey] = useState("home");
@@ -68,8 +70,12 @@ const AppContent = ({...props}) => {
                 <PlayerCharacters/>
               </Tab.Pane>
 
+              <Tab.Pane eventKey="pets">
+                <PlayerPets/>
+              </Tab.Pane>
+
               <Tab.Pane eventKey="team">
-                <TeamWrapper teamId={teamId} />
+                <Team team={loadTeam(teamId, playerContext, dataContext)} />
               </Tab.Pane>
             </Tab.Content>
           </Col>
@@ -87,14 +93,6 @@ const PlayerWrapper = ({...props}) => {
   );
 };
 
-const TeamWrapper = ({teamId, ...props}) => {
-  const dataContext = useDataContext();
-  const playerContext = usePlayerContext();
-
-  return (
-    <Team team={loadTeam(teamId, playerContext, dataContext)} />
-  );
-};
 
 const loadPlayer = () => playerData;
 
@@ -107,7 +105,7 @@ const getTitle = (activeKey) => {
     case "pets": return "Pets";
     default:
       if (/^team/.test(activeKey)) {
-        return "Teams (" + activeKey.split('-').pop() + ")";
+        return "Teams";
       }
   }
 }

@@ -6,6 +6,7 @@ import SlotItemSelect from "./SlotItemSelect";
 import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
 import { getIconForSlot, loadItem } from "../utils";
+import TeamMemberStats from "./TeamMemberStats";
 
 export default ({team, character}) => {
   const dataContext = useDataContext();
@@ -68,7 +69,7 @@ export default ({team, character}) => {
             )}
 
             <Tab.Pane eventKey={`${character.id}-allsight`}>
-              <ItemStats item={character.item} shouldAggregate={true} />
+              <TeamMemberStats team={team} member={character} />
             </Tab.Pane>
           </Tab.Content>
         </Card.Body>

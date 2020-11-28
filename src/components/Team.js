@@ -22,4 +22,4 @@ export default ({team}) => {
 }
 
 const getTeamMembersForItemType = (itemType, team) => 
-  team.members.filter(member => member.itemType === itemType);
+  (team.members || []).filter(member => member.itemType === itemType);

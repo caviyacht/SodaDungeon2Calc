@@ -10,6 +10,11 @@ export default ({...props}) => {
 
   const relics = getRelics(playerContext, dataContext);
 
+  const setRelicLevel = (relicId, level) => playerContext.dispatch({
+    type: "SET_RELIC_LEVEL",
+    payload: { relicId, level }
+  })
+
   return (
     <Tab.Container defaultActiveKey="1">
       <Row xs={1} lg={2}>
@@ -22,9 +27,9 @@ export default ({...props}) => {
         </Col>
         <Col lg={10}>
           <Tab.Content>
-            <RelicTabPane relics={relics} groupId="1" />
-            <RelicTabPane relics={relics} groupId="2" />
-            <RelicTabPane relics={relics} groupId="3" />
+            <RelicTabPane relics={relics} groupId="1" setRelicLevel={setRelicLevel} />
+            <RelicTabPane relics={relics} groupId="2" setRelicLevel={setRelicLevel} />
+            <RelicTabPane relics={relics} groupId="3" setRelicLevel={setRelicLevel} />
           </Tab.Content>
         </Col>
       </Row>
@@ -32,7 +37,7 @@ export default ({...props}) => {
   );
 }
 
-const RelicTabPane = ({relics, groupId}) => {
+const RelicTabPane = ({relics, groupId, setRelicLevel}) => {
   return (
     <Tab.Pane eventKey={groupId}>
       <Row xs={1} lg={2}>
@@ -45,7 +50,7 @@ const RelicTabPane = ({relics, groupId}) => {
             <FormGroup className="w-100">
               <FormLabel htmlFor={`relic-${relic.id}`}>{relic.item.name}</FormLabel>
               <InputGroup>
-                <FormControl id={`relic-${relic.id}`} type="number" min="1" value={relic.item.level} />
+                <FormControl id={`relic-${relic.id}`} type="number" min="1" value={relic.item.level} onChange={e => setRelicLevel(relic.id, e.target.value)}/>
 
                 {relic.item.type === "maxable" &&
                   <InputGroup.Append>

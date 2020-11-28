@@ -142,6 +142,18 @@ const reducer = dataContext => (state, action) => {
         }
       };
 
+    case "SET_RELIC_LEVEL":
+      return {
+        ...state,
+        relics: {
+          ...state.relics,
+          [payload.relicId]: {
+            ...state.relics[payload.relicId],
+            level: payload.level
+          }
+        }
+      };
+
     default: throw new Error();
   }
 };
