@@ -10,6 +10,7 @@ import "./styles.css";
 import { loadTeam } from "./utils";
 import playerData from "./data/player";
 import Player from "./components/Player";
+import PlayerCharacters from "./components/PlayerCharacters";
 
 export default ({...props}) => {
   return (
@@ -61,6 +62,10 @@ const AppContent = ({...props}) => {
 
               <Tab.Pane eventKey="relics">
                 <PlayerRelics/>
+              </Tab.Pane>
+
+              <Tab.Pane eventKey="characters">
+                <PlayerCharacters/>
               </Tab.Pane>
 
               <Tab.Pane eventKey="team">

@@ -34,7 +34,7 @@ export default ({setActiveKey}) => {
 
           <Dropdown as={NavItem} id="data-dropdown">
             <Dropdown.Toggle as={NavLink} className="pl-0">Data</Dropdown.Toggle>
-            <Dropdown.Menu>
+            <Dropdown.Menu align={{md: "left"}}>
               <Dropdown.Item eventKey="relics">Relics</Dropdown.Item>
               <Dropdown.Item eventKey="characters">Characters</Dropdown.Item>
               <Dropdown.Item eventKey="items">Items</Dropdown.Item>

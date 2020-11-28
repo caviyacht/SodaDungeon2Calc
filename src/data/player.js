@@ -3,6 +3,7 @@ export default {
   items: {
     "rock": { level: 8, isFavorite: true },
     "nurse": { level: 50 },
+    "chef": { level: 1 },
     "103": { level: 10, isFavorite: true },
     "kitchen": { level: 10 }
   },
