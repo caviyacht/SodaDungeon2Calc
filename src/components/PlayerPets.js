@@ -24,7 +24,7 @@ export default ({...props}) => {
               <FormControl id={`pet-${pet.id}`} type="number" min="1" max="50" value={pet.item.level} />
 
               <InputGroup.Append>
-                <InputGroup.Text className="bg-dark text-light">{"/50"}</InputGroup.Text>
+                <InputGroup.Text className="bg-dark text-light">{"/" + pet.item.maxLevel}</InputGroup.Text>
               </InputGroup.Append>
             </InputGroup>
           </FormGroup>
