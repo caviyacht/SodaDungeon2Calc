@@ -12,6 +12,9 @@ export default {
     "weapon": "./images/icons/icon_weapon.png",
     "stairs": "./images/icons/icon_stairs.png"
   },
+  buttons: {
+    "swords": "./images/buttons/btn_swords_1.png"
+  },
   pets: {
     "angel": "./images/pets/pet_angel_1.png",
     "cat": "./images/pets/pet_cat_1.png",

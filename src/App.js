@@ -12,6 +12,7 @@ import playerData from "./data/player";
 import Player from "./components/Player";
 import PlayerCharacters from "./components/PlayerCharacters";
 import PlayerPets from "./components/PlayerPets";
+import PlayerTeams from "./components/PlayerTeams";
 
 export default ({...props}) => {
   return (
@@ -24,24 +25,10 @@ export default ({...props}) => {
 }
 
 const AppContent = ({...props}) => {
-  const dataContext = useDataContext();
-  const playerContext = usePlayerContext();
-  const teamContext = useTeamContext();
   const [activeKey, setActiveKey] = useState("home");
-  const [teamId, setTeamId] = useState(null);
 
   const onSelect = key => {
-    if (/^team-/.test(key)) {
-      const teamId = key.split('-').pop();
-
-      teamContext.setTeam(playerContext.player.teams[teamId]);
-
-      setTeamId(teamId);
-      setActiveKey("team");
-    }
-    else {
-      setActiveKey(key);
-    }
+    setActiveKey(key);
   };
 
   return (
@@ -74,8 +61,8 @@ const AppContent = ({...props}) => {
                 <PlayerPets/>
               </Tab.Pane>
 
-              <Tab.Pane eventKey="team">
-                <Team team={loadTeam(teamId, playerContext, dataContext)} />
+              <Tab.Pane eventKey="teams">
+                <PlayerTeams/>
               </Tab.Pane>
             </Tab.Content>
           </Col>
@@ -93,7 +80,6 @@ const PlayerWrapper = ({...props}) => {
   );
 };
 
-
 const loadPlayer = () => playerData;
 
 // TODO: This feels wrong...
@@ -103,9 +89,7 @@ const getTitle = (activeKey) => {
     case "relics": return "Relics";
     case "characters": return "Characters";
     case "pets": return "Pets";
-    default:
-      if (/^team/.test(activeKey)) {
-        return "Teams";
-      }
+    case "teams": return "Teams";
+    default: return "";
   }
 }
