@@ -23,5 +23,5 @@ export default {
   "mastery_xp_boost": { name: "XP Boost", valueType: "percent", scope: "team" },
   "prevents_burn": { name: "Prevents Burn", valueType: "boolean" },
   "prevents_stone": { name: "Prevents Stone", valueType: "boolean" },
-  "prevents_back_atk_bonus": { name: "Prevents Back Attack Bonus", valueType: "boolean" }
+  "prevents_back_atk_bonus": { name: "Prevents Back ATK Bonus", valueType: "boolean" }
 };

@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Nav, Tab } from "react-bootstrap";
-import ItemStats from "./ItemStats";
 import ItemNavItem from "./ItemNavItem";
 import SlotItemSelect from "./SlotItemSelect";
 import { useDataContext } from "../contexts/DataContext";
@@ -68,7 +67,7 @@ export default ({team, character}) => {
               </Tab.Pane>
             )}
 
-            <Tab.Pane eventKey={`${character.id}-allsight`}>
+            <Tab.Pane eventKey={`${character.id}-allsight`} className="m-n3">
               <TeamMemberStats team={team} member={character} />
             </Tab.Pane>
           </Tab.Content>

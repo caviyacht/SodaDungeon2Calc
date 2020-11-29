@@ -2,6 +2,7 @@ export default {
   "soda_junkie": {
     type: "character",
     name: "Soda Junkie",
+    maxLevel: 50,
     stats: {
       "hp": 62,
       "hp_boost": 0.09,
@@ -24,6 +25,7 @@ export default {
   "carpenter": {
     type: "character",
     name: "Carpenter",
+    maxLevel: 50,
     stats: {
       "hp": 63,
       "hp_boost": 0.09,
@@ -46,6 +48,7 @@ export default {
   "miner": {
     type: "character",
     name: "Miner",
+    maxLevel: 50,
     stats: {
       "hp": 61,
       "hp_boost": 0.09,
@@ -68,6 +71,7 @@ export default {
   "nurse": { 
     type: "character",
     name: "Nurse", 
+    maxLevel: 50,
     stats: {
       "hp": 63,
       "hp_boost": 0.09,
@@ -89,6 +93,7 @@ export default {
   "psychic": {
     type: "character",
     name: "Mystic",
+    maxLevel: 50,
     stats: {
       "hp": 65,
       "hp_boost": 0.09,
@@ -112,6 +117,7 @@ export default {
   "thief": {
     type: "character",
     name: "Thief",
+    maxLevel: 50,
     stats: {
       "hp": 67,
       "hp_boost": 0.09,
@@ -134,6 +140,7 @@ export default {
   "huntress": {
     type: "character",
     name: "Huntress",
+    maxLevel: 50,
     stats: {
       "hp": 67,
       "hp_boost": 0.09,
@@ -156,6 +163,7 @@ export default {
   "darkmage": {
     type: "character",
     name: "Darkmage",
+    maxLevel: 50,
     stats: {
       "hp": 69,
       "hp_boost": 0.09,
@@ -178,6 +186,7 @@ export default {
   "dual_wield": {
     type: "character",
     name: "Blademaster",
+    maxLevel: 50,
     stats: {
       "hp": 70,
       "hp_boost": 0.09,
@@ -198,6 +207,7 @@ export default {
   "dark_lord": {
     type: "character",
     name: "Dark Lord", 
+    maxLevel: 50,
     stats: {
       "hp": 100,
       "hp_boost": 0.09,
@@ -219,6 +229,7 @@ export default {
   "chef": { 
     type: "character",
     name: "Chef", 
+    maxLevel: 50,
     stats: {
       "hp": 43,
       "hp_boost": 0.02,

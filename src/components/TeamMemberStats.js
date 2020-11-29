@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Collapse, Table } from "react-bootstrap";
+import { Col, Collapse, Row, Table } from "react-bootstrap";
 import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
 import { loadRelics } from "../utils";
@@ -9,10 +9,12 @@ export default ({team, member}) => {
   const playerContext = usePlayerContext();
   const [open, setOpen] = useState(false);
 
-  const stats = getAggregatedStats(team, member, playerContext, dataContext);
+  const stats = calculateMemberStats(member, team, playerContext, dataContext);
+
+console.log(member.name, stats);
 
   return (
-    <Table striped size="sm">
+    <Table striped size="sm" className="mb-0">
       <thead className="thead-dark">
         <tr>
           <th>Stat</th>
@@ -24,15 +26,29 @@ export default ({team, member}) => {
           .filter(stat => stat.scope !== "team")
           .map(stat =>
             <tr>
-              <th className="table-secondary">{stat.name}</th>
-              <td>{formatStat(stat)}</td>
+              {/* TODO: Figure out a better way */}
+              <th className="table-secondary">
+                <Row noGutters>
+                  <Col xs="auto">{stat.name}</Col>
+                  <Col className="text-right">
+                    {stat.sources.map(source =>
+                      <img 
+                        src={source.image || source.item.image} 
+                        alt={source.name || source.item.name}
+                        className="rounded ml-1"
+                        style={{height: "22.4px"}} />
+                    )}
+                  </Col>
+                </Row>
+              </th>
+              <td className="text-right align-middle">{formatStat(stat)}</td>
             </tr>
           )
         }
       </tbody>
       <tbody>
         <tr className="table-dark" onClick={() => setOpen(!open)}>
-          <th colspan="2">Other Stats</th>
+          <th colspan="2">Team Stats</th>
         </tr>
       </tbody>
       <Collapse in={open}>
@@ -41,8 +57,21 @@ export default ({team, member}) => {
             .filter(stat => stat.scope === "team")
             .map(stat =>
               <tr>
-                <th className="table-secondary">{stat.name}</th>
-                <td>{formatStat(stat)}</td>
+                <th className="table-secondary">
+                  <Row>
+                    <Col xs="auto">{stat.name}</Col>
+                    <Col className="text-right">
+                      {stat.sources.map(source =>
+                        <img 
+                          src={source.image || source.item.image} 
+                          alt={source.name || source.item.name}
+                          className="rounded ml-1"
+                          style={{height: "22.4px"}} />
+                      )}
+                    </Col>
+                  </Row>
+                </th>
+                <td className="text-right align-middle">{formatStat(stat)}</td>
               </tr>
             )
           }
@@ -52,68 +81,66 @@ export default ({team, member}) => {
   );
 }
 
-const getAggregatedStats = (team, slot, playerContext, dataContext) => {
-  let petsStats = [];
-  let relicsStats = [];
+// TODO: Find a more generic way.
+const flattenMember = (member) => {
+  return [].concat(
+    member,
+    ...member.equipmentSlots,
+    ...(member.equipmentSlots || []).map(equipmentSlot => equipmentSlot.slots)
+  );
+}
 
-  const childStats = [].concat(...(slot.equipmentSlots || slot.slots || []).map(slot => 
-    getAggregatedStats(team, slot, playerContext, dataContext)));
+const calculateMemberStats = (member, team, playerContext, dataContext) => {
+  const sources = [].concat(
+    ...flattenMember(member),
+    ...team.members.filter(member => member.itemType === "pet").map(pet => flattenMember(pet)),
+    ...loadRelics(playerContext, dataContext).filter(relic => {
+      if (relic.level < 1) {
+        return false;
+      }
+      
+      if (relic.scope === "character" && relic.id === member.item.id) {
+        return true;
+      }
 
-  if (slot.itemType === "character") {
-    petsStats = [].concat(...team.members.filter(member => member.itemType === "pet").map(slot => 
-      getAggregatedStats(team, slot, playerContext, dataContext)));
+      return relic.scope !== "character";
+    })
+  );
 
-    relicsStats = loadRelics(playerContext, dataContext)
-      .filter(relic => {
-        if (relic.level < 1) {
-          return false;
-        }
-        
-        if (relic.type === "character" && relic.id === slot.item.id) {
-          return true;
-        }
+  const stats = sources.reduce((result, source) =>
+    (source.stats || source.item.stats || []).reduce((_, stat) => {
+      if (result[stat.id] && stat.valueType !== "boolean") {
+        result[stat.id] = {
+          ...result[stat.id],
+          value: result[stat.id].value + stat.value,
+          sources: [...result[stat.id].sources, source]
+        };
+      }
+      else {
+        result[stat.id] = {...stat, sources: [source]};
+      }
 
-        return relic.type !== "character";
-      }).map(relic => relic.stats);
-  }
+      return result;
+    }, result), {});
 
-  const stats = petsStats.concat(...childStats, ...relicsStats);
-
-  if (slot.itemType === "character") {
-    console.log(stats);
-  }
-
-  const aggregatedStats = stats.reduce((result, stat) => {
-    if (result[stat.id] && stat.valueType !== "boolean") {
-      result[stat.id] = {
-        ...result[stat.id],
-        value: result[stat.id].value + stat.value
-      };
-    }
-    else {
-      result[stat.id] = {...stat};
-    }
-
-    return result;
-  }, slot.item.stats.reduce((result, stat) => {
-    const {id, ...statData} = stat;
-
-    result[stat.id] = {...statData};
-
-    return result;
-  }, {}))
-
-  return Object.keys(aggregatedStats).map(id => ({
+  return Object.entries(stats).map(([id, value]) => ({
     id,
-    ...aggregatedStats[id]
+    ...value
   }));
 }
 
 const formatStat = (stat) => {
   switch (stat.valueType) {
     case "percent":
-      return `${(100 * stat.value).toFixed(2)}%`;
+      return new Intl.NumberFormat(navigator.language, {
+        style: 'percent',
+        maximumFractionDigits: 2
+      }).format(stat.value);
 
-    default: return `${stat.value}`;
+    case "boolean":
+      return stat.value.toString();
+
+    default:
+      return new Intl.NumberFormat(navigator.language).format(stat.value);
   }
 };
