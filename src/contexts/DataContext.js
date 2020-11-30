@@ -9,6 +9,7 @@ import relics from "../data/relics";
 import resource_ores from "../data/resource_ores";
 import shields from "../data/shields";
 import slots from "../data/slots";
+import skills from "../data/skills";
 import stats from "../data/stats";
 import upgrades from "../data/upgrades";
 import weapons from "../data/weapons";
@@ -28,7 +29,8 @@ const DataContext = createContext({
   images,
   relics,
   slots,
-  stats
+  stats,
+  skills
 });
 
 const useDataContext = () => {

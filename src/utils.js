@@ -55,9 +55,22 @@ const loadItem = (itemId, dataContext) => {
     stats: loadItemStats(item, dataContext),
     image: item.type
       ? dataContext.images[getImageCollectionIdForItem(item)][item.id]
-      : null
+      : null,
+    skills: loadItemSkills(item, dataContext)
   };
 }
+
+const loadItemSkills = (item, dataContext) => 
+  ((item || {}).skills || []).map(skillId => {
+    const skill = dataContext.skills[skillId];
+
+    return {
+      id: skillId,
+      ...skill,
+      image: dataContext.images.skills[skillId],
+      stats: loadItemStats(skill, dataContext)
+    };
+  });
 
 const loadPlayerItem = (itemId, playerContext, dataContext) => {
   const item = loadItem(itemId, dataContext);

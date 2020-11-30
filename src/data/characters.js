@@ -88,7 +88,8 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     }, 
-    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"] 
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"],
+    skills: ["strike"]
   },
   "psychic": {
     type: "character",

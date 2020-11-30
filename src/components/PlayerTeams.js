@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { nanoid } from "nanoid";
 import { Button, Col, Dropdown, DropdownButton, Form, InputGroup, Modal, Row } from "react-bootstrap";
 import FormGroupImage from "./FormGroupImage";
@@ -102,8 +102,6 @@ export default ({...props}) => {
 const AddTeamModal = ({show, onHide, addTeam, ...props}) => {
   const nameRef = useRef();
   const [teamName, setTeamName] = useState("");
-
-  useEffect(() => nameRef.current && nameRef.current.focus());
 
   return (
     <Modal show={show} onHide={onHide} centered>

@@ -101,7 +101,14 @@ export default {
     "stat": "./images/icons/relic_tab_stat.png"
   },
   skills: {
-    "burp": "./images/skills/skill_burp.png"
+    "burp": "./images/skills/skill_burp.png",
+    "group_heal": "./images/skills/skill_group_heal.png",
+    "heal": "./images/skills/skill_heal.png",
+    "phantasmal_claw": "./images/skills/skill_phantasmal_claw.png",
+    "shadow_slicer_2": "./images/skills/skill_shadow_slicer_2.png",
+    "skull_bash": "./images/skills/skill_skull_bash.png",
+    "strike": "./images/skills/skill_strike.png",
+    "tech_laser": "./images/skills/skill_tech_laser.png"
   },
   relics: {
     "hp": "./images/relics/relic_1.png",

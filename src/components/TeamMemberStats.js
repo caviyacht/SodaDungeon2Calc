@@ -74,8 +74,35 @@ export default ({team, member}) => {
           }
         </tbody>
       </Collapse>
+      {/* TODO: Put this somewhere else */}
+      <tbody>
+        <tr className="table-dark">
+          <th colspan="2">Character Skills</th>
+        </tr>
+      </tbody>
+      <tbody>
+        {flattenMemberSkills(member).map(skill =>
+          <>
+            <tr>
+              <th colspan="2">
+                <img src={skill.image} alt={skill.name} className="mr-1" style={{height: "22.4px"}} />{skill.name}
+              </th>
+            </tr>
+            {skill.stats.map(stat =>
+              <tr>
+                <th className="table-secondary">{stat.name}</th>
+                <td className="text-right">{formatStat(stat)}</td>
+              </tr>
+            )}
+          </>
+        )}
+      </tbody>
     </Table>
   );
+}
+
+const flattenMemberSkills = (member) => {
+  return [].concat(...flattenMember(member).map(slot => slot.item.skills));
 }
 
 // TODO: Find a more generic way.
@@ -137,6 +164,9 @@ const formatStat = (stat) => {
 
     case "boolean":
       return stat.value.toString();
+
+    case "multiplier":
+      return `${stat.value}x`;
 
     default:
       return new Intl.NumberFormat(navigator.language).format(stat.value);

@@ -1,11 +1,10 @@
 export default {
   "hp": { name: "HP", valueType: "number" },
-  "hp_boost": { name: "HP Boost", valueType: "percent", affectsStatId: "hp" },
-  "hp_boost_kitchen": { name: "HP Boost (kitchen)", valueType: "percent", affectsStatId: "hp" },
+  "hp_boost": { name: "HP Boost", valueType: "percent" },
   "atk": { name: "ATK", valueType: "number" },
-  "atk_boost": { name: "ATK Boost", valueType: "percent", affectsStatId: "atk" },
+  "atk_boost": { name: "ATK Boost", valueType: "percent" },
   "mp": { name: "MP", valueType: "number" },
-  "mp_boost": { name: "MP Boost", valueType: "percent", affectsStatId: "mp" },
+  "mp_boost": { name: "MP Boost", valueType: "percent" },
   "crit_chance": { name: "Crit Chance", valueType: "percent" },
   "crit_bonus": { name: "Crit Bonus", valueType: "percent" },
   "magic_boost": { name: "Magic Boost", valueType: "percent" },
@@ -24,5 +23,11 @@ export default {
   "mastery_xp_boost": { name: "XP Boost", valueType: "percent", scope: "team" },
   "prevents_burn": { name: "Prevents Burn", valueType: "boolean" },
   "prevents_stone": { name: "Prevents Stone", valueType: "boolean" },
-  "prevents_back_atk_bonus": { name: "Prevents Back ATK Bonus", valueType: "boolean" }
+  "prevents_back_atk_bonus": { name: "Prevents Back ATK Bonus", valueType: "boolean" },
+  "chance_to_burn": { name: "Chance to Burn", valueType: "percent" },
+
+  // Custom stats
+  "hp_boost_kitchen": { name: "HP Boost (kitchen)", valueType: "percent" },
+  "atk_multiplier": { name: "ATK Multiplier", valueType: "multiplier" },
+  "gives_back_atk_bonus": { name: "Gives Back ATK Bonus", valueType: "boolean" }
 };
