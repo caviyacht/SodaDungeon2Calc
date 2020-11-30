@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { nanoid } from "nanoid";
 import { Button, Col, Dropdown, DropdownButton, Form, InputGroup, Modal, Row } from "react-bootstrap";
 import FormGroupImage from "./FormGroupImage";
@@ -13,32 +13,40 @@ export default ({...props}) => {
   const playerContext = usePlayerContext();
   const teamContext = useTeamContext();
   const [teamId, setTeamId] = useState(null);
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [showRemoveModal, setShowRemoveModal] = useState(false);
-  const [teamName, setTeamName] = useState("");
+  const [showAddTeamModal, setShowAddTeamModal] = useState(false);
+  const [showRemoveTeamModal, setShowRemoveTeamModal] = useState(false);
 
   const setTeam = teamId => {
     setTeamId(teamId);
     teamContext.setTeam(playerContext.player.teams[teamId]);
   };
 
-  const addTeam = (name) => {
-    setShowAddModal(false);
+  const addTeam = name => {
+    const teamId = nanoid();
 
     playerContext.dispatch({
       type: "ADD_TEAM",
-      payload: { id: nanoid(), name }
+      payload: { id: teamId, name }
     });
+
+    handleHideAddTeamModal();
+    setTeam(teamId);
   };
 
   const removeTeam = teamId => {
-    setShowRemoveModal(false);
-
     playerContext.dispatch({
       type: "REMOVE_TEAM",
       payload: { id: teamId }
     });
-  }
+
+    handleHideRemoveTeamModal();
+    setTeam(null);
+  };
+
+  const handleShowAddTeamModal = () => setShowAddTeamModal(true);
+  const handleHideAddTeamModal = () => setShowAddTeamModal(false);
+  const handleShowRemoveTeamModal = () => setShowRemoveTeamModal(true);
+  const handleHideRemoveTeamModal = () => setShowRemoveTeamModal(false);
 
   return (
     <>
@@ -48,7 +56,7 @@ export default ({...props}) => {
             <FormGroupImage rounded src={dataContext.images.char_portraits.recruiter}/>
           </div>
 
-          <Form.Group className="w-100">
+          <Form.Group className="w-100 mb-4">
             <Form.Label htmlFor="player-teams">Team</Form.Label>
             <InputGroup>
               <Form.Control 
@@ -69,9 +77,9 @@ export default ({...props}) => {
                   title=""
                   id="player-teams-actions-dropdown">
 
-                  <Dropdown.Item onClick={() => setShowAddModal(true)}>New Team</Dropdown.Item>
+                  <Dropdown.Item onClick={handleShowAddTeamModal}>New Team</Dropdown.Item>
                   <Dropdown.Divider />
-                  <Dropdown.Item onClick={() => setShowRemoveModal(true)}>Delete Team</Dropdown.Item>
+                  <Dropdown.Item onClick={handleShowRemoveTeamModal}>Delete Team</Dropdown.Item>
                 </DropdownButton>
               </InputGroup.Append>
             </InputGroup>
@@ -85,34 +93,50 @@ export default ({...props}) => {
         </Col>
       </Row>
 
-      <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
-        <Modal.Header>
-          <Modal.Title>Add Team</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form.Group>
-            <Form.Label htmlFor="player-teams-add-team-name">Name</Form.Label>
-            <Form.Control id="player-teams-add-team-name" value={teamName} onChange={e => setTeamName(e.target.value)} />
-          </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowAddModal(false)}>Close</Button>
-          <Button variant="primary" onClick={() => addTeam(teamName)}>Save</Button>
-        </Modal.Footer>
-      </Modal>
-
-      {showRemoveModal && <Modal show={showRemoveModal} onHide={() => setShowRemoveModal(false)}>
-        <Modal.Header>
-          <Modal.Title>Remove Team</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are  you sure you want to remove the team <strong>{playerContext.player.teams[teamId].name}</strong>?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowRemoveModal(false)}>No</Button>
-          <Button variant="primary" onClick={() => removeTeam(teamId)}>Yes</Button>
-        </Modal.Footer>
-      </Modal>}
+      <AddTeamModal show={showAddTeamModal} onHide={handleHideAddTeamModal} addTeam={addTeam} />
+      <RemoveTeamModal show={showRemoveTeamModal} onHide={handleHideRemoveTeamModal} removeTeam={removeTeam} teamId={teamId} teamName={""} />
     </>
+  );
+}
+
+const AddTeamModal = ({show, onHide, addTeam, ...props}) => {
+  const nameRef = useRef();
+  const [teamName, setTeamName] = useState("");
+
+  useEffect(() => nameRef.current && nameRef.current.focus());
+
+  return (
+    <Modal show={show} onHide={onHide} centered>
+      <Modal.Header>
+        <Modal.Title>Add Team</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form.Group controlId="player-teams-add-team-name">
+          <Form.Label>Name</Form.Label>
+          <Form.Control ref={nameRef} value={teamName} onChange={e => setTeamName(e.target.value)} />
+        </Form.Group>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={onHide}>Close</Button>
+        <Button variant="primary" onClick={() => addTeam(teamName)}>Save</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
+const RemoveTeamModal = ({teamId, teamName, show, onHide, removeTeam, ...props}) => {
+  return (
+    <Modal show={show} onHide={onHide} centered>
+      <Modal.Header>
+        <Modal.Title>Remove Team</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        Are you sure you want to remove the team <strong>{teamName}</strong>?
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={onHide}>No</Button>
+        <Button variant="primary" onClick={() => removeTeam(teamId)}>Yes</Button>
+      </Modal.Footer>
+    </Modal>
   );
 }

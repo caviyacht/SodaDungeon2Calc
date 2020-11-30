@@ -10,6 +10,11 @@ export default ({...props}) => {
 
   const characters = getCharacters(playerContext, dataContext);
 
+  const setCharacterLevel = (itemId, level) => playerContext.dispatch({
+    type: "SET_ITEM_LEVEL",
+    payload: { itemId, level }
+  })
+
   return (
     <Row xs={1} lg={2}>
       {characters.map(character =>
@@ -18,10 +23,10 @@ export default ({...props}) => {
             <FormGroupImage src={character.item.image} rounded />
           </div>
 
-          <FormGroup className="w-100">
-            <FormLabel htmlFor={`character-${character.id}`}>{character.item.name}</FormLabel>
+          <FormGroup controlId={`character-${character.id}`} className="w-100">
+            <FormLabel>{character.item.name}</FormLabel>
             <InputGroup>
-              <FormControl id={`character-${character.id}`} type="number" min="1" max="50" value={character.item.level} />
+              <FormControl type="number" min="1" max="50" value={character.item.level} onChange={e => setCharacterLevel(character.id, e.target.value)} />
 
               <InputGroup.Append>
                 <InputGroup.Text className="bg-dark text-light">{"/" + character.item.maxLevel}</InputGroup.Text>

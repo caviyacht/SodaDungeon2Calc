@@ -10,6 +10,11 @@ export default ({...props}) => {
 
   const pets = getpets(playerContext, dataContext);
 
+  const setPetLevel = (itemId, level) => playerContext.dispatch({
+    type: "SET_ITEM_LEVEL",
+    payload: { itemId, level }
+  })
+
   return (
     <Row xs={1} lg={2}>
       {pets.map(pet =>
@@ -21,7 +26,7 @@ export default ({...props}) => {
           <FormGroup className="w-100">
             <FormLabel htmlFor={`pet-${pet.id}`}>{pet.item.name}</FormLabel>
             <InputGroup>
-              <FormControl id={`pet-${pet.id}`} type="number" min="1" max="50" value={pet.item.level} />
+              <FormControl id={`pet-${pet.id}`} type="number" min="1" max="50" value={pet.item.level} onChange={e => setPetLevel(pet.id, e.target.value)} />
 
               <InputGroup.Append>
                 <InputGroup.Text className="bg-dark text-light">{"/" + pet.item.maxLevel}</InputGroup.Text>
