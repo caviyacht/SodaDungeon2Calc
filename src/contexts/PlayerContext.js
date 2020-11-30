@@ -154,6 +154,34 @@ const reducer = dataContext => (state, action) => {
         }
       };
 
+    case "ADD_TEAM":
+      return {
+        ...state,
+        teams: {
+          ...state.teams,
+          [payload.id]: {
+            name: payload.name,
+            members: {
+              "pet_1": { itemId: null },
+              "character_1": { itemId: null },
+              "character_2": { itemId: null },
+              "character_3": { itemId: null },
+              "character_4": { itemId: null },
+              "character_5": { itemId: null },
+              "character_6": { itemId: null }
+            }
+          }
+        }
+      };
+
+    case "REMOVE_TEAM":
+      const { [payload.id]: team, ...teams } = state.teams;
+
+      return {
+        ...state,
+        teams
+      };
+
     default: throw new Error();
   }
 };

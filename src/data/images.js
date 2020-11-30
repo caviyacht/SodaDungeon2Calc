@@ -93,7 +93,8 @@ export default {
     "kitchen": "./images/upgrades/thumbnail_kitchen.png"
   },
   char_portraits: {
-    "mystery": "./images/portraits/char_portrait_mystery_1.png"
+    "mystery": "./images/portraits/char_portrait_mystery_1.png",
+    "recruiter": "./images/portraits/char_portrait_recruiter_1.png"
   },
   relic_tabs: {
     "class": "./images/icons/relic_tab_class.png",

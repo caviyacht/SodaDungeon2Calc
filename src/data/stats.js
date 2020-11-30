@@ -1,6 +1,7 @@
 export default {
   "hp": { name: "HP", valueType: "number" },
   "hp_boost": { name: "HP Boost", valueType: "percent", affectsStatId: "hp" },
+  "hp_boost_kitchen": { name: "HP Boost (kitchen)", valueType: "percent", affectsStatId: "hp", scope: "team" },
   "atk": { name: "ATK", valueType: "number" },
   "atk_boost": { name: "ATK Boost", valueType: "percent", affectsStatId: "atk" },
   "mp": { name: "MP", valueType: "number" },

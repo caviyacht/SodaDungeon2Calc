@@ -19,7 +19,10 @@ export default ({team, pet}) => {
   return (
     <Card>
       <Tab.Container defaultActiveKey={pet.id}>
-        <Card.Header className="bg-dark">
+        <Card.Header className="bg-dark text-light text-center py-1 border-bottom-0">
+          Pet
+        </Card.Header>
+        <Card.Header className="bg-dark pt-0">
           <Nav justify variant="tabs">
             <ItemNavItem eventKey={pet.id} item={pet.item} defaultIcon={getIconForSlot(pet, dataContext)} />
             <ItemNavItem eventKey={`${pet.id}-allsight`} item={loadItem("allsight", dataContext)} />
@@ -32,7 +35,7 @@ export default ({team, pet}) => {
               <SlotItemSelect slot={pet} setItem={setMember} />
             </Tab.Pane>
 
-            <Tab.Pane eventKey={`${pet.id}-allsight`}>
+            <Tab.Pane eventKey={`${pet.id}-allsight`} className="m-n3">
               <ItemStats item={pet.item} />
             </Tab.Pane>
           </Tab.Content>

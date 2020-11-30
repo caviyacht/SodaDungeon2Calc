@@ -20,11 +20,11 @@ export default ({setActiveKey}) => {
         <Nav className="flex-md-column flex-row w-100 justify-content-between">
           <Nav.Link eventKey="home" className="pl-0">Home</Nav.Link>
           <Nav.Link eventKey="teams" className="pl-0">Teams</Nav.Link>
+          <Nav.Link eventKey="relics" className="pl-0">Relics</Nav.Link>
 
           <Dropdown as={NavItem} id="data-dropdown">
             <Dropdown.Toggle as={NavLink} className="pl-0">Data</Dropdown.Toggle>
             <Dropdown.Menu align={{md: "left"}}>
-              <Dropdown.Item eventKey="relics">Relics</Dropdown.Item>
               <Dropdown.Item eventKey="characters">Characters</Dropdown.Item>
               <Dropdown.Item eventKey="pets">Pets</Dropdown.Item>
               <Dropdown.Item eventKey="items">Items</Dropdown.Item>

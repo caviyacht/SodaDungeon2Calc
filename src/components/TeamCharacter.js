@@ -6,6 +6,7 @@ import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
 import { getIconForSlot, loadItem } from "../utils";
 import TeamMemberStats from "./TeamMemberStats";
+import classNames from "classnames";
 
 export default ({team, character}) => {
   const dataContext = useDataContext();
@@ -29,7 +30,10 @@ export default ({team, character}) => {
   return (
     <Card>
       <Tab.Container defaultActiveKey={character.id}>
-        <Card.Header className="bg-dark">
+        <Card.Header className="bg-dark text-light text-center py-1 border-bottom-0">
+          Position {character.id.split('_').pop()}
+        </Card.Header>
+        <Card.Header className="bg-dark pt-0">
           <Nav justify variant="tabs">
             <ItemNavItem 
               eventKey={character.id} 
@@ -55,14 +59,17 @@ export default ({team, character}) => {
               <SlotItemSelect slot={character} setItem={setMember} />
             </Tab.Pane>
 
-            {character.equipmentSlots.map(equipmentSlot =>
+            {character.equipmentSlots.map((equipmentSlot, index) =>
               <Tab.Pane eventKey={`${character.id}-${equipmentSlot.id}`}>
-                <SlotItemSelect slot={equipmentSlot} setItem={setMemberEquipmentSlot(equipmentSlot.id)} />
+                <SlotItemSelect 
+                  slot={equipmentSlot} 
+                  setItem={setMemberEquipmentSlot(equipmentSlot.id)} />
 
                 {equipmentSlot.slots.map(slot =>
                   <SlotItemSelect 
                     slot={slot} 
-                    setItem={setMemberEquipmentSlotSlot(equipmentSlot.id, slot.id)} />
+                    setItem={setMemberEquipmentSlotSlot(equipmentSlot.id, slot.id)}
+                    className="mt-4" />
                 )}
               </Tab.Pane>
             )}

@@ -9,7 +9,7 @@ export default ({item, shouldAggregate, ...props}) => {
     : item.stats;
 
   return (
-    <Table striped size="sm">
+    <Table striped size="sm" className="mb-0">
       <thead className="thead-dark">
         <tr>
           <th>Stat</th>

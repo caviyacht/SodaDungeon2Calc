@@ -3,11 +3,11 @@ import { FormControl, InputGroup } from "react-bootstrap";
 import { useDataContext } from "../contexts/DataContext";
 import { getIconForSlot } from "../utils";
 
-export default ({slot, setItem}) => {
+export default ({slot, setItem, ...props}) => {
   const dataContext = useDataContext();
 
   return (
-    <InputGroup className={["mb-3"]}>
+    <InputGroup className={props.className}>
       <InputGroup.Prepend>
         <span className="mr-2" style={{
           width: "38px",//"calc(1.5em + 1rem + 8px)",

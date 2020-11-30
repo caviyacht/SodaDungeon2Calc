@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Col, Collapse, Row, Table } from "react-bootstrap";
 import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
-import { loadRelics } from "../utils";
+import { loadPlayerItem, loadRelics } from "../utils";
 
 export default ({team, member}) => {
   const dataContext = useDataContext();
@@ -11,14 +11,11 @@ export default ({team, member}) => {
 
   const stats = calculateMemberStats(member, team, playerContext, dataContext);
 
-console.log(member.name, stats);
-
   return (
     <Table striped size="sm" className="mb-0">
       <thead className="thead-dark">
         <tr>
-          <th>Stat</th>
-          <th>Value</th>
+          <th colspan="2">Character Stats</th>
         </tr>
       </thead>
       <tbody>
@@ -104,7 +101,8 @@ const calculateMemberStats = (member, team, playerContext, dataContext) => {
       }
 
       return relic.scope !== "character";
-    })
+    }),
+    loadPlayerItem("kitchen", playerContext, dataContext)
   );
 
   const stats = sources.reduce((result, source) =>

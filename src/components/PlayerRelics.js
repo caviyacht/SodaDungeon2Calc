@@ -3,12 +3,13 @@ import { Col,  FormControl, FormGroup, FormLabel, InputGroup, Nav, Row, Tab } fr
 import FormGroupImage from "./FormGroupImage";
 import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
+import { loadRelics } from "../utils";
 
 export default ({...props}) => {
   const dataContext = useDataContext();
   const playerContext = usePlayerContext();
 
-  const relics = getRelics(playerContext, dataContext);
+  const relics = loadRelics(playerContext, dataContext);
 
   const setRelicLevel = (relicId, level) => playerContext.dispatch({
     type: "SET_RELIC_LEVEL",
@@ -16,10 +17,11 @@ export default ({...props}) => {
   })
 
   return (
-    <Tab.Container defaultActiveKey="1">
+    <Tab.Container defaultActiveKey="favorites">
       <Row xs={1} lg={2}>
         <Col lg={2} className="mb-4">
           <Nav justify variant="pills" className="flex-lg-column">
+            <Nav.Link eventKey="favorites">Favorites</Nav.Link>
             <Nav.Link eventKey="1">Main</Nav.Link>
             <Nav.Link eventKey="2">Other</Nav.Link>
             <Nav.Link eventKey="3">Character</Nav.Link>
@@ -27,9 +29,10 @@ export default ({...props}) => {
         </Col>
         <Col lg={10}>
           <Tab.Content>
-            <RelicTabPane relics={relics} groupId="1" setRelicLevel={setRelicLevel} />
-            <RelicTabPane relics={relics} groupId="2" setRelicLevel={setRelicLevel} />
-            <RelicTabPane relics={relics} groupId="3" setRelicLevel={setRelicLevel} />
+            <RelicTabPane relics={relics.filter(relic => relic.isFavorite)} eventKey="favorites" setRelicLevel={setRelicLevel} />
+            <RelicTabPane relics={relics.filter(relic => relic.groupId === "1")} eventKey="1" setRelicLevel={setRelicLevel} />
+            <RelicTabPane relics={relics.filter(relic => relic.groupId === "2")} eventKey="2" setRelicLevel={setRelicLevel} />
+            <RelicTabPane relics={relics.filter(relic => relic.groupId === "3")} eventKey="3" setRelicLevel={setRelicLevel} />
           </Tab.Content>
         </Col>
       </Row>
@@ -37,24 +40,24 @@ export default ({...props}) => {
   );
 }
 
-const RelicTabPane = ({relics, groupId, setRelicLevel}) => {
+const RelicTabPane = ({relics, eventKey, setRelicLevel}) => {
   return (
-    <Tab.Pane eventKey={groupId}>
+    <Tab.Pane eventKey={eventKey}>
       <Row xs={1} lg={2}>
-        {relics.filter(relic => relic.item.groupId === groupId).map(relic =>
+        {relics.map(relic =>
           <Col className="d-flex">
             <div className="mr-2" style={{flex: "0 0 70px"}}>
-              <FormGroupImage src={relic.item.image}/>
+              <FormGroupImage src={relic.image}/>
             </div>
 
             <FormGroup className="w-100">
-              <FormLabel htmlFor={`relic-${relic.id}`}>{relic.item.name}</FormLabel>
+              <FormLabel htmlFor={`relic-${relic.id}`}>{relic.name}</FormLabel>
               <InputGroup>
-                <FormControl id={`relic-${relic.id}`} type="number" min="1" value={relic.item.level} onChange={e => setRelicLevel(relic.id, e.target.value)}/>
+                <FormControl id={`relic-${relic.id}`} type="number" min="1" value={relic.level} onChange={e => setRelicLevel(relic.id, e.target.value)}/>
 
-                {relic.item.type === "maxable" &&
+                {relic.hasOwnProperty("maxLevel") &&
                   <InputGroup.Append>
-                    <InputGroup.Text className="bg-dark text-light">{"/" + relic.item.maxLevel}</InputGroup.Text>
+                    <InputGroup.Text className="bg-dark text-light">{"/" + relic.maxLevel}</InputGroup.Text>
                   </InputGroup.Append>
                 }
               </InputGroup>
@@ -65,21 +68,3 @@ const RelicTabPane = ({relics, groupId, setRelicLevel}) => {
     </Tab.Pane>
   );
 }
-
-const getRelics = (playerContext, dataContext) =>
-  Object
-    .keys(dataContext.relics)
-    .map(id => {
-      const item = dataContext.relics[id];
-      const playerRelic = playerContext.player.relics[id] || {};
-
-      return {
-        id,
-        item: {
-          ...item,
-          name: (dataContext.stats[id] || dataContext.items[id]).name, // TODO: Maybe put this somewhere else?
-          image: dataContext.images.relics[id],
-          ...playerRelic
-        }
-      };
-    });

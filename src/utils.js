@@ -59,6 +59,20 @@ const loadItem = (itemId, dataContext) => {
   };
 }
 
+const loadPlayerItem = (itemId, playerContext, dataContext) => {
+  const item = loadItem(itemId, dataContext);
+  const playerItem = playerContext.player.items[itemId] || { level: 0 };
+
+  return {
+    ...item,
+    stats: item.stats.map(stat => ({
+      ...stat,
+      value: stat.value * playerItem.level // TODO: Is this right?
+    })),
+    ...playerItem
+  };
+}
+
 const getImageCollectionIdForItem = (item) => {
   if (/y$/.test(item.type)) {
     return item.type.replace(/y$/, "ies");
@@ -136,6 +150,7 @@ export {
   loadItem,
   loadItemStats,
   loadRelics,
+  loadPlayerItem,
 
   getIconForSlot
 };

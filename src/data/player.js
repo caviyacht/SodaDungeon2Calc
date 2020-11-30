@@ -1,16 +1,40 @@
 export default {
-  floor: 6000000,
+  floor: 6438221,
   items: {
-    "rock": { level: 8, isFavorite: true },
+    "rock": { level: 8 },
+    "darkmage": { level: 50 },
+    "miner": { level: 50 },
+    "thief": { level: 50 },
+    "dark_lord": { level: 50 },
+    "carpenter": { level: 50 },
     "nurse": { level: 50 },
-    "chef": { level: 1 },
-    "103": { level: 10, isFavorite: true },
+    "dual_wield": { level: 50 },
+    "103": { level: 10 },
     "kitchen": { level: 10 }
   },
   relics: {
-    "hp": { level: 210000, isFavorite: true },
-    "hp_regen": { level: 1 },
-    "nurse": { level: 100000, isFavorite: true }
+    "hp": { level: 270700, isFavorite: true },
+    "gold_find": { level: 660900, isFavorite: true },
+    "mp": { level: 4000 },
+    "atk": { level: 40000, isFavorite: true },
+    "crit_chance": { level: 250 },
+    "essence_find": { level: 100 },
+    "hp_regen": { level: 100 },
+    "crit_bonus": { level: 250 },
+    "phys_boost": { level: 16000, isFavorite: true },
+    "magic_boost": { level: 50000, isFavorite: true },
+    "chance_for_dungeon_keys": { level: 300 },
+    "mastery_xp_boost": { level: 100 },
+    "ore_find": { level: 100 },
+    "status_resist": { level: 50 },
+    "dmg_reflection": { level: 100 },
+    "darkmage": { level: 11000 },
+    "miner": { level: 1000 },
+    "thief": { level: 100000, isFavorite: true },
+    "dark_lord": { level: 200000, isFavorite: true },
+    "carpenter": { level: 1000 },
+    "nurse": { level: 100000, isFavorite: true },
+    "dual_wield": { level: 141600, isFavorite: true }
   },
   teams: {
     "default": {
