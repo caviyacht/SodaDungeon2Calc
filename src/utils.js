@@ -139,7 +139,7 @@ const loadRelicStats = (relic, playerRelic, dataContext) =>
         id: statId,
         ...dataContext.stats[statId],
         value: value * playerRelic.level,
-        scope
+        scope: scope || dataContext.stats[statId].scope
       };
     });
 

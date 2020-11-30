@@ -91,6 +91,7 @@ const calculateMemberStats = (member, team, playerContext, dataContext) => {
   const sources = [].concat(
     ...flattenMember(member),
     ...team.members.filter(member => member.itemType === "pet").map(pet => flattenMember(pet)),
+    // TODO: Figure out a way to remove team stats that are not from the character.
     ...loadRelics(playerContext, dataContext).filter(relic => {
       if (relic.level < 1) {
         return false;
