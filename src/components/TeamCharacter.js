@@ -6,7 +6,6 @@ import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
 import { getIconForSlot, loadItem } from "../utils";
 import TeamMemberStats from "./TeamMemberStats";
-import classNames from "classnames";
 
 export default ({team, character}) => {
   const dataContext = useDataContext();
@@ -46,10 +45,6 @@ export default ({team, character}) => {
                 item={equipmentSlot.item}
                 defaultIcon={getIconForSlot(equipmentSlot, dataContext)} />
             )}
-
-            <ItemNavItem 
-              eventKey={`${character.id}-allsight`} 
-              item={loadItem("allsight", dataContext)} />
           </Nav>
         </Card.Header>
 
@@ -73,12 +68,12 @@ export default ({team, character}) => {
                 )}
               </Tab.Pane>
             )}
-
-            <Tab.Pane eventKey={`${character.id}-allsight`} className="m-n3">
-              <TeamMemberStats team={team} member={character} />
-            </Tab.Pane>
           </Tab.Content>
         </Card.Body>
+
+        <Card.Footer className="p-0">
+          <TeamMemberStats team={team} member={character} />
+        </Card.Footer>
       </Tab.Container>
     </Card>
   );

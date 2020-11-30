@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Col, Collapse, Row, Table } from "react-bootstrap";
+import { Badge, Col, Collapse, Row, Table } from "react-bootstrap";
 import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
 import { loadPlayerItem, loadRelics } from "../utils";
@@ -7,52 +7,64 @@ import { loadPlayerItem, loadRelics } from "../utils";
 export default ({team, member}) => {
   const dataContext = useDataContext();
   const playerContext = usePlayerContext();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState({
+    character: false,
+    team: false,
+    skills: false
+  });
+
+  const handleSetOpen = type => () => {
+    setOpen({
+      ...open,
+      [type]: !open[type]
+    })
+  };
 
   const stats = calculateMemberStats(member, team, playerContext, dataContext);
+  const characterStats = stats.filter(stat => stat.scope !== "team");
+  const teamStats = stats.filter(stat => stat.scope === "team");
+  const skills = flattenMemberSkills(member);
 
   return (
     <Table striped size="sm" className="mb-0">
-      <thead className="thead-dark">
+      <thead className="thead-dark" onClick={handleSetOpen("character")}>
         <tr>
-          <th colspan="2">Character Stats</th>
+          <th colspan="2">Character Stats <Badge variant="light">{characterStats.length}</Badge></th>
         </tr>
       </thead>
-      <tbody>
-        {stats
-          .filter(stat => stat.scope !== "team")
-          .map(stat =>
-            <tr>
-              {/* TODO: Figure out a better way */}
-              <th className="table-secondary">
-                <Row noGutters>
-                  <Col xs="auto">{stat.name}</Col>
-                  <Col className="text-right">
-                    {stat.sources.map(source =>
-                      <img 
-                        src={source.image || source.item.image} 
-                        alt={source.name || source.item.name}
-                        className="rounded ml-1"
-                        style={{height: "22.4px"}} />
-                    )}
-                  </Col>
-                </Row>
-              </th>
-              <td className="text-right align-middle">{formatStat(stat)}</td>
-            </tr>
-          )
-        }
-      </tbody>
-      <tbody>
-        <tr className="table-dark" onClick={() => setOpen(!open)}>
-          <th colspan="2">Team Stats</th>
+      <Collapse in={open.character}>
+        <tbody>
+          {characterStats.map(stat =>
+              <tr>
+                {/* TODO: Figure out a better way */}
+                <th className="table-secondary">
+                  <Row noGutters>
+                    <Col xs="auto">{stat.name}</Col>
+                    <Col className="text-right">
+                      {stat.sources.map(source =>
+                        <img 
+                          src={source.image || source.item.image} 
+                          alt={source.name || source.item.name}
+                          className="rounded ml-1"
+                          style={{height: "22.4px"}} />
+                      )}
+                    </Col>
+                  </Row>
+                </th>
+                <td className="text-right align-middle">{formatStat(stat)}</td>
+              </tr>
+            )
+          }
+        </tbody>
+      </Collapse>
+      <tbody className="border-top-0">
+        <tr className="thead-dark" onClick={handleSetOpen("team")}>
+          <th colspan="2">Team Stats <Badge variant="light">{teamStats.length}</Badge></th>
         </tr>
       </tbody>
-      <Collapse in={open}>
+      <Collapse in={open.team}>
         <tbody>
-          {stats
-            .filter(stat => stat.scope === "team")
-            .map(stat =>
+          {teamStats.map(stat =>
               <tr>
                 <th className="table-secondary">
                   <Row>
@@ -74,29 +86,30 @@ export default ({team, member}) => {
           }
         </tbody>
       </Collapse>
-      {/* TODO: Put this somewhere else */}
-      <tbody>
-        <tr className="table-dark">
-          <th colspan="2">Character Skills</th>
+      <tbody className="border-top-0">
+        <tr className="thead-dark" onClick={handleSetOpen("skills")}>
+          <th colspan="2">Character Skills <Badge variant="light">{skills.length}</Badge></th>
         </tr>
       </tbody>
-      <tbody>
-        {flattenMemberSkills(member).map(skill =>
-          <>
-            <tr>
-              <th colspan="2">
-                <img src={skill.image} alt={skill.name} className="mr-1" style={{height: "22.4px"}} />{skill.name}
-              </th>
-            </tr>
-            {skill.stats.map(stat =>
+      <Collapse in={open.skills}>
+        <tbody>
+          {skills.map(skill =>
+            <>
               <tr>
-                <th className="table-secondary">{stat.name}</th>
-                <td className="text-right">{formatStat(stat)}</td>
+                <th colspan="2">
+                  <img src={skill.image} alt={skill.name} className="mr-1" style={{height: "22.4px"}} />{skill.name}
+                </th>
               </tr>
-            )}
-          </>
-        )}
-      </tbody>
+              {skill.stats.map(stat =>
+                <tr>
+                  <th className="table-secondary">{stat.name}</th>
+                  <td className="text-right">{formatStat(stat)}</td>
+                </tr>
+              )}
+            </>
+          )}
+        </tbody>
+      </Collapse>
     </Table>
   );
 }
