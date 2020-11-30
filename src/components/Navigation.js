@@ -22,7 +22,7 @@ export default ({setActiveKey}) => {
           <Nav.Link eventKey="teams" className="pl-0">Teams</Nav.Link>
           <Nav.Link eventKey="relics" className="pl-0">Relics</Nav.Link>
 
-          <Dropdown as={NavItem} id="data-dropdown">
+          <Dropdown as={NavItem} id="data-dropdown" className="d-md-none">
             <Dropdown.Toggle as={NavLink} className="pl-0">Data</Dropdown.Toggle>
             <Dropdown.Menu align={{md: "left"}}>
               <Dropdown.Item eventKey="characters">Characters</Dropdown.Item>
@@ -30,6 +30,10 @@ export default ({setActiveKey}) => {
               <Dropdown.Item eventKey="items">Items</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
+
+          <Nav.Link eventKey="characters" className="pl-0 d-none d-md-block">Characters</Nav.Link>
+          <Nav.Link eventKey="pets" className="pl-0 d-none d-md-block">Pets</Nav.Link>
+          <Nav.Link eventKey="items" className="pl-0 d-none d-md-block">Items</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
