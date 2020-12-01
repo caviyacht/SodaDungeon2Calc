@@ -29,7 +29,8 @@ export default ({team, member}) => {
     <Table borderless striped size="sm" className="mb-0" style={{width: "100.1%"}}>
       <thead className="thead-dark" onClick={handleSetOpen("character")}>
         <tr>
-          <th colSpan="2">Character Stats <Badge variant="light">{characterStats.length}</Badge></th>
+          <th>Character Stats <Badge variant="light">{characterStats.length}</Badge></th>
+          <th className="text-right">{open.character ? "-" : "+"}</th>
         </tr>
       </thead>
       <Collapse in={open.character}>
@@ -59,7 +60,8 @@ export default ({team, member}) => {
       </Collapse>
       <tbody className="border-top-0">
         <tr className="thead-dark" onClick={handleSetOpen("team")}>
-          <th colSpan="2">Team Stats <Badge variant="light">{teamStats.length}</Badge></th>
+          <th>Team Stats <Badge variant="light">{teamStats.length}</Badge></th>
+          <th className="text-right">{open.team ? "-" : "+"}</th>
         </tr>
       </tbody>
       <Collapse in={open.team}>
@@ -88,7 +90,8 @@ export default ({team, member}) => {
       </Collapse>
       <tbody className="border-top-0">
         <tr className="thead-dark" onClick={handleSetOpen("skills")}>
-          <th colSpan="2">Character Skills <Badge variant="light">{skills.length}</Badge></th>
+          <th>Character Skills <Badge variant="light">{skills.length}</Badge></th>
+          <th className="text-right">{open.skills ? "-" : "+"}</th>
         </tr>
       </tbody>
       <Collapse in={open.skills}>
