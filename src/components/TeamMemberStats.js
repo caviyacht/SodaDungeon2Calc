@@ -26,7 +26,7 @@ export default ({team, member}) => {
   const skills = flattenMemberSkills(member);
 
   return (
-    <Table borderless striped size="sm" className="mb-0" style={{width: "100.1%"}}>
+    <Table borderless size="sm" className="mb-0" style={{width: "100.1%"}}>
       <thead className="thead-dark" onClick={handleSetOpen("character")}>
         <tr>
           <th>Character Stats <Badge variant="light">{characterStats.length}</Badge></th>
@@ -37,7 +37,6 @@ export default ({team, member}) => {
         <tbody>
           {characterStats.map(stat =>
               <tr>
-                {/* TODO: Figure out a better way */}
                 <th className="table-secondary">
                   <Row noGutters>
                     <Col xs="auto">{stat.name}</Col>
