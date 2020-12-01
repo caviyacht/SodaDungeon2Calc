@@ -26,10 +26,10 @@ export default ({team, member}) => {
   const skills = flattenMemberSkills(member);
 
   return (
-    <Table striped size="sm" className="mb-0">
+    <Table borderless striped size="sm" className="mb-0" style={{width: "100.1%"}}>
       <thead className="thead-dark" onClick={handleSetOpen("character")}>
         <tr>
-          <th colspan="2">Character Stats <Badge variant="light">{characterStats.length}</Badge></th>
+          <th colSpan="2">Character Stats <Badge variant="light">{characterStats.length}</Badge></th>
         </tr>
       </thead>
       <Collapse in={open.character}>
@@ -59,7 +59,7 @@ export default ({team, member}) => {
       </Collapse>
       <tbody className="border-top-0">
         <tr className="thead-dark" onClick={handleSetOpen("team")}>
-          <th colspan="2">Team Stats <Badge variant="light">{teamStats.length}</Badge></th>
+          <th colSpan="2">Team Stats <Badge variant="light">{teamStats.length}</Badge></th>
         </tr>
       </tbody>
       <Collapse in={open.team}>
@@ -88,7 +88,7 @@ export default ({team, member}) => {
       </Collapse>
       <tbody className="border-top-0">
         <tr className="thead-dark" onClick={handleSetOpen("skills")}>
-          <th colspan="2">Character Skills <Badge variant="light">{skills.length}</Badge></th>
+          <th colSpan="2">Character Skills <Badge variant="light">{skills.length}</Badge></th>
         </tr>
       </tbody>
       <Collapse in={open.skills}>
@@ -96,7 +96,7 @@ export default ({team, member}) => {
           {skills.map(skill =>
             <>
               <tr>
-                <th colspan="2">
+                <th colSpan="2">
                   <img src={skill.image} alt={skill.name} className="mr-1" style={{height: "22.4px"}} />{skill.name}
                 </th>
               </tr>
