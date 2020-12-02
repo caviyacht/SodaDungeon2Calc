@@ -25,6 +25,10 @@ const createSlots = (currentSlots, item) =>
   }, getSlotsTemplateForItem(item));
 
 const createMember = (currentMember, itemId, dataContext) => {
+  if (itemId === "") {
+    return { itemId: null };
+  }
+  
   const item = dataContext.items[itemId];
 
   // TODO: Find a better way without hardcoding this value.
@@ -59,7 +63,7 @@ const setMember = (state, { teamId, memberId, itemId }, dataContext) => ({
   }
 });
 
-const setMemberEquipmentSlot = (state, { teamId, memberId, equipmentId, itemId }, dataContext) => ({
+const setMemberEquipmentSlot = (state, { teamId, memberId, equipmentSlotId, itemId }, dataContext) => ({
   ...state,
   teams: {
     ...state.teams,
@@ -71,8 +75,8 @@ const setMemberEquipmentSlot = (state, { teamId, memberId, equipmentId, itemId }
           ...state.teams[teamId].members[memberId],
           equipmentSlots: {
             ...state.teams[teamId].members[memberId].equipmentSlots,
-            [equipmentId]: createMemberEquipmentSlot(
-              state.teams[teamId].members[memberId].equipmentSlots[equipmentId],
+            [equipmentSlotId]: createMemberEquipmentSlot(
+              state.teams[teamId].members[memberId].equipmentSlots[equipmentSlotId],
               itemId,
               dataContext)
           }
@@ -82,7 +86,7 @@ const setMemberEquipmentSlot = (state, { teamId, memberId, equipmentId, itemId }
   }
 });
 
-const setMemberEquipmentSlotSlot = (state, { teamId, memberId, equipmentId, slotId, itemId }, dataContext) => ({
+const setMemberEquipmentSlotSlot = (state, { teamId, memberId, equipmentSlotId, slotId, itemId }, dataContext) => ({
   ...state,
   teams: {
     ...state.teams,
@@ -94,12 +98,12 @@ const setMemberEquipmentSlotSlot = (state, { teamId, memberId, equipmentId, slot
           ...state.teams[teamId].members[memberId],
           equipmentSlots: {
             ...state.teams[teamId].members[memberId].equipmentSlots,
-            [equipmentId]: {
-              ...state.teams[teamId].members[memberId].equipmentSlots[equipmentId],
+            [equipmentSlotId]: {
+              ...state.teams[teamId].members[memberId].equipmentSlots[equipmentSlotId],
               slots: {
-                ...state.teams[teamId].members[memberId].equipmentSlots[equipmentId].slots,
+                ...state.teams[teamId].members[memberId].equipmentSlots[equipmentSlotId].slots,
                 [slotId]: createMemberEquipmentSlotSlot(
-                  state.teams[teamId].members[memberId].equipmentSlots[equipmentId].slots[slotId],
+                  state.teams[teamId].members[memberId].equipmentSlots[equipmentSlotId].slots[slotId],
                   itemId,
                   dataContext)
               }
@@ -115,13 +119,13 @@ const reducer = dataContext => (state, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case "SET_MEMBER":
+    case "SET_TEAM_MEMBER":
       return setMember(state, payload, dataContext);
 
-    case "SET_MEMBER_EQUIPMENT_SLOT":
+    case "SET_TEAM_MEMBER_EQUIPMENT_SLOT":
       return setMemberEquipmentSlot(state, payload, dataContext);;
 
-    case "SET_MEMBER_EQUIPMENT_SLOT_SLOT":
+    case "SET_TEAM_MEMBER_EQUIPMENT_SLOT_SLOT":
       return setMemberEquipmentSlotSlot(state, payload, dataContext);
 
     case "SET_FLOOR":
