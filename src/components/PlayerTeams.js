@@ -74,7 +74,7 @@ export default () => {
                 <DropdownButton
                   as={InputGroup.Append}
                   variant="dark"
-                  title="..."
+                  title="Actions"
                   id="player-teams-actions-dropdown">
 
                   <Dropdown.Item onClick={handleShowAddTeamModal}>New Team</Dropdown.Item>

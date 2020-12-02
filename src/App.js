@@ -3,6 +3,7 @@ import { Col, Container, Row, Tab } from "react-bootstrap";
 import { PlayerProvider } from "./contexts/PlayerContext";
 import { TeamProvider } from "./contexts/TeamContext";
 import PlayerTeams from "./components/PlayerTeams";
+import PlayerRelics from "./components/PlayerRelics";
 import AppNavigation from "./components/AppNavigation";
 import playerData from "./data/player"; // TODO: Load this from somewhere else
 
@@ -21,28 +22,38 @@ const AppContent = () => {
   const [activeKey, setActiveKey] = useState("home");
 
   return (
-    <Tab.Container activeKey={activeKey}>
-      <AppNavigation onSelect={setActiveKey} />
+    <>
+      <Tab.Container activeKey={activeKey}>
+        <AppNavigation onSelect={setActiveKey} />
 
-      <Container className="pt-4">
-        <Tab.Content>
-          <Tab.Pane eventKey="home">
-            <Row>
-              <Col>
-                <h1>Home</h1>
-                <p className="lead">
-                  Welcome to the Soda Dungeon 2 Calculator!
-                </p>
-              </Col>
-            </Row>
-          </Tab.Pane>
+        <Container className="pt-4">
+          <Tab.Content>
+            <Tab.Pane eventKey="home">
+              <Row>
+                <Col>
+                  <h1>Home</h1>
+                  <p className="lead">
+                    Welcome to the Soda Dungeon 2 Calculator!
+                  </p>
+                </Col>
+              </Row>
+            </Tab.Pane>
 
-          <Tab.Pane eventKey="teams">
-            <PlayerTeams />
-          </Tab.Pane>
-        </Tab.Content>
+            <Tab.Pane eventKey="teams">
+              <PlayerTeams />
+            </Tab.Pane>
+
+            <Tab.Pane eventKey="relics">
+              <PlayerRelics/>
+            </Tab.Pane>
+          </Tab.Content>
+        </Container>
+      </Tab.Container>
+      
+      <Container fluid className="bg-dark mt-auto">
+        <Container className="text-right">Created by caviyacht</Container>
       </Container>
-    </Tab.Container>
+    </>
   );
 }
 
