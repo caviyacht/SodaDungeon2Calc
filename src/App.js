@@ -93,13 +93,15 @@ const AppContent = () => {
 }
 
 const BreakpointViewer = () => {
+  const prefixCopy = "Hey developer, you're at breakpoint: ";
+
   return (
     <Container fluid className="bg-info">
-      <div className="d-block d-sm-none">Breakpoint: XS</div>
-      <div className="d-none d-sm-block d-md-none">Breakpoint: SM</div>
-      <div className="d-none d-md-block d-lg-none">Breakpoint: MD</div>
-      <div className="d-none d-lg-block d-xl-none">Breakpoint: LG</div>
-      <div className="d-none d-xl-block">Breakpoint: XL</div>
+      <div className="d-block d-sm-none">{prefixCopy} XS</div>
+      <div className="d-none d-sm-block d-md-none">{prefixCopy} SM</div>
+      <div className="d-none d-md-block d-lg-none">{prefixCopy} MD</div>
+      <div className="d-none d-lg-block d-xl-none">{prefixCopy} LG</div>
+      <div className="d-none d-xl-block">{prefixCopy} XL</div>
     </Container>
   );
 }
