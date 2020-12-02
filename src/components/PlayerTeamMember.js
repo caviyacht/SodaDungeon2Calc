@@ -218,15 +218,21 @@ const calculateSkillStats = (memberStats, skill, dataContext) => {
   const memberMagicBoost = memberStats.filter(stat => stat.id === "magic_boost")[0];
   const skillAtkMultiplier = skill.stats.filter(stat => stat.id === "atk_multiplier")[0];
   
+  if (!skillAtkMultiplier) {
+    return skill.stats;
+  }
+
   return [].concat(
     {
       ...loadStat("atk_total", dataContext),
-      value: memberAtkTotal.value * (
+      value: Math.floor(
         // TODO: This is terrible, configure this somewhere
-        skill.category === "physical"
-          ? (1 + memberPhysBoost.value)
-          : (1 + memberMagicBoost.value)
-      ) * (skillAtkMultiplier || { value: 1 }).value
+        memberAtkTotal.value * (
+          skill.category === 
+            "physical"
+              ? (1 + memberPhysBoost.value)
+              : (1 + memberMagicBoost.value)
+        ) * (skillAtkMultiplier || { value: 1 }).value)
     },
     ...skill.stats
   );

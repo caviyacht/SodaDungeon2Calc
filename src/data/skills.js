@@ -3,9 +3,9 @@ export default {
     type: "skill", 
     name: "Strike", 
     category: "physical", 
-    stats: { "gives_back_atk_bonus": true } 
+    stats: { "atk_multiplier": 1, "gives_back_atk_bonus": true } 
   },
-  "defed": { 
+  "defend": { 
     type: "skill", 
     name: "Defend", 
     category: "physical", 
