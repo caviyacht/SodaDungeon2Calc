@@ -42,12 +42,24 @@ const createMember = (currentMember, itemId, dataContext) => {
   };
 };
 
-const createMemberEquipmentSlot = (currentEquipmentSlot, itemId, dataContext) => ({
-  itemId,
-  slots: createSlots(currentEquipmentSlot.slots, dataContext.items[itemId])
-});
+const createMemberEquipmentSlot = (currentEquipmentSlot, itemId, dataContext) => {
+  if (itemId === "") {
+    return { itemId: null };
+  }
 
-const createMemberEquipmentSlotSlot = (currentSlot, itemId, dataContext) => ({ itemId });
+  return {
+    itemId,
+    slots: createSlots(currentEquipmentSlot.slots, dataContext.items[itemId])
+  };
+}
+
+const createMemberEquipmentSlotSlot = (currentSlot, itemId, dataContext) => {
+  if (itemId === "") {
+    return { itemId: null };
+  }
+  
+  return { itemId };
+}
 
 const setMember = (state, { teamId, memberId, itemId }, dataContext) => ({
   ...state,

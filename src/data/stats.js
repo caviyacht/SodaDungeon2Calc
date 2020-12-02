@@ -25,6 +25,7 @@ export default {
   "prevents_stone": { name: "Prevents Stone", valueType: "boolean" },
   "prevents_back_atk_bonus": { name: "Prevents Back ATK Bonus", valueType: "boolean" },
   "chance_to_burn": { name: "Chance to Burn", valueType: "percent" },
+  "chance_for_food": { name: "Chance for Food", valueType: "percent" },
 
   // Custom stats
   "hp_boost_kitchen": { name: "HP Boost (kitchen)", valueType: "percent" },
