@@ -2,3 +2,29 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.team-member {
+  border: 0 !important;
+}
+
+.team-member .card-header {
+  padding: 0 !important;
+  border-bottom: 0 !important;
+}
+
+.team-member .card-header-tabs {
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
+  margin-left: 0 !important;
+  border-bottom: 0 !important;
+}
+
+.team-member .nav-tabs .nav-link {
+  border: 0 !important;
+  background-color: #2b3e50; /* body.backgroundColor */
+}
+
+.team-member .nav-tabs .nav-link.active {
+  border: 0 !important;
+  background-color: var(--secondary);
+}

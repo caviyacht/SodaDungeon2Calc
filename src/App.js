@@ -13,11 +13,13 @@ import Player from "./components/Player";
 import PlayerCharacters from "./components/PlayerCharacters";
 import PlayerPets from "./components/PlayerPets";
 import PlayerTeams from "./components/PlayerTeams";
+import Test from "./Test";
 
 export default ({...props}) => {
   return (
     <PlayerProvider data={loadPlayer()}>
       <TeamProvider>
+        <Test />
         <AppContent/>
       </TeamProvider>
     </PlayerProvider>

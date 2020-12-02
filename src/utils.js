@@ -156,6 +156,85 @@ const loadRelicStats = (relic, playerRelic, dataContext) =>
       };
     });
 
+const flattenMemberSkills = (member) => {
+  return [].concat(...flattenMember(member).map(slot => slot.item.skills));
+}
+
+const flattenMember = (member) => {
+  return [].concat(
+    member,
+    ...member.equipmentSlots,
+    ...(member.equipmentSlots || []).map(equipmentSlot => equipmentSlot.slots)
+  );
+}
+
+const getMemberStatsSources = (member, team, playerContext, dataContext) => {
+  if (member.itemType === "pet") {
+    return [].concat(...flattenMember(member));
+  }
+
+  return [].concat(
+    ...flattenMember(member),
+    ...team.members.filter(member => member.itemType === "pet").map(pet => flattenMember(pet)),
+    ...loadRelics(playerContext, dataContext).filter(relic => {
+      if (relic.level < 1) {
+        return false;
+      }
+      
+      if (relic.scope === "character" && relic.id === member.item.id) {
+        return true;
+      }
+
+      return relic.scope !== "character" && relic.scope !== "team";
+    }),
+    loadPlayerItem("kitchen", playerContext, dataContext)
+  );
+}
+
+const calculateMemberStats = (member, team, playerContext, dataContext) => {
+  const sources = getMemberStatsSources(member, team, playerContext, dataContext);
+
+  const stats = sources.reduce((result, source) =>
+    (source.stats || source.item.stats || []).reduce((_, stat) => {
+      if (result[stat.id] && stat.valueType !== "boolean") {
+        result[stat.id] = {
+          ...result[stat.id],
+          value: result[stat.id].value + stat.value,
+          sources: [...result[stat.id].sources, source]
+        };
+      }
+      else {
+        result[stat.id] = {...stat, sources: [source]};
+      }
+
+      return result;
+    }, result), {});
+
+  return Object.entries(stats).map(([id, value]) => ({
+    id,
+    ...value
+  }));
+}
+
+const formatStat = (stat) => {
+  switch (stat.valueType) {
+    case "percent":
+      return new Intl.NumberFormat(navigator.language, {
+        style: 'percent',
+        maximumFractionDigits: 2
+      }).format(stat.value);
+
+    case "boolean":
+      return stat.value.toString();
+
+    case "multiplier":
+      return `${stat.value}x`;
+
+    default:
+      return new Intl.NumberFormat(navigator.language).format(stat.value);
+  }
+};
+
 export {
   loadTeam,
   loadTeamMembers,
@@ -164,6 +243,11 @@ export {
   loadItemStats,
   loadRelics,
   loadPlayerItem,
+
+  formatStat,
+  flattenMember,
+  flattenMemberSkills,
+  calculateMemberStats,
 
   getIconForSlot
 };
