@@ -30,5 +30,9 @@ export default {
   // Custom stats
   "hp_boost_kitchen": { name: "HP Boost (kitchen)", valueType: "percent" },
   "atk_multiplier": { name: "ATK Multiplier", valueType: "multiplier" },
-  "gives_back_atk_bonus": { name: "Gives Back ATK Bonus", valueType: "boolean" }
+  "gives_back_atk_bonus": { name: "Gives Back ATK Bonus", valueType: "boolean" },
+
+  // Special stats
+  "hp_total": { name: "HP (total)", valueType: "number" },
+  "atk_total": { name: "ATK (total)", valueType: "number" }
 };

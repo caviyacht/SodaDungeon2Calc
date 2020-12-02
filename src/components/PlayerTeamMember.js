@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Badge, Card, Collapse, Form, InputGroup, Nav, Tab, Table } from "react-bootstrap";
 import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
-import { getIconForSlot, getItemsForSlot, calculateMemberStats, formatStat, flattenMemberSkills } from "../utils";
+import { getIconForSlot, getItemsForSlot, calculateMemberStats, formatStat, flattenMemberSkills, loadStat } from "../utils";
 
 export default ({member, team}) => {
   const playerContext = usePlayerContext();
@@ -190,9 +190,12 @@ const Stats = ({member, team}) => {
               {skills.map(skill =>
                 <>
                 <tr style={{backgroundColor: "var(--gray-dark)"}}>
-                  <th colSpan="2">{skill.name}</th>
+                  <th colSpan="2">
+                    {skill.name}
+                    <Badge variant="info" className="ml-2">{skill.category}</Badge>
+                  </th>
                 </tr>
-                {skill.stats.map(stat =>
+                {calculateSkillStats(stats, skill, dataContext).map(stat =>
                   <tr style={{borderBottom: "1px solid var(--gray)"}}>
                     <th className="bg-dark">{stat.name}</th>
                     <td className="text-right">{formatStat(stat)}</td>
@@ -205,5 +208,26 @@ const Stats = ({member, team}) => {
         </>
       }
     </Table>
+  );
+}
+
+// TODO: Possibly do this during load?
+const calculateSkillStats = (memberStats, skill, dataContext) => {
+  const memberAtkTotal = memberStats.filter(stat => stat.id === "atk_total")[0];
+  const memberPhysBoost = memberStats.filter(stat => stat.id === "phys_boost")[0];
+  const memberMagicBoost = memberStats.filter(stat => stat.id === "magic_boost")[0];
+  const skillAtkMultiplier = skill.stats.filter(stat => stat.id === "atk_multiplier")[0];
+  
+  return [].concat(
+    {
+      ...loadStat("atk_total", dataContext),
+      value: memberAtkTotal.value * (
+        // TODO: This is terrible, configure this somewhere
+        skill.category === "physical"
+          ? (1 + memberPhysBoost.value)
+          : (1 + memberMagicBoost.value)
+      ) * (skillAtkMultiplier || { value: 1 }).value
+    },
+    ...skill.stats
   );
 }

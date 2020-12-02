@@ -110,12 +110,16 @@ const loadTeamMemberEquipmentSlotSlots = (slots, dataContext) =>
       };
     });
 
+const loadStat = (statId, dataContext) => ({
+  id: statId,
+  ...dataContext.stats[statId]
+});
+
 const loadItemStats = (item, dataContext) =>
   Object
     .entries((item || {}).stats || {})
     .map(([statId, stat]) => ({
-      id: statId,
-      ...dataContext.stats[statId],
+      ...loadStat(statId, dataContext),
       value: stat,
       ...stat // Handle { value: <>, scope: <> }
     }));
@@ -210,10 +214,21 @@ const calculateMemberStats = (member, team, playerContext, dataContext) => {
       return result;
     }, result), {});
 
-  return Object.entries(stats).map(([id, value]) => ({
-    id,
-    ...value
-  }));
+  if (member.itemType === "pet") {
+    return Object.entries(stats).map(([id, value]) => ({id, ...value}));
+  }
+
+  return [].concat(
+    {
+      ...loadStat("hp_total", dataContext),
+      value: Math.floor(stats["hp"].value * (1 + stats["hp_boost"].value) * (1 + stats["hp_boost_kitchen"].value))
+    },
+    {
+      ...loadStat("atk_total", dataContext),
+      value: Math.floor(stats["atk"].value * (1 + stats["atk_boost"].value))
+    },
+    ...Object.entries(stats).map(([id, value]) => ({id, ...value }))
+  );
 }
 
 const formatStat = (stat) => {
@@ -252,6 +267,7 @@ export {
   loadItemStats,
   loadRelics,
   loadPlayerItem,
+  loadStat,
 
   formatStat,
   flattenMember,
