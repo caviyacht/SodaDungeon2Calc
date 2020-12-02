@@ -34,7 +34,7 @@ const AppContent = () => {
             <Tab.Pane eventKey="home">
               <Row className="mb-4">
                 <Col>
-                  <h1>Another Soda Dungeon 2 Calculator</h1>
+                  <h1>Yet Another Soda Dungeon 2 Calculator</h1>
                   <p className="lead">
                     How much harm could another calculator do?
                   </p>

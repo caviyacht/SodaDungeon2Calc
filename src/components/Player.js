@@ -40,7 +40,7 @@ export default () => {
         <Col>
           <h1>Upgrades</h1>
           <p className="lead">
-            Upgrades? We've got them!
+            Upgrades? We've got those.
           </p>
         </Col>
       </Row>
