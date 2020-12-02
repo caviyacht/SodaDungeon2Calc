@@ -4,7 +4,7 @@ import FormGroupImage from "./FormGroupImage";
 import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
 
-export default ({...props}) => {
+export default () => {
   const dataContext = useDataContext();
   const playerContext = usePlayerContext();
 
@@ -16,26 +16,37 @@ export default ({...props}) => {
   })
 
   return (
-    <Row xs={1} lg={2}>
-      {characters.map(character =>
-        <Col className="d-flex">
-          <div className="mr-2" style={{flex: "0 0 70px"}}>
-            <FormGroupImage src={character.item.image} rounded />
-          </div>
-
-          <FormGroup controlId={`character-${character.id}`} className="w-100">
-            <FormLabel>{character.item.name}</FormLabel>
-            <InputGroup>
-              <FormControl type="number" min="1" max="50" value={character.item.level} onChange={e => setCharacterLevel(character.id, e.target.value)} />
-
-              <InputGroup.Append>
-                <InputGroup.Text className="bg-dark text-light">{"/" + character.item.maxLevel}</InputGroup.Text>
-              </InputGroup.Append>
-            </InputGroup>
-          </FormGroup>
+    <>
+      <Row className="mb-4">
+        <Col>
+          <h1>Characters</h1>
+          <p className="lead">
+            You're not here to make friends.
+          </p>
         </Col>
-      )}
-    </Row>
+      </Row>
+
+      <Row xs={1} lg={2}>
+        {characters.map(character =>
+          <Col className="d-flex">
+            <div className="mr-2" style={{flex: "0 0 70px"}}>
+              <FormGroupImage src={character.item.image} rounded />
+            </div>
+
+            <FormGroup controlId={`character-${character.id}`} className="w-100">
+              <FormLabel>{character.item.name}</FormLabel>
+              <InputGroup>
+                <FormControl type="number" min="1" max="50" value={character.item.level} onChange={e => setCharacterLevel(character.id, e.target.value)} />
+
+                <InputGroup.Append>
+                  <InputGroup.Text className="bg-dark text-light">{"/" + character.item.maxLevel}</InputGroup.Text>
+                </InputGroup.Append>
+              </InputGroup>
+            </FormGroup>
+          </Col>
+        )}
+      </Row>
+    </>
   );
 }
 

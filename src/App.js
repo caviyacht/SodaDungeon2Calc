@@ -5,6 +5,8 @@ import { TeamProvider } from "./contexts/TeamContext";
 import Player from "./components/Player";
 import PlayerTeams from "./components/PlayerTeams";
 import PlayerRelics from "./components/PlayerRelics";
+import PlayerCharacters from "./components/PlayerCharacters";
+import PlayerPets from "./components/PlayerPets";
 import AppNavigation from "./components/AppNavigation";
 import playerData from "./data/player"; // TODO: Load this from somewhere else
 
@@ -30,11 +32,20 @@ const AppContent = () => {
         <Container className="pt-4">
           <Tab.Content>
             <Tab.Pane eventKey="home">
+              <Row className="mb-4">
+                <Col>
+                  <h1>Another Soda Dungeon 2 Calculator</h1>
+                  <p className="lead">
+                    How much harm could another calculator do?
+                  </p>
+                </Col>
+              </Row>
+
               <Row>
                 <Col>
-                  <h1>Home</h1>
+                  <h2>Getting Started</h2>
                   <p className="lead">
-                    Welcome to the Soda Dungeon 2 Calculator!
+                    Setup your player and team, but don't forget about your relics!
                   </p>
                 </Col>
               </Row>
@@ -51,12 +62,31 @@ const AppContent = () => {
             <Tab.Pane eventKey="relics">
               <PlayerRelics/>
             </Tab.Pane>
+
+            <Tab.Pane eventKey="characters">
+              <PlayerCharacters/>
+            </Tab.Pane>
+
+            <Tab.Pane eventKey="pets">
+              <PlayerPets/>
+            </Tab.Pane>
+
+            <Tab.Pane eventKey="items">
+              <Row className="mb-4">
+                <Col>
+                  <h1>Items</h1>
+                  <p className="lead">
+                    Weapons, shields, armor, oh my! (Coming Soon!)
+                  </p>
+                </Col>
+              </Row>
+            </Tab.Pane>
           </Tab.Content>
         </Container>
       </Tab.Container>
       
       <Container fluid className="bg-dark mt-auto">
-        <Container className="text-right">Created by caviyacht</Container>
+        <Container className="text-right p-2">Created by caviyacht</Container>
       </Container>
     </>
   );

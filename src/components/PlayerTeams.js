@@ -51,6 +51,15 @@ export default () => {
   return (
     <>
       <Row>
+        <Col>
+          <h1>Teams</h1>
+          <p className="lead">
+            You're going to need some help.
+          </p>
+        </Col>
+      </Row>
+
+      <Row>
         <Col xs={12} lg={6} className="d-flex mb-4">
           <div className="mr-2" style={{flex: "0 0 70px"}}>
             <FormGroupImage rounded src={dataContext.images.char_portraits.recruiter}/>
@@ -63,7 +72,7 @@ export default () => {
                 as="select" 
                 id="player-teams" onChange={e => setTeam(e.target.value)}>
 
-                <option value="">{"<Empty>"}</option>
+                <option value="">None</option>
 
                 {Object.entries(playerContext.player.teams).map(([id, value]) =>
                   <option value={id} selected={id === teamId}>{value.name}</option>

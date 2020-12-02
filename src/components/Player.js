@@ -20,17 +20,39 @@ export default () => {
   })
 
   return (
-    <Row xs={1} lg={2}>
-      <Col className="d-flex">
-        <DungeonFloorInput onInput={setFloor} />
-      </Col>
+    <>
+      <Row>
+        <Col>
+          <h1>Dungeon</h1>
+          <p className="lead">
+            Don't forget to set your floor!
+          </p>
+        </Col>
+      </Row>
 
-      <Col className="d-flex">
-        <KitchenLevelSelect 
-          item={loadPlayerItem("kitchen", playerContext, dataContext)} 
-          onSelect={setItemLevel("kitchen")} />
-      </Col>
-    </Row>
+      <Row className="mb-4">
+        <Col xs={12} lg={6} className="d-flex">
+          <DungeonFloorInput onInput={setFloor} />
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <h1>Upgrades</h1>
+          <p className="lead">
+            Upgrades? We've got them!
+          </p>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col xs={12} lg={6} className="d-flex">
+          <KitchenLevelSelect 
+            item={loadPlayerItem("kitchen", playerContext, dataContext)} 
+            onSelect={setItemLevel("kitchen")} />
+        </Col>
+      </Row>
+    </>
   );
 }
 

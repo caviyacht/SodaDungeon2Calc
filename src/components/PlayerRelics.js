@@ -17,26 +17,37 @@ export default ({...props}) => {
   })
 
   return (
-    <Tab.Container defaultActiveKey="favorites">
-      <Row xs={1} lg={2}>
-        <Col lg={2} className="mb-4">
-          <Nav justify variant="pills" className="flex-lg-column">
-            <Nav.Link eventKey="favorites">Favorites</Nav.Link>
-            <Nav.Link eventKey="1">Main</Nav.Link>
-            <Nav.Link eventKey="2">Other</Nav.Link>
-            <Nav.Link eventKey="3">Character</Nav.Link>
-          </Nav>
-        </Col>
-        <Col lg={10}>
-          <Tab.Content>
-            <RelicTabPane relics={relics.filter(relic => relic.isFavorite)} eventKey="favorites" setRelicLevel={setRelicLevel} />
-            <RelicTabPane relics={relics.filter(relic => relic.groupId === "1")} eventKey="1" setRelicLevel={setRelicLevel} />
-            <RelicTabPane relics={relics.filter(relic => relic.groupId === "2")} eventKey="2" setRelicLevel={setRelicLevel} />
-            <RelicTabPane relics={relics.filter(relic => relic.groupId === "3")} eventKey="3" setRelicLevel={setRelicLevel} />
-          </Tab.Content>
+    <>
+      <Row className="mb-4">
+        <Col>
+          <h1>Relics</h1>
+          <p className="lead">
+            Take these, you'll need them.
+          </p>
         </Col>
       </Row>
-    </Tab.Container>
+
+      <Tab.Container defaultActiveKey="favorites">
+        <Row xs={1} lg={2}>
+          <Col lg={2} className="mb-4">
+            <Nav justify variant="pills" className="flex-lg-column">
+              <Nav.Link eventKey="favorites">Favorites</Nav.Link>
+              <Nav.Link eventKey="1">Main</Nav.Link>
+              <Nav.Link eventKey="2">Other</Nav.Link>
+              <Nav.Link eventKey="3">Character</Nav.Link>
+            </Nav>
+          </Col>
+          <Col lg={10}>
+            <Tab.Content>
+              <RelicTabPane relics={relics.filter(relic => relic.isFavorite)} eventKey="favorites" setRelicLevel={setRelicLevel} />
+              <RelicTabPane relics={relics.filter(relic => relic.groupId === "1")} eventKey="1" setRelicLevel={setRelicLevel} />
+              <RelicTabPane relics={relics.filter(relic => relic.groupId === "2")} eventKey="2" setRelicLevel={setRelicLevel} />
+              <RelicTabPane relics={relics.filter(relic => relic.groupId === "3")} eventKey="3" setRelicLevel={setRelicLevel} />
+            </Tab.Content>
+          </Col>
+        </Row>
+      </Tab.Container>
+    </>
   );
 }
 
