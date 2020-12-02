@@ -20,7 +20,8 @@ export default {
       "gold_find": 0.02,
       "item_find": 1,
     },
-    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"],
+    skills: ["strike"]
   },
   "carpenter": {
     type: "character",
@@ -43,7 +44,8 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     },
-    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"],
+    skills: ["strike", "sharpen", "swift_metal", "defend"]
   },
   "miner": {
     type: "character",
@@ -66,7 +68,8 @@ export default {
       "item_find": 1,
       "ore_find": 27
     },
-    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"],
+    skills: ["strike", "transmute", "pickaxe", "defend"]
   },
   "nurse": { 
     type: "character",
@@ -89,7 +92,7 @@ export default {
       "item_find": 1
     }, 
     equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"],
-    skills: ["strike"]
+    skills: ["strike", "group_heal", "biohazard", "first_aid", "defend"]
   },
   "psychic": {
     type: "character",
@@ -113,7 +116,8 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     },
-    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"],
+    skills: ["strike", "recharge", "torment", "defend"]
   },
   "thief": {
     type: "character",
@@ -136,7 +140,8 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     },
-    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"]
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1"],
+    skills: ["strike", "ransack", "pilfer", "defend"]
   },
   "huntress": {
     type: "character",
@@ -159,7 +164,8 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     },
-    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1", "accessory_2"]
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1", "accessory_2"],
+    skills: ["strike", "mark", "defend"]
   },
   "darkmage": {
     type: "character",
@@ -182,7 +188,8 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     },
-    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1", "accessory_2"]
+    equipmentSlots: ["weapon_1", "shield_1", "armor_1", "accessory_1", "accessory_2"],
+    skills: ["strike", "curse", "noxin", "defend"]
   },
   "dual_wield": {
     type: "character",
@@ -203,7 +210,8 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     },
-    equipmentSlots: ["weapon_1", "weapon_2", "armor_1", "accessory_1"]
+    equipmentSlots: ["weapon_1", "weapon_2", "armor_1", "accessory_1"],
+    skills: ["strike", "stun", "dual_strike"]
   },
   "dark_lord": {
     type: "character",
@@ -225,7 +233,8 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     }, 
-    equipmentSlots: [{ id: "weapon_1", itemId: "99" }, "accessory_1", "accessory_2", "accessory_3"] 
+    equipmentSlots: [{ id: "weapon_1", itemId: "99" }, "accessory_1", "accessory_2", "accessory_3"],
+    skills: ["strike", "shadow_slicer_2", "defend"]
   },
   "chef": { 
     type: "character",
@@ -237,13 +246,14 @@ export default {
       "atk": 14,
       "atk_boost": 0.02,
       "dmg_reduction": 0.05,
-      "essence_find": 0.08,
+      "essence_find": 0.11,
       "gold_find": 0.20,
       "item_find": 10,
       "chance_for_dungeon_keys": 0.02,
       "ore_find": 4,
       "mastery_xp_boost": 0.07
     }, 
-    equipmentSlots: [{ id: "weapon_1", itemId: "178" }, "armor_1", "accessory_1"] 
+    equipmentSlots: [{ id: "weapon_1", itemId: "178" }, "armor_1", "accessory_1"],
+    skills: ["strike", "cook"]
   }
 };

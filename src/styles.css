@@ -23,3 +23,7 @@
   border: 0 !important;
   background-color: var(--secondary);
 }
+
+.badge-info, .badge-primary {
+  color: black;
+}

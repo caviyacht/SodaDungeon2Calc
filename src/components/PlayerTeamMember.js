@@ -148,9 +148,9 @@ const Stats = ({member, team}) => {
           }}
           onClick={handleSetOpen("stats")}>
 
-          <th>Stats <Badge variant="info">{stats.length}</Badge></th>
+          <th>Stats <Badge variant="info" className="ml-2">{stats.length}</Badge></th>
           <th class="text-right">
-            <Badge variant="primary">{open.stats ? "Hide" : "Show"}</Badge>
+          {open.stats ? "-" : "+"}
           </th>
         </tr>
       </thead>
@@ -179,9 +179,9 @@ const Stats = ({member, team}) => {
               }}
               onClick={handleSetOpen("skills")}>
 
-              <th>Skills <Badge variant="info">{skills.length}</Badge></th>
+              <th>Skills <Badge variant="info" className="ml-2">{skills.length}</Badge></th>
               <th class="text-right">
-                <Badge variant="primary">{open.skills ? "Hide" : "Show"}</Badge>
+                {open.skills ? "-" : "+"}
               </th>
             </tr>
           </tbody>

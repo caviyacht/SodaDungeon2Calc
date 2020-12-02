@@ -25,12 +25,21 @@ export default {
   "prevents_stone": { name: "Prevents Stone", valueType: "boolean" },
   "prevents_back_atk_bonus": { name: "Prevents Back ATK Bonus", valueType: "boolean" },
   "chance_to_burn": { name: "Chance to Burn", valueType: "percent" },
+  "chance_to_psn": { name: "Chance to Poison", valueType: "percent" },
   "chance_for_food": { name: "Chance for Food", valueType: "percent" },
 
   // Custom stats
   "hp_boost_kitchen": { name: "HP Boost (kitchen)", valueType: "percent" },
   "atk_multiplier": { name: "ATK Multiplier", valueType: "multiplier" },
   "gives_back_atk_bonus": { name: "Gives Back ATK Bonus", valueType: "boolean" },
+  "transmutes_target": { name: "Transmutes Target", valueType: "boolean" },
+  "steals_items_from_target": { name: "Steals Items from Target", valueType: "boolean" },
+  "steals_gold_from_target": { name: "Steals Gold from Target", valueType: "boolean" },
+  "steals_essence_from_target": { name: "Steals Essence from Target", valueType: "boolean" },
+  "turns_target_to_stone": { name: "Turns Target to Stone", valueType: "boolean" },
+  "stuns_target": { name: "Stuns Target", valueType: "boolean" },
+  "strikes_target_twice": { name: "Strikes Target Twice", valueType: "boolean" },
+  "chance_to_halve_target_hp": { name: "Chance to halve Target HP", valueType: "boolean" },
 
   // Special stats
   "hp_total": { name: "HP (total)", valueType: "number" },
