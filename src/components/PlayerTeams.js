@@ -5,10 +5,10 @@ import FormGroupImage from "./FormGroupImage";
 import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
 import { useTeamContext } from "../contexts/TeamContext";
-import Team from "./Team";
 import { loadTeam } from "../utils";
+import PlayerTeam from "./PlayerTeam";
 
-export default ({...props}) => {
+export default () => {
   const dataContext = useDataContext();
   const playerContext = usePlayerContext();
   const teamContext = useTeamContext();
@@ -51,12 +51,12 @@ export default ({...props}) => {
   return (
     <>
       <Row>
-        <Col xs={12} lg={6} className="d-flex">
+        <Col xs={12} lg={6} className="d-flex mb-4">
           <div className="mr-2" style={{flex: "0 0 70px"}}>
             <FormGroupImage rounded src={dataContext.images.char_portraits.recruiter}/>
           </div>
 
-          <Form.Group className="w-100 mb-4">
+          <Form.Group className="w-100">
             <Form.Label htmlFor="player-teams">Team</Form.Label>
             <InputGroup>
               <Form.Control 
@@ -89,7 +89,7 @@ export default ({...props}) => {
 
       <Row>
         <Col>
-          <Team team={loadTeam(teamId, playerContext, dataContext)} />
+          <PlayerTeam team={loadTeam(teamId, playerContext, dataContext)} />
         </Col>
       </Row>
 

@@ -235,6 +235,15 @@ const formatStat = (stat) => {
   }
 };
 
+const getItemsForSlot = (slot, dataContext) =>
+  Object
+    .entries(dataContext.items)
+    .filter(([id, item]) => item.type === slot.itemType)
+    .map(([id, item]) => ({
+      id,
+      ...item
+    }));
+
 export {
   loadTeam,
   loadTeamMembers,
@@ -249,5 +258,6 @@ export {
   flattenMemberSkills,
   calculateMemberStats,
 
-  getIconForSlot
+  getIconForSlot,
+  getItemsForSlot
 };

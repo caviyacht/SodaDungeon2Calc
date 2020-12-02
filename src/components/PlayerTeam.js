@@ -1,20 +1,19 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import TeamPet from "./TeamPet";
-import TeamCharacter from "./TeamCharacter";
+import PlayerTeamMember from "./PlayerTeamMember";
 
 export default ({team}) => {
   return (
     <Row xs={1} lg={2}>
-      {getTeamMembersForItemType("character", team).map(character =>
-        <Col lg={{order: getTeamMemberOrder(character)}} className="mb-4">
-          <TeamCharacter team={team} character={character} />
+      {getTeamMembersForItemType("character", team).map(member =>
+        <Col lg={{order: getTeamMemberOrder(member)}} className="mb-4">
+          <PlayerTeamMember member={member} team={team} />
         </Col>
       )}
 
-      {getTeamMembersForItemType("pet", team).map(pet =>
-        <Col lg={{order: getTeamMemberOrder(pet)}} className="mb-4">
-          <TeamPet team={team} pet={pet} />
+      {getTeamMembersForItemType("pet", team).map(member =>
+        <Col lg={{order: getTeamMemberOrder(member)}} className="mb-4">
+          <PlayerTeamMember member={member} team={team} />
         </Col>
       )}
     </Row>
