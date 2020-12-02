@@ -214,8 +214,7 @@ const Stats = ({member, team}) => {
 // TODO: Possibly do this during load?
 const calculateSkillStats = (memberStats, skill, dataContext) => {
   const memberAtkTotal = memberStats.filter(stat => stat.id === "atk_total")[0];
-  const memberPhysBoost = memberStats.filter(stat => stat.id === "phys_boost")[0];
-  const memberMagicBoost = memberStats.filter(stat => stat.id === "magic_boost")[0];
+  const memberBoost = memberStats.filter(stat => stat.id === `${skill.category}_boost`)[0];
   const skillAtkMultiplier = skill.stats.filter(stat => stat.id === "atk_multiplier")[0];
   
   if (!skillAtkMultiplier) {
@@ -226,13 +225,10 @@ const calculateSkillStats = (memberStats, skill, dataContext) => {
     {
       ...loadStat("atk_total", dataContext),
       value: Math.floor(
-        // TODO: This is terrible, configure this somewhere
-        memberAtkTotal.value * (
-          skill.category === 
-            "physical"
-              ? (1 + memberPhysBoost.value)
-              : (1 + memberMagicBoost.value)
-        ) * (skillAtkMultiplier || { value: 1 }).value)
+        memberAtkTotal.value 
+          * (1 + memberBoost.value) 
+          * (skillAtkMultiplier || { value: 1 }).value
+      )
     },
     ...skill.stats
   );

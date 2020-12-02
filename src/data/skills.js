@@ -2,19 +2,19 @@ export default {
   "strike": {
     type: "skill", 
     name: "Strike", 
-    category: "physical", 
+    category: "phys", 
     stats: { "atk_multiplier": 1, "gives_back_atk_bonus": true } 
   },
   "defend": { 
     type: "skill", 
     name: "Defend", 
-    category: "physical", 
+    category: "phys", 
     stats: { } 
   },
   "burp": { 
     type: "skill", 
     name: "Big Burp", 
-    category: "physical", 
+    category: "phys", 
     stats: { "atk_multiplier": 1.8, "chance_to_psn": 0.25 } 
   },
   "sharpen": {
@@ -27,7 +27,7 @@ export default {
   "swift_metal": {
     type: "skill",
     name: "Nailed It",
-    category: "physical",
+    category: "phys",
     // TODO: The default is `2`, assume the upgrade
     stats: { "atk_multiplier": 4 }
   },
@@ -40,7 +40,7 @@ export default {
   "pickaxe": {
     type: "skill",
     name: "Pickaxe",
-    category: "physical",
+    category: "phys",
     stats: { "atk_multiplier": 0.75, "ore_bust": 5 }
   },
   "group_heal": {
@@ -78,7 +78,7 @@ export default {
   "ransack": {
     type: "skill",
     name: "Ransack",
-    category: "physical",
+    category: "phys",
     stats: { 
       "atk_multiplier": 1.2, 
       "steals_items_from_target": true,
@@ -89,7 +89,7 @@ export default {
   "pilfer": {
     type: "skill",
     name: "Pilfer",
-    category: "physical",
+    category: "phys",
     // TODO: Figure out how to make the stats either or
     stats: {
       "steals_items_from_target": true,
@@ -118,33 +118,33 @@ export default {
   "stun": {
     type: "skill",
     name: "Stun",
-    category: "physical",
+    category: "phys",
     stats: { "stuns_target": { value: true, scope: "target", turns: 2 } }
   },
   "dual_strike": {
     type: "skill",
     name: "Double Strike",
-    category: "physical",
+    category: "phys",
     stats: { "strikes_target_twice": true }
   },
   "shadow_slicer_2": {
     type: "skill",
     name: "Shadow Slicer",
-    category: "physical",
+    category: "phys",
     // TODO: The base multiplier is `0.5`, affected by number of team members
     stats: { "atk_multiplier": 3 }
   },
   "cook": {
     type: "skill",
     name: "Order Up",
-    category: "physical",
+    category: "phys",
     // TODO: Figure out how to handle the meals
     stats: { }
   },
   "rock_toss": {
     type: "skill",
     name: "Rock Toss",
-    category: "physical",
+    category: "phys",
     stats: { "atk_multiplier": 1.1 }
   },
   "heal": {
