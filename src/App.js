@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Col, Container, Row, Tab } from "react-bootstrap";
 import { PlayerProvider } from "./contexts/PlayerContext";
 import { TeamProvider } from "./contexts/TeamContext";
+import Player from "./components/Player";
 import PlayerTeams from "./components/PlayerTeams";
 import PlayerRelics from "./components/PlayerRelics";
 import AppNavigation from "./components/AppNavigation";
@@ -37,6 +38,10 @@ const AppContent = () => {
                   </p>
                 </Col>
               </Row>
+            </Tab.Pane>
+
+            <Tab.Pane eventKey="player">
+              <Player/>
             </Tab.Pane>
 
             <Tab.Pane eventKey="teams">

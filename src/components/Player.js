@@ -3,8 +3,9 @@ import { Col, Form, InputGroup, Row } from "react-bootstrap";
 import FormGroupImage from "./FormGroupImage";
 import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
+import { loadPlayerItem } from "../utils";
 
-export default ({player, ...props}) => {
+export default () => {
   const dataContext = useDataContext();
   const playerContext = usePlayerContext();
   
@@ -13,44 +14,67 @@ export default ({player, ...props}) => {
     payload: { floor }
   })
 
-  const setItemLevel = (itemId, level) => playerContext.dispatch({
+  const setItemLevel = itemId => level => playerContext.dispatch({
     type: "SET_ITEM_LEVEL",
     payload: { itemId, level }
   })
 
-  // TODO: Make more components.
   return (
     <Row xs={1} lg={2}>
       <Col className="d-flex">
-        <div className="mr-2" style={{flex: "0 0 70px"}}>
-          <FormGroupImage src={dataContext.images.icons.stairs}/>
-        </div>
-
-        <Form.Group className="w-100">
-          <Form.Label htmlFor="player-dungeon-floor">Dungeon Floor</Form.Label>
-          <InputGroup>
-            <Form.Control id="player-dungeon-floor" type="number" min="1" value={player.floor} onChange={e => setFloor(e.target.value)} />
-          </InputGroup>
-        </Form.Group>
+        <DungeonFloorInput onInput={setFloor} />
       </Col>
 
       <Col className="d-flex">
-        <div className="mr-2" style={{flex: "0 0 70px"}}>
-          <FormGroupImage src={dataContext.images.upgrades.kitchen}/>
-        </div>
-
-        <Form.Group className="w-100">
-          <Form.Label htmlFor="player-upgrades-kitchen-level">Kitchen Level</Form.Label>
-          <InputGroup>
-            <Form.Control as="select" id="player-upgrades-kitchen-level" onChange={e => setItemLevel("kitchen", e.target.value)}>
-              {[...Array(dataContext.items.kitchen.maxLevel + 1).keys()].map(level =>
-                <option value={level}>{level}</option>
-              )}
-            </Form.Control>
-          </InputGroup>
-        </Form.Group>
+        <KitchenLevelSelect 
+          item={loadPlayerItem("kitchen", playerContext, dataContext)} 
+          onSelect={setItemLevel("kitchen")} />
       </Col>
     </Row>
   );
 }
 
+const DungeonFloorInput = ({onInput}) => {
+  const dataContext = useDataContext();
+  const playerContext = usePlayerContext();
+
+  return (
+    <>
+      <div className="mr-2" style={{flex: "0 0 70px"}}>
+        <FormGroupImage src={dataContext.images.icons.stairs}/>
+      </div>
+
+      <Form.Group controlId="player-dungeon-floor" className="w-100">
+        <Form.Label>Dungeon Floor</Form.Label>
+        <InputGroup>
+          <Form.Control 
+            type="number" 
+            min="1" 
+            value={playerContext.player.floor}
+            onChange={e => onInput(e.target.value)} />
+        </InputGroup>
+      </Form.Group>
+    </>
+  );
+}
+
+const KitchenLevelSelect = ({item, onSelect}) => {
+  return (
+    <>
+      <div className="mr-2" style={{flex: "0 0 70px"}}>
+        <FormGroupImage src={item.image}/>
+      </div>
+
+      <Form.Group controlId="player-upgrades-kitchen-level" className="w-100">
+        <Form.Label>Kitchen Level</Form.Label>
+        <InputGroup>
+          <Form.Control as="select" onChange={e => onSelect(e.target.value)}>
+            {[...Array(item.maxLevel + 1).keys()].map(level =>
+              <option value={level} selected={level === item.level}>{level}</option>
+            )}
+          </Form.Control>
+        </InputGroup>
+      </Form.Group>
+    </>
+  );
+}
