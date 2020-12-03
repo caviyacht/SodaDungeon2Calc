@@ -27,3 +27,38 @@
 .badge-info, .badge-primary {
   color: black;
 }
+
+.stuff {
+  background-image: linear-gradient(to right, 
+    rgb(255, 153, 0), 
+    rgb(255, 153, 0) 20%, 
+    rgb(255, 185, 51) 20%, 
+    rgb(255, 185, 51) 40%, 
+    rgb(255, 217, 102) 40%, 
+    rgb(255, 217, 102) 60%, 
+    rgb(154, 193, 93) 60%, 
+    rgb(154, 193, 93) 80%, 
+    rgb(52, 168, 83) 80%, 
+    rgb(52, 168, 83) 100%);
+}
+
+.bg-survivability-0-10 {
+  background-color: rgb(52, 168, 83);
+}
+
+.bg-survivability-10-25 {
+  background-color: rgba(154, 193, 93, 0.8);
+}
+
+.bg-survivability-25-50 {
+  background-color: rgba(255, 217, 102, 0.6);
+}
+
+.bg-survivability-50-75 {
+  background-color: rgba(255, 185, 51, 0.2);
+}
+
+.bg-survivability-75-100 {
+  background-color: rgb(255, 153, 0);
+}
+

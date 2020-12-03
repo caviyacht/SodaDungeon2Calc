@@ -231,6 +231,13 @@ const calculateMemberStats = (member, team, playerContext, dataContext) => {
   );
 }
 
+// TODO: This isn't consistent with the other functions.
+const calculateTeamStats = (team, playerContext, dataContext) =>
+  team.members.map(member => ({
+    member,
+    stats: calculateMemberStats(member, team, playerContext, dataContext)
+  }));
+
 const formatStat = (stat) => {
   switch (stat.valueType) {
     case "percent":
@@ -273,6 +280,7 @@ export {
   flattenMember,
   flattenMemberSkills,
   calculateMemberStats,
+  calculateTeamStats,
 
   getIconForSlot,
   getItemsForSlot
