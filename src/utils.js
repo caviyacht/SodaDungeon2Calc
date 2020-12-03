@@ -1,3 +1,13 @@
+const isEmpty = (obj) => {
+  for (let key in obj) {
+    return false;
+  }
+
+  return true;
+}
+
+const withContext = (context, func) => func(context);
+
 // TODO: Figure out another way to configure this.
 const getIconForSlot = (slot, dataContext) => {
   switch (slot.itemType) {
@@ -267,6 +277,9 @@ const getItemsForSlot = (slot, dataContext) =>
     }));
 
 export {
+  isEmpty,
+
+
   loadTeam,
   loadTeamMembers,
   loadTeamMemberEquipmentSlots,
