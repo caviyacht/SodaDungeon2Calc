@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Dropdown, Navbar, Nav } from "react-bootstrap";
-import { useDataContext } from "../contexts/NewDataContext";
+import { useDataContext } from "../contexts/DataContext";
 
 export default ({onSelect}) => {
   const dataContext = useDataContext();

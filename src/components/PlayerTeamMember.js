@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Badge, Card, Collapse, Form, InputGroup, Nav, Tab, Table } from "react-bootstrap";
-import { useDataContext } from "../contexts/NewDataContext";
+import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/NewPlayerContext";
 import { 
   calculateMemberStats, 

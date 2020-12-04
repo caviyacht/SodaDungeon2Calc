@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Col, Row, Table } from "react-bootstrap";
-import { useDataContext } from "../contexts/NewDataContext";
+import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/NewPlayerContext";
 import { calculateTeamStats, formatStat, filter, map } from "../utils";
 import PlayerTeamMember from "./PlayerTeamMember";

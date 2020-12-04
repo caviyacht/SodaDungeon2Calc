@@ -1,7 +1,7 @@
 import React from "react";
 import { Col,  FormControl, FormGroup, FormLabel, InputGroup, Row } from "react-bootstrap";
 import FormGroupImage from "./FormGroupImage";
-import { useDataContext } from "../contexts/NewDataContext";
+import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/NewPlayerContext";
 
 export default () => {

@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { nanoid } from "nanoid";
 import { Button, Col, Dropdown, DropdownButton, Form, InputGroup, Modal, Row } from "react-bootstrap";
 import FormGroupImage from "./FormGroupImage";
-import { useDataContext } from "../contexts/NewDataContext";
+import { useDataContext } from "../contexts/DataContext";
 import { usePlayerContext } from "../contexts/NewPlayerContext";
 import { useTeamContext } from "../contexts/TeamContext";
 import PlayerTeam from "./PlayerTeam";
