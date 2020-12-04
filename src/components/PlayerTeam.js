@@ -1,29 +1,30 @@
 import React from "react";
 import { Card, Col, Row, Table } from "react-bootstrap";
-import { useDataContext } from "../contexts/DataContext";
-import { usePlayerContext } from "../contexts/PlayerContext";
-import { calculateTeamStats, formatStat } from "../utils";
+import { useDataContext } from "../contexts/NewDataContext";
+import { usePlayerContext } from "../contexts/NewPlayerContext";
+import { calculateTeamStats, formatStat, filter, map } from "../utils";
 import PlayerTeamMember from "./PlayerTeamMember";
 
 export default ({team}) => {
+  console.log(team);
   return (
     <>
-      <Row>
+      {/*<Row>
         <Col>
           <PlayerTeamSurvivability team={team} />
         </Col>
-      </Row>
+      </Row>*/}
 
       <Row xs={1} lg={2}>
-        {getTeamMembersForItemType("character", team).map(member =>
-          <Col lg={{order: getTeamMemberOrder(member)}} className="mb-4">
-            <PlayerTeamMember member={member} team={team} />
+        {map(filter(team.slots, ([_, slot]) => slot.valueType === "character"), ([_, slot]) =>
+          <Col lg={{order: getTeamMemberOrder(slot)}} className="mb-4">
+            <PlayerTeamMember member={slot} team={team} />
           </Col>
         )}
 
-        {getTeamMembersForItemType("pet", team).map(member =>
-          <Col lg={{order: getTeamMemberOrder(member)}} className="mb-4">
-            <PlayerTeamMember member={member} team={team} />
+        {map(filter(team.slots, ([_, slot]) => slot.valueType === "pet"), ([_, slot]) =>
+          <Col lg={{order: getTeamMemberOrder(slot)}} className="mb-4">
+            <PlayerTeamMember member={slot} team={team} />
           </Col>
         )}
       </Row>
@@ -194,12 +195,9 @@ const calculateAttackDamagePercent = (type, isBackAttack, teamStat, floor) => {
   return damagePercent;
 }
 
-const getTeamMembersForItemType = (itemType, team) => 
-  (team.members || []).filter(member => member.itemType === itemType);
-
 // TODO: Move this somewhere else.
 const getTeamMemberOrder = (member) => {
-  if (member.itemType === "pet") {
+  if (member.valueType === "pet") {
     return 7;
   }
 

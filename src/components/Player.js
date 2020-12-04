@@ -1,8 +1,8 @@
 import React from "react";
 import { Col, Form, InputGroup, Row } from "react-bootstrap";
 import FormGroupImage from "./FormGroupImage";
-import { useDataContext } from "../contexts/DataContext";
-import { usePlayerContext } from "../contexts/PlayerContext";
+import { useDataContext } from "../contexts/NewDataContext";
+import { usePlayerContext } from "../contexts/NewPlayerContext";
 import { loadPlayerItem } from "../utils";
 
 export default () => {
@@ -47,9 +47,9 @@ export default () => {
 
       <Row>
         <Col xs={12} lg={6} className="d-flex">
-          <KitchenLevelSelect 
+          {/*<KitchenLevelSelect 
             item={loadPlayerItem("kitchen", playerContext, dataContext)} 
-            onSelect={setItemLevel("kitchen")} />
+          onSelect={setItemLevel("kitchen")} />*/}
         </Col>
       </Row>
     </>

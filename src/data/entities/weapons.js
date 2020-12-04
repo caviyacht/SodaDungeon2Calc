@@ -1,5 +1,5 @@
 export default {
-  "aphotic_blade": { 
+  "weapon-aphotic_blade": { 
     type: "weapon", 
     subtype: "special",
     id: "aphotic_blade",
@@ -7,7 +7,7 @@ export default {
     name: "Aphotic Blade", 
     stats: { "atk": 5, "crit_chance": 0.40, "crit_bonus": 0.50 }
   },
-  "iron_skillet": { 
+  "weapon-iron_skillet": { 
     type: "weapon", 
     subtype: "special",
     id: "iron_skillet",
@@ -16,7 +16,7 @@ export default {
     stats: { "atk": 20 }
   },
 
-  "frying_pan": { 
+  "weapon-frying_pan": { 
     type: "weapon", 
     id: "frying_pan",
     internalId: "102",
@@ -24,7 +24,7 @@ export default {
     stats: { "atk": 28, "chance_for_food": 0.25, "chance_to_burn": 0.10 }, 
     slots: ["resource_ore_1"] 
   },
-  "saber": { 
+  "weapon-saber": { 
     type: "weapon", 
     id: "saber",
     internalId: "103",
@@ -32,7 +32,7 @@ export default {
     stats: { "atk": 26, "crit_chance": 0.39, "crit_bonus": 0.59, "evade": 0.29 }, 
     slots: ["resource_ore_1"] 
   },
-  "skull_blade": { 
+  "weapon-skull_blade": { 
     type: "weapon", 
     id: "skull_blade",
     internalId: "120",
@@ -41,7 +41,7 @@ export default {
     slots: ["resource_ore_1"], 
     skills: ["skull_bash"] 
   },
-  "staff_of_awareness": { 
+  "weapon-staff_of_awareness": { 
     type: "weapon", 
     id: "staff_of_awareness",
     internalId: "140",
@@ -49,7 +49,7 @@ export default {
     stats: { "atk": 33, "magic_boost": 0.28, "item_find": 28 }, 
     slots: ["resource_ore_1"] 
   },
-  "grand_sceptor": { 
+  "weapon-grand_sceptor": { 
     type: "weapon", 
     id: "grand_sceptor",
     internalId: "156",
@@ -57,7 +57,7 @@ export default {
     stats: { "atk": 68, "magic_boost": 0.48 }, 
     slots: ["resource_ore_1", "gem_1"] 
   },
-  "glass_warden": {
+  "weapon-glass_warden": {
     type: "weapon",
     id: "glass_warden",
     internalId: "168",
@@ -66,7 +66,7 @@ export default {
     slots: ["resource_ore_1"],
     skills: ["judgement"]
   },
-  "essence_reaver": { 
+  "weapon-essence_reaver": { 
     type: "weapon", 
     id: "essence_reaver",
     internalId: "170",

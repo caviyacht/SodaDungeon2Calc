@@ -36,11 +36,11 @@ export default {
   teams: {
     "default": {
       name: "Default",
-      members: {
+      slots: {
         "pet_1": { value: "rock" },
         "character_1": {
           value: "nurse",
-          equipmentSlots: {
+          slots: {
             "weapon_1": { value: "skull_blade", slots: { "resource_ore_1": { value: null } } },
             "shield_1": { value: "shield_of_the_divine", slots: { "resource_ore_1": { value: null } } },
             "armor_1": { value: "platinum_armor", slots: { "resource_ore_1": { value: null } } },
@@ -49,7 +49,7 @@ export default {
         },
         "character_2": {
           value: "thief",
-          equipmentSlots: {
+          slots: {
             "weapon_1": { value: "skull_blade", slots: { "resource_ore_1": { value: null } } },
             "shield_1": { value: "shield_of_the_divine", slots: { "resource_ore_1": { value: null } } },
             "armor_1": { value: "platinum_armor", slots: { "resource_ore_1": { value: null } } },
@@ -58,7 +58,7 @@ export default {
         },
         "character_3": {
           value: "dual_wield",
-          equipmentSlots: {
+          slots: {
             "weapon_1": { value: "saber", slots: { "resource_ore_1": { value: null } } },
             "weapon_2": { value: "saber", slots: { "resource_ore_1": { value: null } } },
             "armor_1": { value: "karuta", slots: { "resource_ore_1": { value: null } } },
@@ -67,7 +67,7 @@ export default {
         },
         "character_4": {
           value: "dual_wield",
-          equipmentSlots: {
+          slots: {
             "weapon_1": { value: "saber", slots: { "resource_ore_1": { value: null } } },
             "weapon_2": { value: "saber", slots: { "resource_ore_1": { value: null } } },
             "armor_1": { value: "karuta", slots: { "resource_ore_1": { value: null } } },
@@ -76,7 +76,7 @@ export default {
         },
         "character_5": {
           value: "dual_wield",
-          equipmentSlots: {
+          slots: {
             "weapon_1": { value: "saber", slots: { "resource_ore_1": { value: null } } },
             "weapon_2": { value: "saber", slots: { "resource_ore_1": { value: null } } },
             "armor_1": { value: "karuta", slots: { "resource_ore_1": { value: null } } },
@@ -85,7 +85,7 @@ export default {
         },
         "character_6": {
           value: "dark_lord",
-          equipmentSlots: {
+          slots: {
             "weapon_1": { value: "aphotic_blade" },
             "accessory_1": { value: "phantasmal_claw" },
             "accessory_2": { value: "back_protector" },

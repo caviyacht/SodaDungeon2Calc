@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { Badge, Card, Collapse, Form, InputGroup, Nav, Tab, Table } from "react-bootstrap";
-import { useDataContext } from "../contexts/DataContext";
-import { usePlayerContext } from "../contexts/PlayerContext";
-import { getIconForSlot, getItemsForSlot, calculateMemberStats, formatStat, flattenMemberSkills, loadStat } from "../utils";
+import { useDataContext } from "../contexts/NewDataContext";
+import { usePlayerContext } from "../contexts/NewPlayerContext";
+import { 
+  calculateMemberStats, 
+  formatStat, 
+  flattenMemberSkills, 
+  loadStat,
+  map } from "../utils";
 
 export default ({member, team}) => {
   const playerContext = usePlayerContext();
@@ -29,8 +34,8 @@ export default ({member, team}) => {
           <Nav justify variant="tabs">
             <SlotNavItem slot={member} />
 
-            {member.equipmentSlots.map(equipmentSlot =>
-              <SlotNavItem slot={equipmentSlot} />
+            {map(member.slots, ([_, slot]) =>
+              <SlotNavItem slot={slot} />
             )}
           </Nav>
         </Card.Header>
@@ -41,13 +46,13 @@ export default ({member, team}) => {
               <SlotItemSelect slot={member} onSelect={setTeamMember} />
             </Tab.Pane>
 
-            {member.equipmentSlots.map(equipmentSlot =>
+            {map(member.slots, ([_, equipmentSlot]) =>
               <Tab.Pane eventKey={equipmentSlot.id}>
                 <SlotItemSelect 
                   slot={equipmentSlot} 
                   onSelect={setTeamMemberEquipmentSlot(equipmentSlot.id)} />
 
-                {equipmentSlot.slots.map(slot =>
+                {map(equipmentSlot.slots, ([_, slot]) =>
                   <SlotItemSelect 
                     slot={slot} 
                     onSelect={setTeamMemberEquipmentSlotSlot(equipmentSlot.id, slot.id)} 
@@ -59,7 +64,7 @@ export default ({member, team}) => {
         </Card.Body>
 
         <Card.Footer className="p-0">
-          <Stats member={member} team={team} />
+          {/*<Stats member={member} team={team} />*/}
         </Card.Footer>
       </Tab.Container>
     </Card>
@@ -80,26 +85,12 @@ const Image = ({src, size}) => {
 }
 
 const SlotNavItem = ({slot}) => {
-  const dataContext = useDataContext();
-
   return (
     <Nav.Item>
       <Nav.Link eventKey={slot.id} className="px-0 pb-1">
-        <Image src={slot.item.image || getIconForSlot(slot, dataContext)} size="38px" />
+        <Image src={slot.value.image || slot.image } size="38px" />
       </Nav.Link>
     </Nav.Item>
-  );
-}
-
-const ItemSelect = ({items, selectedItem, onSelect}) => {
-  return (
-    <Form.Control as="select" onChange={e => onSelect(e.target.value)} disabled={selectedItem.isLocked}>
-      <option value="">None</option>
-
-      {items.map(item =>
-        <option value={item.id} selected={item.id === selectedItem.id} disabled={item.isLocked}>{item.name}</option>
-      )}
-    </Form.Control>
   );
 }
 
@@ -109,13 +100,26 @@ const SlotItemSelect = ({slot, onSelect, ...props}) => {
   return (
     <InputGroup className={props.className}>
       <InputGroup.Prepend className="mr-2">
-        <Image src={getIconForSlot(slot, dataContext)} size="38px" />
+        <Image src={slot.image} size="38px" />
       </InputGroup.Prepend>
 
-      <ItemSelect 
-        items={getItemsForSlot(slot, dataContext)} 
-        selectedItem={slot.item} 
-        onSelect={onSelect} />
+      <Form.Control 
+        as="select" 
+        onChange={e => onSelect(e.target.value)} 
+        disabled={slot.value.subtype === "special"}>
+
+        <option value="">None</option>
+
+        {map(dataContext.getEntitiesOfType(slot.valueType), ([_, entity]) =>
+          <option 
+            value={entity.id} 
+            selected={entity.id === slot.value.id} 
+            disabled={entity.subtype === "special"}>
+            
+            {entity.name}
+          </option>
+        )}
+      </Form.Control>
     </InputGroup>
   );
 }

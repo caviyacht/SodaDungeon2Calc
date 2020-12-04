@@ -2,10 +2,9 @@ import React, { useRef, useState } from "react";
 import { nanoid } from "nanoid";
 import { Button, Col, Dropdown, DropdownButton, Form, InputGroup, Modal, Row } from "react-bootstrap";
 import FormGroupImage from "./FormGroupImage";
-import { useDataContext } from "../contexts/DataContext";
-import { usePlayerContext } from "../contexts/PlayerContext";
+import { useDataContext } from "../contexts/NewDataContext";
+import { usePlayerContext } from "../contexts/NewPlayerContext";
 import { useTeamContext } from "../contexts/TeamContext";
-import { loadTeam } from "../utils";
 import PlayerTeam from "./PlayerTeam";
 
 export default () => {
@@ -74,6 +73,7 @@ export default () => {
 
                 <option value="">None</option>
 
+                {/* TODO: Create a function for this */}
                 {Object.entries(playerContext.player.teams).map(([id, value]) =>
                   <option value={id} selected={id === teamId}>{value.name}</option>
                 )}
@@ -98,7 +98,7 @@ export default () => {
 
       <Row>
         <Col>
-          <PlayerTeam team={loadTeam(teamId, playerContext, dataContext)} />
+          <PlayerTeam team={playerContext.loadTeam(teamId)} />
         </Col>
       </Row>
 
