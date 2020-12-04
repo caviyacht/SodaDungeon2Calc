@@ -8,6 +8,10 @@ const isEmpty = (obj) => {
 
 const withContext = (context, func) => func(context);
 
+const filter = (obj, predicate) => Object.fromEntries(Object.entries(obj).filter(predicate));
+
+const map = (obj, selector) => Object.entries(obj).map(([key, value]) => selector([key, value]));
+
 // TODO: Figure out another way to configure this.
 const getIconForSlot = (slot, dataContext) => {
   switch (slot.itemType) {
@@ -278,7 +282,9 @@ const getItemsForSlot = (slot, dataContext) =>
 
 export {
   isEmpty,
-
+  withContext,
+  filter,
+  map,
 
   loadTeam,
   loadTeamMembers,

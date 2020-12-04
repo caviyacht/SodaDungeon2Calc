@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { isEmpty, withContext } from "../utils";
+import { isEmpty, withContext, filter } from "../utils";
 import accessories from "../data/entities/accessories";
 import armors from "../data/entities/armors";
 import characters from "../data/entities/characters";
@@ -14,7 +14,10 @@ import stats from "../data/entities/stats";
 import upgrades from "../data/entities/upgrades";
 import weapons from "../data/entities/weapons";
 
+import images from "../data/images";
+
 const DataContext = createContext({
+  images,
   entities: {
     ...accessories,
     ...armors,
@@ -38,6 +41,8 @@ const useDataContext = () => {
   return initContext(context, {
     getImage,
     getEntity,
+    getEntityOfType,
+    getEntitiesOfType,
     getCharacterEntity,
     getPetEntity,
     getRelicEntity,
@@ -49,21 +54,28 @@ const useDataContext = () => {
     loadEntityStats,
     loadEntitySlots,
     loadEntitySkills,
+    loadEntityValue,
   });
-}
+};
 
 const initContext = (context, funcs) => {
-  return Object.entries(funcs).reduce((result, [name, func]) => ({
-    ...result,
-    [name]: withContext(result, func)
-  }), { data: context });
+  return Object.entries(funcs).reduce((result, [name, func]) => {
+    result[name] = withContext(result, func);
+
+    return result;
+  }, context);
 }
 
 const getEntity = context => entityId => ({
   entityId,
-  ...context.data.entities[entityId]
+  ...context.entities[entityId]
 });
 
+const getEntitiesOfType = context => type => {
+  return filter(context.entities, ([_, entity]) => entity.type === type);
+};
+
+const getEntityOfType = context => (type, id) => context.getEntity(type + "-" + id);
 const getCharacterEntity = context => id => context.getEntity("character-" + id);
 const getPetEntity = context => id => context.getEntity("pet-" + id);
 const getRelicEntity = context => id => context.getEntity("relic-" + id);
@@ -76,6 +88,7 @@ const loadEntity = context => entity => {
   const stats = context.loadEntityStats(entity);
   const slots = context.loadEntitySlots(entity);
   const skills = context.loadEntitySkills(entity);
+  const value = context.loadEntityValue(entity);
 
   return {
     ...entity,
@@ -83,10 +96,12 @@ const loadEntity = context => entity => {
     stats,
     skills,
     slots,
+    value,
     isLoaded: true,
     hasStats: !isEmpty(stats),
     hasSkills: !isEmpty(skills),
-    hasSlots: !isEmpty(slots)
+    hasSlots: !isEmpty(slots),
+    hasValue: !isEmpty(value)
   };
 };
 
@@ -100,29 +115,72 @@ const getCollectionIdForEntityId = entityId => {
   return type + "s";
 };
 
-const getImage = context => (collectionId, id) => {
-  return context.data.images[collectionId][id];
+const getImage = context => (collectionId, imageId) => {
+  const imageCollection = context.images[collectionId];
+
+  if (imageCollection === undefined) {
+    return null;
+  }
+
+  return imageCollection[imageId];
 };
 
 const loadEntityImage = context => entity => {
-  return context.getImage(getCollectionIdForEntityId(entity.entityId), entity.id);
+  const imageId = entity.internalId || entity.id;
+
+  return context.getImage(getCollectionIdForEntityId(entity.entityId), imageId);
 };
 
+const loadEntityValue = context => entity => {
+  if (entity.value === undefined) {
+    return {};
+  }
+
+  // entity.value = "id"
+  // entity.valueType = "type"
+  return context.loadEntity(context.getEntityOfType(entity.valueType, entity.value));
+}
+
 const loadEntitySkills = context => entity => {
-  return (entity.skills || [])
+  if (entity.skills === undefined) {
+    return {};
+  }
+
+  // entity.skills = ["skillId"]
+  return (entity.skills)
     .map(id => context.loadEntity(context.getSkillEntity(id)))
     .reduce((result, skill) => ({...result, [skill.id]: skill}), {});
 };
 
 const loadEntitySlots = context => entity => {
-  return (entity.slots || [])
-    .map(id => context.loadEntity(context.getSlotEntity(id)))
+  if (entity.slots === undefined) {
+    return {};
+  }
+
+  // entity.slots = ["slotId"]
+  if (Array.isArray(entity.slots)) {
+    return (entity.slots)
+      .map(id => context.loadEntity(context.getSlotEntity(id)))
+      .reduce((result, slot) => ({...result, [slot.id]: slot}), {});
+  }
+
+  // entity.slots = { slotId: { value: "id" } }
+  return Object
+    .entries(entity.slots)
+    // TODO: Figure out a different way?
+    .map(([id, slot]) => context.loadEntity({...context.getSlotEntity(id), ...slot}))
     .reduce((result, slot) => ({...result, [slot.id]: slot}), {});
 };
 
 const loadEntityStats = context => entity => {
+  if (entity.stats === undefined) {
+    return {};
+  }
+
+  // entity.stats = { statId: value }
+  // TODO: Handle `entity.stats = { statId: { value: _, ... } }`
   return Object
-    .entries(entity.stats || {})
+    .entries(entity.stats)
     .map(([id, stat]) => ({...context.getStatEntity(id), value: stat}))
     .reduce((result, value) => ({...result, [value.id]: value}), {});
 };
