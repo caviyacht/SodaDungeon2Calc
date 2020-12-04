@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { isEmpty, withContext, filter } from "../utils";
+import { isEmpty, isObject, withContext, filter } from "../utils";
 import accessories from "../data/entities/accessories";
 import armors from "../data/entities/armors";
 import characters from "../data/entities/characters";
@@ -49,6 +49,7 @@ const useDataContext = () => {
     getStatEntity,
     getSkillEntity,
     getSlotEntity,
+    getEntitySlots,
     loadEntity,
     loadEntityImage,
     loadEntityStats,
@@ -82,6 +83,23 @@ const getRelicEntity = context => id => context.getEntity("relic-" + id);
 const getStatEntity = context => id => context.getEntity("stat-" + id);
 const getSkillEntity = context => id => context.getEntity("skill-" + id);
 const getSlotEntity = context => id => context.getEntity("slot-" + id);
+
+// TODO: Figure out a new structur for these methods,
+// some take id, entity, type, etc.
+const getEntitySlots = context => entity => {
+  if (entity.slots === undefined) {
+    return {};
+  }
+
+  return entity.slots.map(value => ({
+    id: value,
+    // Handles { id: _, value: _ }
+    ...(isObject(value) && value)
+  })).reduce((result, slot) => ({
+    ...result,
+    [slot.id]: slot
+  }), {});
+};
 
 const loadEntity = context => entity => {
   const image = context.loadEntityImage(entity);

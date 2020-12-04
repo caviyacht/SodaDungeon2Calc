@@ -6,6 +6,10 @@ const isEmpty = (obj) => {
   return true;
 }
 
+const isObject = (obj) => {
+  return Object.prototype.toString.call(obj) === '[object Object]';
+}
+
 const withContext = (context, func) => func(context);
 
 const filter = (obj, predicate) => Object.fromEntries(Object.entries(obj).filter(predicate));
@@ -282,6 +286,7 @@ const getItemsForSlot = (slot, dataContext) =>
 
 export {
   isEmpty,
+  isObject,
   withContext,
   filter,
   map,
