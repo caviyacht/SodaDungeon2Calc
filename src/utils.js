@@ -16,6 +16,8 @@ const filter = (obj, predicate) => Object.fromEntries(Object.entries(obj).filter
 
 const map = (obj, selector) => Object.entries(obj).map(([key, value]) => selector([key, value]));
 
+const entityId = (type, name) => type + "-" + name;
+
 const loadRelics = (playerContext, dataContext) =>
   Object
     .keys(dataContext.relics)
