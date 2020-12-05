@@ -96,59 +96,59 @@ export default {
     },
     "mining": {
       name: "Mining",
-      members: {
-        "pet_1": { itemId: "chameleon" },
+      slots: {
+        "pet_1": { value: "chameleon" },
         "character_1": {
-          itemId: "miner",
-          equipmentSlots: {
-            "weapon_1": { itemId: "102", slots: { "resource_ore_1": { itemId: null } } },
-            "shield_1": { itemId: "154", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "164" } } },
-            "armor_1": { itemId: "143", slots: { "resource_ore_1": { itemId: null } } },
-            "accessory_1": { itemId: "129" }
+          value: "miner",
+          slots: {
+            "weapon_1": { value: "frying_pan", slots: { "resource_ore_1": { value: null } } },
+            "shield_1": { value: "cosmic_shield", slots: { "resource_ore_1": { value: null }, "gem_1": { value: "space_gem" } } },
+            "armor_1": { value: "karuta", slots: { "resource_ore_1": { value: null } } },
+            "accessory_1": { value: "silver_necklace" }
           }
         },
         "character_2": {
-          itemId: "miner",
-          equipmentSlots: {
-            "weapon_1": { itemId: "140", slots: { "resource_ore_1": { itemId: null } } },
-            "shield_1": { itemId: "154", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "164" } } },
-            "armor_1": { itemId: "143", slots: { "resource_ore_1": { itemId: null } } },
-            "accessory_1": { itemId: "129" }
+          value: "miner",
+          slots: {
+            "weapon_1": { value: "staff_of_awareness", slots: { "resource_ore_1": { value: null } } },
+            "shield_1": { value: "cosmic_shield", slots: { "resource_ore_1": { value: null }, "gem_1": { value: "space_gem" } } },
+            "armor_1": { value: "karuta", slots: { "resource_ore_1": { value: null } } },
+            "accessory_1": { value: "silver_necklace" }
           }
         },
         "character_3": {
-          itemId: "miner",
-          equipmentSlots: {
-            "weapon_1": { itemId: "170", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "164" } } },
-            "shield_1": { itemId: "154", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "164" } } },
-            "armor_1": { itemId: "143", slots: { "resource_ore_1": { itemId: null } } },
-            "accessory_1": { itemId: "129" }
+          value: "miner",
+          slots: {
+            "weapon_1": { value: "essence_reaver", slots: { "resource_ore_1": { value: null }, "gem_1": { value: "space_gem" } } },
+            "shield_1": { value: "cosmic_shield", slots: { "resource_ore_1": { value: null }, "gem_1": { value: "space_gem" } } },
+            "armor_1": { value: "karuta", slots: { "resource_ore_1": { value: null } } },
+            "accessory_1": { value: "silver_necklace" }
           }
         },
         "character_4": {
-          itemId: "miner",
-          equipmentSlots: {
-            "weapon_1": { itemId: "170", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "166" } } },
-            "shield_1": { itemId: "154", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "164" } } },
-            "armor_1": { itemId: "143", slots: { "resource_ore_1": { itemId: null } } },
-            "accessory_1": { itemId: "98" }
+          value: "miner",
+          slots: {
+            "weapon_1": { value: "essence_reaver", slots: { "resource_ore_1": { value: null }, "gem_1": { value: "tech_gem" } } },
+            "shield_1": { value: "cosmic_shield", slots: { "resource_ore_1": { value: null }, "gem_1": { value: "space_gem" } } },
+            "armor_1": { value: "karuta", slots: { "resource_ore_1": { value: null } } },
+            "accessory_1": { value: "rock" }
           }
         },
         "character_5": {
-          itemId: "miner",
-          equipmentSlots: {
-            "weapon_1": { itemId: "170", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "164" } } },
-            "shield_1": { itemId: "154", slots: { "resource_ore_1": { itemId: null }, "gem_1": { itemId: "164" } } },
-            "armor_1": { itemId: "143", slots: { "resource_ore_1": { itemId: null } } },
-            "accessory_1": { itemId: "100" }
+          value: "miner",
+          slots: {
+            "weapon_1": { value: "essence_reaver", slots: { "resource_ore_1": { value: null }, "gem_1": { value: "space_gem" } } },
+            "shield_1": { value: "cosmic_shield", slots: { "resource_ore_1": { value: null }, "gem_1": { value: "space_gem" } } },
+            "armor_1": { value: "karuta", slots: { "resource_ore_1": { value: null } } },
+            "accessory_1": { value: "phantasmal_claw" }
           }
         },
         "character_6": {
-          itemId: "chef",
-          equipmentSlots: {
-            "weapon_1": { itemId: "178" },
-            "armor_1": { itemId: "162", slots: { "resource_ore_1": { itemId: null } } },
-            "accessory_1": { itemId: "129" }
+          value: "chef",
+          slots: {
+            "weapon_1": { value: "iron_skillet" },
+            "armor_1": { value: "platinum_armor", slots: { "resource_ore_1": { value: null } } },
+            "accessory_1": { value: "silver_necklace" }
           }
         }
       }

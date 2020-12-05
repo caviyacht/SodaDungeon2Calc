@@ -7,15 +7,6 @@ export default {
     displayName: "Aphotic Blade", 
     stats: { "atk": 5, "crit_chance": 0.40, "crit_bonus": 0.50 }
   },
-  "weapon-iron_skillet": { 
-    type: "weapon", 
-    subtype: "special",
-    name: "iron_skillet",
-    internalId: "178",
-    displayName: "Iron Skillet", 
-    stats: { "atk": 20 }
-  },
-
   "weapon-frying_pan": { 
     type: "weapon", 
     name: "frying_pan",
@@ -73,5 +64,13 @@ export default {
     displayName: "Essence Reaver", 
     stats: { "atk": 118, "crit_chance": 0.24, "crit_bonus": 1.34 }, 
     slots: ["resource_ore_1", "gem_1"] 
+  },
+  "weapon-iron_skillet": { 
+    type: "weapon", 
+    subtype: "special",
+    name: "iron_skillet",
+    internalId: "178",
+    displayName: "Iron Skillet", 
+    stats: { "atk": 20 }
   }
 };

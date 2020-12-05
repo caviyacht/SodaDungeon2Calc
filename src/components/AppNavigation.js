@@ -1,9 +1,10 @@
 import React from "react";
 import { Container, Dropdown, Navbar, Nav } from "react-bootstrap";
-import { useDataContext } from "../contexts/DataContext";
+import { useRecoilValue } from "recoil";
+import { imagesState } from "../atoms/imagesState";
 
 export default ({onSelect}) => {
-  const dataContext = useDataContext();
+  const images = useRecoilValue(imagesState);
 
   return (
     <Navbar variant="dark" bg="dark" onSelect={onSelect}>
@@ -11,7 +12,7 @@ export default ({onSelect}) => {
       <Container className="px-sm-3">
         <Navbar.Brand>
           <img 
-            src={dataContext.images.skills.burp} 
+            src={images.skills.burp} 
             alt="Burp" 
             className="d-inline-block align-top"
             style={{width: "30px", height: "30px"}} />

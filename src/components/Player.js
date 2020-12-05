@@ -1,24 +1,13 @@
 import React from "react";
 import { Col, Form, InputGroup, Row } from "react-bootstrap";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { imagesState } from "../atoms/imagesState";
+import { rawPlayerState } from "../atoms/rawPlayerState";
+import { playerEntityState } from "../selectors/playerEntityState";
+import { entityId } from "../utils";
 import FormGroupImage from "./FormGroupImage";
-import { useDataContext } from "../contexts/DataContext";
-import { usePlayerContext } from "../contexts/NewPlayerContext";
-import { loadPlayerItem } from "../utils";
 
 export default () => {
-  const dataContext = useDataContext();
-  const playerContext = usePlayerContext();
-  
-  const setFloor = floor => playerContext.dispatch({
-    type: "SET_FLOOR",
-    payload: { floor }
-  })
-
-  const setItemLevel = itemId => level => playerContext.dispatch({
-    type: "SET_ITEM_LEVEL",
-    payload: { itemId, level }
-  })
-
   return (
     <>
       <Row>
@@ -32,7 +21,7 @@ export default () => {
 
       <Row className="mb-4">
         <Col xs={12} lg={6} className="d-flex">
-          <DungeonFloorInput onInput={setFloor} />
+          <DungeonFloorInput /*onInput={setFloor}*/ />
         </Col>
       </Row>
 
@@ -47,23 +36,28 @@ export default () => {
 
       <Row>
         <Col xs={12} lg={6} className="d-flex">
-          {/*<KitchenLevelSelect 
-            item={loadPlayerItem("kitchen", playerContext, dataContext)} 
-          onSelect={setItemLevel("kitchen")} />*/}
+          <KitchenLevelSelect />
         </Col>
       </Row>
     </>
   );
 }
 
-const DungeonFloorInput = ({onInput}) => {
-  const dataContext = useDataContext();
-  const playerContext = usePlayerContext();
+const DungeonFloorInput = () => {
+  const images = useRecoilValue(imagesState);
+  const [player, setPlayer] = useRecoilState(rawPlayerState);
+
+  const setFloor = ({ target: { value } }) => {
+    setPlayer(state => ({
+      ...state,
+      floor: value
+    }));
+  };
 
   return (
     <>
       <div className="mr-2" style={{flex: "0 0 70px"}}>
-        <FormGroupImage src={dataContext.images.icons.stairs}/>
+        <FormGroupImage src={images.icons.stairs}/>
       </div>
 
       <Form.Group controlId="player-dungeon-floor" className="w-100">
@@ -72,27 +66,33 @@ const DungeonFloorInput = ({onInput}) => {
           <Form.Control 
             type="number" 
             min="1" 
-            value={playerContext.player.floor}
-            onChange={e => onInput(e.target.value)} />
+            value={player.floor}
+            onChange={setFloor} />
         </InputGroup>
       </Form.Group>
     </>
   );
-}
+};
 
-const KitchenLevelSelect = ({item, onSelect}) => {
+const KitchenLevelSelect = () => {
+  const [kitchen, setKitchen] = useRecoilState(playerEntityState(entityId("upgrade", "kitchen")));
+
+  const setKitchenLevel = ({ target: { value } }) => {
+    setKitchen(value);
+  };
+
   return (
     <>
       <div className="mr-2" style={{flex: "0 0 70px"}}>
-        <FormGroupImage src={item.image}/>
+        <FormGroupImage src={kitchen.image}/>
       </div>
 
       <Form.Group controlId="player-upgrades-kitchen-level" className="w-100">
         <Form.Label>Kitchen Level</Form.Label>
         <InputGroup>
-          <Form.Control as="select" onChange={e => onSelect(e.target.value)}>
-            {[...Array(item.maxLevel + 1).keys()].map(level =>
-              <option value={level} selected={level === item.level}>{level}</option>
+          <Form.Control as="select" onChange={setKitchenLevel}>
+            {[...Array(kitchen.maxLevel + 1).keys()].map(level =>
+              <option value={level} selected={level === kitchen.level}>{level}</option>
             )}
           </Form.Control>
         </InputGroup>

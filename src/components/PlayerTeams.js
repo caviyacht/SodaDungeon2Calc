@@ -1,16 +1,9 @@
 import React, { useRef, useState } from "react";
-import { nanoid } from "nanoid";
 import { Button, Col, Dropdown, DropdownButton, Form, InputGroup, Modal, Row } from "react-bootstrap";
 import FormGroupImage from "./FormGroupImage";
-import { useDataContext } from "../contexts/DataContext";
-import { usePlayerContext } from "../contexts/NewPlayerContext";
-import { useTeamContext } from "../contexts/TeamContext";
 import PlayerTeam from "./PlayerTeam";
 
 export default () => {
-  const dataContext = useDataContext();
-  const playerContext = usePlayerContext();
-  const teamContext = useTeamContext();
   const [teamId, setTeamId] = useState(null);
   const [showAddTeamModal, setShowAddTeamModal] = useState(false);
   const [showRemoveTeamModal, setShowRemoveTeamModal] = useState(false);
@@ -21,7 +14,7 @@ export default () => {
   };
 
   const addTeam = name => {
-    const teamId = nanoid();
+    const teamId = new Date().valueOf();
 
     playerContext.dispatch({
       type: "ADD_TEAM",
