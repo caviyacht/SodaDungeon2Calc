@@ -1,8 +1,9 @@
 import { atomFamily, selectorFamily } from "recoil";
-import { entitiesState } from "./entitiesState";
-import { entityId, isObject } from "../utils";
+import { rawEntitiesState } from "./rawEntitiesState";
+import { entityId, isObject, pluralize } from "../utils";
+import { imagesState } from "./imagesState";
 
-const entityState = atomFamily({
+export const entityState = atomFamily({
   key: "entityState",
   default: selectorFamily({
     key: "entityState/default",
@@ -10,7 +11,7 @@ const entityState = atomFamily({
       const getEntityOfType = (type, name) => get(entityState(entityId(type, name)));
 
       // Get the raw entity.
-      const entity = { id, ...get(entitiesState)[id] };
+      const entity = { id, ...get(rawEntitiesState)[id] };
 
       // Load the entity properties.
       // Stats
@@ -54,8 +55,17 @@ const entityState = atomFamily({
         ? getEntityOfType(entity.valueType, entity.value)
         : {};
 
+      // Image
+      const imageCollectionId = pluralize(entity.type); // TODO: Possibly do this another way?
+      const imageCollection = get(imagesState)[imageCollectionId];
+
+      const image = imageCollection
+          ? imageCollection[entity.internalId || entity.name]
+          : null;
+
       return {
         ...entity,
+        image,
         stats,
         skills,
         slots,

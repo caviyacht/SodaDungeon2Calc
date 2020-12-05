@@ -18,6 +18,14 @@ const map = (obj, selector) => Object.entries(obj).map(([key, value]) => selecto
 
 const entityId = (type, name) => type + "-" + name;
 
+const pluralize = (word) => {
+  if (/y$/.test(word)) {
+    return word.replace(/y$/, "ies");
+  }
+
+  return word + "s";
+};
+
 const loadRelics = (playerContext, dataContext) =>
   Object
     .keys(dataContext.relics)
@@ -166,15 +174,10 @@ export {
   withContext,
   filter,
   map,
+  entityId,
+  pluralize,
 
-  loadTeam,
-  loadTeamMembers,
-  loadTeamMemberEquipmentSlots,
-  loadItem,
-  loadItemStats,
   loadRelics,
-  loadPlayerItem,
-  loadStat,
 
   formatStat,
   flattenMember,
@@ -182,6 +185,5 @@ export {
   calculateMemberStats,
   calculateTeamStats,
 
-  getIconForSlot,
   getItemsForSlot
 };

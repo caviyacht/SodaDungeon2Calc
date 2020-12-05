@@ -1,23 +1,18 @@
 import React, { useState } from "react";
 import { Col, Container, Row, Tab } from "react-bootstrap";
-import { PlayerProvider } from "./contexts/NewPlayerContext";
-import { TeamProvider } from "./contexts/TeamContext";
 import Player from "./components/Player";
-import PlayerTeams from "./components/PlayerTeams";
+/*import PlayerTeams from "./components/PlayerTeams";
 import PlayerRelics from "./components/PlayerRelics";
 import PlayerCharacters from "./components/PlayerCharacters";
-import PlayerPets from "./components/PlayerPets";
+import PlayerPets from "./components/PlayerPets";*/
 import AppNavigation from "./components/AppNavigation";
-import playerData from "./data/player/player"; // TODO: Load this from somewhere else
 
 export default () => {
   return (
-    <PlayerProvider player={playerData}>
-      <TeamProvider>
-        <BreakpointViewer/>
-        <AppContent/>
-      </TeamProvider>
-    </PlayerProvider>
+    <>
+      <BreakpointViewer/>
+      <AppContent/>
+    </>
   );
 }
 
@@ -56,7 +51,7 @@ const AppContent = () => {
             </Tab.Pane>
 
             <Tab.Pane eventKey="teams">
-              <PlayerTeams />
+              {/*<PlayerTeams />*/}
             </Tab.Pane>
 
             <Tab.Pane eventKey="relics">
