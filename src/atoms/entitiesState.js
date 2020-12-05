@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 import data from "../data";
 
-export const entities = atom({
-  key: "entities",
+export const entitiesState = atom({
+  key: "entitiesState",
   default: data.entities
 });
