@@ -1,96 +1,96 @@
 export default {
   "skill-strike": {
     type: "skill", 
-    id: "strike",
-    name: "Strike", 
+    name: "strike",
+    displayName: "Strike", 
     category: "phys", 
     stats: { "atk_multiplier": 1, "gives_back_atk_bonus": true } 
   },
   "skill-defend": { 
     type: "skill", 
-    id: "defend",
-    name: "Defend", 
+    name: "defend",
+    displayName: "Defend", 
     category: "phys", 
     stats: { } 
   },
   "skill-burp": { 
     type: "skill", 
-    id: "burp",
-    name: "Big Burp", 
+    name: "burp",
+    displayName: "Big Burp", 
     category: "phys", 
     stats: { "atk_multiplier": 1.8, "chance_to_psn": 0.25 } 
   },
   "skill-sharpen": {
     type: "skill",
-    id: "sharpen",
-    name: "Sharpen",
+    name: "sharpen",
+    displayName: "Sharpen",
     category: "magic",
     // TODO: Figure out how to handle effects
     stats: { "crit_chance": { value: 1.00, scope: "target", turns: 3 } }
   },
   "skill-swift_metal": {
     type: "skill",
-    id: "swift_metal",
-    name: "Nailed It",
+    name: "swift_metal",
+    displayName: "Nailed It",
     category: "phys",
     // TODO: The default is `2`, assume the upgrade
     stats: { "atk_multiplier": 4 }
   },
   "skill-transmute": {
     type: "skill",
-    id: "transmute",
-    name: "Transmute",
+    name: "transmute",
+    displayName: "Transmute",
     category: "magic",
     stats: { "transmutes_target": true }
   },
   "skill-pickaxe": {
     type: "skill",
-    id: "pickaxe",
-    name: "Pickaxe",
+    name: "pickaxe",
+    displayName: "Pickaxe",
     category: "phys",
     stats: { "atk_multiplier": 0.75, "ore_bust": 5 }
   },
   "skill-group_heal": {
     type: "skill",
-    id: "group_heal",
-    name: "Group Heal",
+    name: "group_heal",
+    displayName: "Group Heal",
     category: "magic",
     // TODO: Figure out how to handle the group heal (max 50%)
     stats: { "hp_multiplier": 0.2 }
   },
   "skill-biohazard": {
     type: "skill",
-    id: "biohazard",
-    name: "Biohazard",
+    name: "biohazard",
+    displayName: "Biohazard",
     category: "magic",
     stats: { "atk_multiplier": 1.2, "chance_to_psn": 1.00 }
   },
   "skill-first_aid": {
     type: "skill",
-    id: "first_aid",
-    name: "First Aid",
+    name: "first_aid",
+    displayName: "First Aid",
     category: "magic",
     // TODO: Figure out how to handle the 100% heal
     stats: { }
   },
   "skill-recharge": {
     type: "skill",
-    id: "recharge",
-    name: "Recharge",
+    name: "recharge",
+    displayName: "Recharge",
     category: "magic",
     stats: { "mp_regen": 8 }
   },
   "skill-torment": {
     type: "skill",
-    id: "torment",
-    name: "Torment",
+    name: "torment",
+    displayName: "Torment",
     category: "magic",
     stats: { "atk_multiplier": 0.6 }
   },
   "skill-ransack": {
     type: "skill",
-    id: "ransack",
-    name: "Ransack",
+    name: "ransack",
+    displayName: "Ransack",
     category: "phys",
     stats: { 
       "atk_multiplier": 1.2, 
@@ -101,8 +101,8 @@ export default {
   },
   "skill-pilfer": {
     type: "skill",
-    id: "pilfer",
-    name: "Pilfer",
+    name: "pilfer",
+    displayName: "Pilfer",
     category: "phys",
     // TODO: Figure out how to make the stats either or
     stats: {
@@ -112,103 +112,103 @@ export default {
   },
   "skill-mark": {
     type: "skill",
-    id: "mark",
-    name: "Mark",
+    name: "mark",
+    displayName: "Mark",
     category: "magic",
     // TODO: 
     stats: { "atk_multiplier": { value: 1.5, scope: "target", turns: 2 } }
   },
   "skill-curse": {
     type: "skill",
-    id: "curse",
-    name: "Curse",
+    name: "curse",
+    displayName: "Curse",
     category: "magic",
     stats: { "turns_target_to_stone": { value: true, scope: "target", turns: 2 } }
   },
   "skill-noxin": {
     type: "skill",
-    id: "noxin",
-    name: "Noxin",
+    name: "noxin",
+    displayName: "Noxin",
     category: "magic",
     stats: { "atk_multiplier": 0.75, "chance_to_psn": 0.75 }
   },
   "skill-stun": {
     type: "skill",
-    id: "stun",
-    name: "Stun",
+    name: "stun",
+    displayName: "Stun",
     category: "phys",
     stats: { "stuns_target": { value: true, scope: "target", turns: 2 } }
   },
   "skill-dual_strike": {
     type: "skill",
-    id: "dual_strike",
-    name: "Double Strike",
+    name: "dual_strike",
+    displayName: "Double Strike",
     category: "phys",
     stats: { "strikes_target_twice": true }
   },
   "skill-shadow_slicer_2": {
     type: "skill",
-    id: "shadow_slicer_2",
-    name: "Shadow Slicer",
+    name: "shadow_slicer_2",
+    displayName: "Shadow Slicer",
     category: "phys",
     // TODO: The base multiplier is `0.5`, affected by number of team members
     stats: { "atk_multiplier": 3 }
   },
   "skill-cook": {
     type: "skill",
-    id: "cook",
-    name: "Order Up",
+    name: "cook",
+    displayName: "Order Up",
     category: "phys",
     // TODO: Figure out how to handle the meals
     stats: { }
   },
   "skill-rock_toss": {
     type: "skill",
-    id: "rock_toss",
-    name: "Rock Toss",
+    name: "rock_toss",
+    displayName: "Rock Toss",
     category: "phys",
     stats: { "atk_multiplier": 1.1 }
   },
   "skill-heal": {
     type: "skill",
-    id: "heal",
-    name: "Heal",
+    name: "heal",
+    displayName: "Heal",
     category: "magic",
     // TODO: Figure out how to handle the heal `+20HP`
     stats: { }
   },
   "skill-phantasmal_claw": { 
     type: "skill", 
-    id: "phantasmal_claw",
-    name: "Phantasmal Claw", 
+    name: "phantasmal_claw",
+    displayName: "Phantasmal Claw", 
     category: "magic", 
     stats: { "atk_multiplier": 0.55 } 
   },
   "skill-tech_laser": { 
     type: "skill", 
-    id: "tech_laser",
-    name: "Laser", 
+    name: "tech_laser",
+    displayName: "Laser", 
     category: "magic", 
     stats: { "atk_multiplier": 2.2, "gives_back_atk_bonus": true } 
   },
   "skill-skull_bash": { 
     type: "skill", 
-    id: "skull_bash",
-    name: "Skull Bash", 
+    name: "skull_bash",
+    displayName: "Skull Bash", 
     category: "magic", 
     stats: { "atk_multiplier": 2, "gives_back_atk_bonus": true, "chance_to_burn": 1.00 } 
   },
   "skill-judgement": {
     type: "skill",
-    id: "judgement",
-    name: "Judgement",
+    name: "judgement",
+    displayName: "Judgement",
     category: "magic",
     stats: { "chance_to_halve_target_hp": true }
   },
   "skill-dark_flame": {
     type: "skill",
-    id: "dark_flame",
-    name: "Dark Flame",
+    name: "dark_flame",
+    displayName: "Dark Flame",
     category: "magic",
     stats: { "atk_multiplier": 0.8, "chance_to_burn": 1.00 }
   }

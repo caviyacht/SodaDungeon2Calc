@@ -1,13 +1,13 @@
 export default {
   "upgrade-allsight": { 
     type: "upgrade", 
-    id: "allsight",
-    name: "Allsight" 
+    name: "allsight",
+    displayName: "Allsight" 
   },
   "upgrade-kitchen": { 
     type: "upgrade", 
-    id: "kitchen",
-    name: "Kitchen", 
+    name: "kitchen",
+    displayName: "Kitchen", 
     maxLevel: 10, 
     stats: { "hp_boost_kitchen": 0.02 } 
   }

@@ -1,8 +1,8 @@
 export default {
   "character-soda_junkie": {
     type: "character",
-    id: "soda_junkie",
-    name: "Soda Junkie",
+    name: "soda_junkie",
+    displayName: "Soda Junkie",
     maxLevel: 50,
     stats: {
       "hp": 62,
@@ -26,8 +26,8 @@ export default {
   },
   "character-carpenter": {
     type: "character",
-    id: "carpenter",
-    name: "Carpenter",
+    name: "carpenter",
+    displayName: "Carpenter",
     maxLevel: 50,
     stats: {
       "hp": 63,
@@ -51,8 +51,8 @@ export default {
   },
   "character-miner": {
     type: "character",
-    id: "miner",
-    name: "Miner",
+    name: "miner",
+    displayName: "Miner",
     maxLevel: 50,
     stats: {
       "hp": 61,
@@ -76,8 +76,8 @@ export default {
   },
   "character-nurse": { 
     type: "character",
-    id: "nurse",
-    name: "Nurse", 
+    name: "nurse",
+    displayName: "Nurse", 
     maxLevel: 50,
     stats: {
       "hp": 63,
@@ -100,8 +100,8 @@ export default {
   },
   "character-psychic": {
     type: "character",
-    id: "psychic",
-    name: "Mystic",
+    name: "psychic",
+    displayName: "Mystic",
     maxLevel: 50,
     stats: {
       "hp": 65,
@@ -126,8 +126,8 @@ export default {
   },
   "character-thief": {
     type: "character",
-    id: "thief",
-    name: "Thief",
+    name: "thief",
+    displayName: "Thief",
     maxLevel: 50,
     stats: {
       "hp": 67,
@@ -151,8 +151,8 @@ export default {
   },
   "character-huntress": {
     type: "character",
-    id: "huntress",
-    name: "Huntress",
+    name: "huntress",
+    displayName: "Huntress",
     maxLevel: 50,
     stats: {
       "hp": 67,
@@ -176,8 +176,8 @@ export default {
   },
   "character-darkmage": {
     type: "character",
-    id: "darkmage",
-    name: "Darkmage",
+    name: "darkmage",
+    displayName: "Darkmage",
     maxLevel: 50,
     stats: {
       "hp": 69,
@@ -201,8 +201,8 @@ export default {
   },
   "character-dual_wield": {
     type: "character",
-    id: "dual_wield",
-    name: "Blademaster",
+    name: "dual_wield",
+    displayName: "Blademaster",
     maxLevel: 50,
     stats: {
       "hp": 70,
@@ -225,8 +225,8 @@ export default {
   "character-dark_lord": {
     type: "character",
     subtype: "special",
-    id: "dark_lord",
-    name: "Dark Lord", 
+    name: "dark_lord",
+    displayName: "Dark Lord", 
     maxLevel: 50,
     stats: {
       "hp": 100,
@@ -244,14 +244,14 @@ export default {
       "gold_find": 0.02,
       "item_find": 1
     }, 
-    equipmentSlots: [{ id: "weapon_1", value: "aphotic_blade" }, "accessory_1", "accessory_2", "accessory_3"],
+    equipmentSlots: [{ name: "weapon_1", value: "aphotic_blade" }, "accessory_1", "accessory_2", "accessory_3"],
     skills: ["strike", "shadow_slicer_2", "defend"]
   },
   "character-chef": { 
     type: "character",
     subtype: "special",
-    id: "chef",
-    name: "Chef", 
+    name: "chef",
+    displayName: "Chef", 
     maxLevel: 50,
     stats: {
       "hp": 43,
@@ -266,7 +266,7 @@ export default {
       "ore_find": 4,
       "mastery_xp_boost": 0.07
     }, 
-    equipmentSlots: [{ id: "weapon_1", value: "iron_skillet" }, "armor_1", "accessory_1"],
+    equipmentSlots: [{ name: "weapon_1", value: "iron_skillet" }, "armor_1", "accessory_1"],
     skills: ["strike", "cook"]
   }
 };

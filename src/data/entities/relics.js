@@ -1,28 +1,28 @@
 export default {
   "relic-hp": { 
     type: "relic", 
-    id: "hp",
+    name: "hp",
     internalId: "1", 
     groupId: "1", 
     stats: { "hp": 5 } 
   },
   "relic-atk": { 
     type: "relic", 
-    id: "atk",
+    name: "atk",
     internalId: "2", 
     groupId: "1", 
     stats: { "atk": 2 } 
   },
   "relic-mp": { 
     type: "relic", 
-    id: "mp",
+    name: "mp",
     internalId: "3", 
     groupId: "1", 
     stats: { "mp": 3 } 
   },
   "relic-gold_find": { 
     type: "relic", 
-    id: "gold_find",
+    name: "gold_find",
     internalId: "7", 
     groupId: "1", 
     scope: "team", 
@@ -30,7 +30,7 @@ export default {
   },
   "relic-crit_chance": { 
     type: "relic", 
-    id: "crit_chance",
+    name: "crit_chance",
     internalId: "8", 
     groupId: "1", 
     maxLevel: 250, 
@@ -38,7 +38,7 @@ export default {
   },
   "relic-crit_bonus": { 
     type: "relic", 
-    id: "crit_bonus",
+    name: "crit_bonus",
     internalId: "11", 
     groupId: "1", 
     maxLevel: 250, 
@@ -46,7 +46,7 @@ export default {
   },
   "relic-essence_find": { 
     type: "relic", 
-    id: "essence_find",
+    name: "essence_find",
     internalId: "12", 
     groupId: "1", 
     maxLevel: 100, 
@@ -55,7 +55,7 @@ export default {
   },
   "relic-hp_regen": { 
     type: "relic", 
-    id: "hp_regen",
+    name: "hp_regen",
     internalId: "13", 
     groupId: "1", 
     maxLevel: 100, 
@@ -63,21 +63,21 @@ export default {
   },
   "relic-phys_boost": { 
     type: "relic", 
-    id: "phys_boost",
+    name: "phys_boost",
     internalId: "14", 
     groupId: "1", 
     stats: { "phys_boost": 0.0025 } 
   },
   "relic-magic_boost": { 
     type: "relic", 
-    id: "magic_boost",
+    name: "magic_boost",
     internalId: "15", 
     groupId: "1", 
     stats: { "magic_boost": 0.002 } 
   },
   "relic-chance_for_dungeon_keys": { 
     type: "relic", 
-    id: "chance_for_dungeon_keys",
+    name: "chance_for_dungeon_keys",
     internalId: "4", 
     groupId: "2", 
     maxLevel: 300, 
@@ -86,7 +86,7 @@ export default {
   },
   "relic-mastery_xp_boost": { 
     type: "relic", 
-    id: "mastery_xp_boost",
+    name: "mastery_xp_boost",
     internalId: "5", 
     groupId: "2", 
     maxLevel: 100, 
@@ -95,7 +95,7 @@ export default {
   },
   "relic-ore_find": { 
     type: "relic", 
-    id: "ore_find",
+    name: "ore_find",
     internalId: "6", 
     groupId: "2", 
     maxLevel: 100, 
@@ -104,7 +104,7 @@ export default {
   },
   "relic-status_resist": { 
     type: "relic", 
-    id: "status_resist",
+    name: "status_resist",
     internalId: "9", 
     groupId: "2", 
     maxLevel: 50, 
@@ -112,7 +112,7 @@ export default {
   },
   "relic-dmg_reflection": { 
     type: "relic", 
-    id: "dmg_reflection",
+    name: "dmg_reflection",
     internalId: "10", 
     groupId: "2", 
     maxLevel: 100, 
@@ -121,7 +121,7 @@ export default {
   "relic-soda_junkie": { 
     type: "relic", 
     subtype: "character", 
-    id: "soda_junkie",
+    name: "soda_junkie",
     internalId: "100", 
     groupId: "3", 
     stats: { "hp": 2, "mp": 2, "atk": 2 } 
@@ -129,7 +129,7 @@ export default {
   "relic-carpenter": { 
     type: "relic", 
     subtype: "character", 
-    id: "carpenter",
+    name: "carpenter",
     internalId: "101", 
     groupId: "3", 
     stats: { "hp": 2, "mp": 2, "atk": 2 } 
@@ -137,7 +137,7 @@ export default {
   "relic-miner": { 
     type: "relic", 
     subtype: "character", 
-    id: "miner",
+    name: "miner",
     internalId: "102", 
     groupId: "3", 
     stats: { "hp": 2, "mp": 2, "atk": 2 } 
@@ -145,7 +145,7 @@ export default {
   "relic-nurse": { 
     type: "relic", 
     subtype: "character", 
-    id: "nurse",
+    name: "nurse",
     internalId: "103", 
     groupId: "3", 
     stats: { "hp": 2, "mp": 2, "atk": 2 } 
@@ -153,7 +153,7 @@ export default {
   "relic-psychic": { 
     type: "relic", 
     subtype: "character", 
-    id: "psychic",
+    name: "psychic",
     internalId: "104", 
     groupId: "3", 
     stats: { "hp": 2, "mp": 2, "atk": 2 } 
@@ -161,7 +161,7 @@ export default {
   "relic-thief": { 
     type: "relic", 
     subtype: "character", 
-    id: "thief",
+    name: "thief",
     internalId: "105", 
     groupId: "3", 
     stats: { "hp": 2, "mp": 2, "atk": 2 } 
@@ -169,7 +169,7 @@ export default {
   "relic-huntress": { 
     type: "relic", 
     subtype: "character", 
-    id: "huntress",
+    name: "huntress",
     internalId: "106", 
     groupId: "3", 
     stats: { "hp": 2, "mp": 2, "atk": 2 } 
@@ -177,7 +177,7 @@ export default {
   "relic-darkmage": { 
     type: "relic", 
     subtype: "character", 
-    id: "darkmage",
+    name: "darkmage",
     internalId: "107", 
     groupId: "3", 
     stats: { "hp": 2, "mp": 2, "atk": 2 } 
@@ -185,7 +185,7 @@ export default {
   "relic-dual_wield": { 
     type: "relic", 
     subtype: "character", 
-    id: "dual_wield",
+    name: "dual_wield",
     internalId: "108", 
     groupId: "3", 
     stats: { "hp": 2, "atk": 2 } 
@@ -193,7 +193,7 @@ export default {
   "relic-dark_lord": { 
     type: "relic", 
     subtype: "character", 
-    id: "dark_lord",
+    name: "dark_lord",
     internalId: "109", 
     groupId: "3", 
     stats: { "hp": 2, "mp": 2, "atk": 2 } 
@@ -201,7 +201,7 @@ export default {
   "relic-chef": { 
     type: "relic", 
     subtype: "character", 
-    id: "chef",
+    name: "chef",
     internalId: "110", 
     groupId: "3", 
     stats: { "hp": 2, "atk": 2 } 
