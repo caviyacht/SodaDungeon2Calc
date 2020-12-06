@@ -1,12 +1,13 @@
 import React from "react";
 import { Card, Col, Row, Table } from "react-bootstrap";
-import { useDataContext } from "../contexts/DataContext";
-import { usePlayerContext } from "../contexts/NewPlayerContext";
+import { useRecoilValue } from "recoil";
+import { playerTeamSelector } from "../selectors/playerTeamSelector";
 import { calculateTeamStats, formatStat, filter, map } from "../utils";
 import PlayerTeamMember from "./PlayerTeamMember";
 
-export default ({team}) => {
-  console.log(team);
+export default () => {
+  const team = useRecoilValue(playerTeamSelector);
+
   return (
     <>
       {/*<Row>
@@ -16,15 +17,15 @@ export default ({team}) => {
       </Row>*/}
 
       <Row xs={1} lg={2}>
-        {map(filter(team.slots, ([_, slot]) => slot.valueType === "character"), ([_, slot]) =>
-          <Col lg={{order: getTeamMemberOrder(slot)}} className="mb-4">
-            <PlayerTeamMember member={slot} team={team} />
+        {team.slots.filter(slot => slot.valueType === "character").map(slot =>
+          <Col key={slot.id} lg={{order: getTeamMemberOrder(slot)}} className="mb-4">
+            <PlayerTeamMember member={slot} />
           </Col>
         )}
 
-        {map(filter(team.slots, ([_, slot]) => slot.valueType === "pet"), ([_, slot]) =>
-          <Col lg={{order: getTeamMemberOrder(slot)}} className="mb-4">
-            <PlayerTeamMember member={slot} team={team} />
+        {team.slots.filter(slot => slot.valueType === "pet").map(slot =>
+          <Col key={slot.id} lg={{order: getTeamMemberOrder(slot)}} className="mb-4">
+            <PlayerTeamMember member={slot} />
           </Col>
         )}
       </Row>

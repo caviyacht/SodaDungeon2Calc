@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Col, Container, Row, Tab } from "react-bootstrap";
 import Player from "./components/Player";
-//import PlayerTeams from "./components/PlayerTeams";
+import PlayerTeams from "./components/PlayerTeams";
 import PlayerRelics from "./components/PlayerRelics";
 import PlayerCharacters from "./components/PlayerCharacters";
 import PlayerPets from "./components/PlayerPets";
@@ -51,7 +51,7 @@ const AppContent = () => {
             </Tab.Pane>
 
             <Tab.Pane eventKey="teams">
-              {/*<PlayerTeams />*/}
+              <PlayerTeams />
             </Tab.Pane>
 
             <Tab.Pane eventKey="relics">

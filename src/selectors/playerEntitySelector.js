@@ -5,7 +5,7 @@ import { entitySelector } from "./entitySelector";
 export const playerEntitySelector = selectorFamily({
   key: "playerEntitySelector",
   get: id => ({ get }) => {
-    const playerEntity = get(playerDataAtom).entities[id] || { level: 0 };
+    const playerEntity = get(playerDataAtom).entities[id] || {};
     const entity = get(entitySelector(id));
 
     // Calculate stats.
@@ -15,7 +15,7 @@ export const playerEntitySelector = selectorFamily({
         statId,
         {
           ...stat,
-          value: stat.value * playerEntity.level
+          value: stat.value * (playerEntity.level || 0)
         }
       ]));
 

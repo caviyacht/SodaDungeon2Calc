@@ -83,9 +83,9 @@ const KitchenLevelSelect = () => {
       <Form.Group controlId="player-upgrades-kitchen-level" className="w-100">
         <Form.Label>Kitchen Level</Form.Label>
         <InputGroup>
-          <Form.Control as="select" onChange={handleSetKitchenLevel}>
+          <Form.Control as="select" defaultValue={kitchen.level} onChange={handleSetKitchenLevel}>
             {[...Array(kitchen.maxLevel + 1).keys()].map(level =>
-              <option value={level} selected={level === kitchen.level}>{level}</option>
+              <option key={level} value={level}>{level}</option>
             )}
           </Form.Control>
         </InputGroup>

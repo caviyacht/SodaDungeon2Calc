@@ -1,47 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Dropdown, DropdownButton, Form, InputGroup, Modal, Row } from "react-bootstrap";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { playerDataAtom } from "../atoms/playerDataAtom";
+import { playerTeamIdAtom } from "../atoms/playerTeamIdAtom";
+import { imageCollectionSelector } from "../selectors/imageCollectionSelector";
 import FormGroupImage from "./FormGroupImage";
 import PlayerTeam from "./PlayerTeam";
 
 export default () => {
-  const [teamId, setTeamId] = useState(null);
-  const [showAddTeamModal, setShowAddTeamModal] = useState(false);
-  const [showRemoveTeamModal, setShowRemoveTeamModal] = useState(false);
-
-  const setTeam = teamId => {
-    setTeamId(teamId);
-    teamContext.setTeam(playerContext.player.teams[teamId]);
-  };
-
-  const addTeam = name => {
-    const teamId = new Date().valueOf();
-
-    playerContext.dispatch({
-      type: "ADD_TEAM",
-      payload: { id: teamId, name }
-    });
-
-    handleHideAddTeamModal();
-    setTeam(teamId);
-  };
-
-  const removeTeam = teamId => {
-    playerContext.dispatch({
-      type: "REMOVE_TEAM",
-      payload: { id: teamId }
-    });
-
-    handleHideRemoveTeamModal();
-    setTeam(null);
-  };
-
-  const handleShowAddTeamModal = () => setShowAddTeamModal(true);
-  const handleHideAddTeamModal = () => setShowAddTeamModal(false);
-  const handleShowRemoveTeamModal = () => setShowRemoveTeamModal(true);
-  const handleHideRemoveTeamModal = () => setShowRemoveTeamModal(false);
-
   return (
-    <>
+    <div>
       <Row>
         <Col>
           <h1>Teams</h1>
@@ -52,58 +20,106 @@ export default () => {
       </Row>
 
       <Row>
-        <Col xs={12} lg={6} className="d-flex mb-4">
-          <div className="mr-2" style={{flex: "0 0 70px"}}>
-            <FormGroupImage rounded src={dataContext.images.char_portraits.recruiter}/>
-          </div>
-
-          <Form.Group className="w-100">
-            <Form.Label htmlFor="player-teams">Team</Form.Label>
-            <InputGroup>
-              <Form.Control 
-                as="select" 
-                id="player-teams" onChange={e => setTeam(e.target.value)}>
-
-                <option value="">None</option>
-
-                {/* TODO: Create a function for this */}
-                {Object.entries(playerContext.player.teams).map(([id, value]) =>
-                  <option value={id} selected={id === teamId}>{value.name}</option>
-                )}
-              </Form.Control>
-
-              <InputGroup.Append>
-                <DropdownButton
-                  as={InputGroup.Append}
-                  variant="dark"
-                  title="Actions"
-                  id="player-teams-actions-dropdown">
-
-                  <Dropdown.Item onClick={handleShowAddTeamModal}>New Team</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item onClick={handleShowRemoveTeamModal}>Delete Team</Dropdown.Item>
-                </DropdownButton>
-              </InputGroup.Append>
-            </InputGroup>
-          </Form.Group>
+        <Col xs={12} lg={6} className="mb-4">
+          <TeamSelector />
         </Col>
       </Row>
 
       <Row>
         <Col>
-          <PlayerTeam team={playerContext.loadTeam(teamId)} />
+          <PlayerTeam />
         </Col>
       </Row>
-
-      <AddTeamModal show={showAddTeamModal} onHide={handleHideAddTeamModal} addTeam={addTeam} />
-      <RemoveTeamModal show={showRemoveTeamModal} onHide={handleHideRemoveTeamModal} removeTeam={removeTeam} teamId={teamId} teamName={""} />
-    </>
+    </div>
   );
-}
+};
 
-const AddTeamModal = ({show, onHide, addTeam, ...props}) => {
+const TeamSelector = () => {
+  const images = useRecoilValue(imageCollectionSelector("char_portraits"));
+  const player = useRecoilValue(playerDataAtom);
+  const [teamId, setTeamId] = useRecoilState(playerTeamIdAtom);
+  const [openModals, setOpenModals] = useState({ add: false, remove: false });
+
+  const handleSetTeamId = ({ target: { value } }) => setTeamId(value);
+
+  const handleModalShow = name => () => setOpenModals(state => ({ ...state, [name]: true }));
+  const handleModalHide = name => () => setOpenModals(state => ({ ...state, [name]: false }));
+
+  return (
+    <div className="d-flex">
+      <div className="mr-2" style={{flex: "0 0 70px"}}>
+        <FormGroupImage rounded src={images.recruiter} />
+      </div>
+
+      <Form.Group controlId="player-teams" className="w-100">
+        <Form.Label>Team</Form.Label>
+        <InputGroup>
+          <Form.Control as="select" defaultValue={teamId} onChange={handleSetTeamId}>
+            <option value="">None</option>
+
+            {/* TODO: Possibly find a way to load a "light" team */}
+            {Object.entries(player.teams).map(([id, value]) =>
+              <option key={id} value={id}>{value.name}</option>
+            )}
+          </Form.Control>
+
+          <InputGroup.Append>
+            <DropdownButton
+              as={InputGroup.Append}
+              variant="dark"
+              title="Actions"
+              id="player-teams-actions-dropdown">
+
+              <Dropdown.Item onClick={handleModalShow("add")}>Add Team</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item onClick={handleModalShow("remove")}>Remove Team</Dropdown.Item>
+            </DropdownButton>
+          </InputGroup.Append>
+        </InputGroup>
+      </Form.Group>
+
+      {/* TODO: Possibly move this somewhere else? */}
+      <AddTeamModal show={openModals.add} onHide={handleModalHide("add")} />
+      <RemoveTeamModal show={openModals.remove} onHide={handleModalHide("remove")} />
+    </div>
+  );
+};
+
+const AddTeamModal = ({ show, onHide }) => {
   const nameRef = useRef();
   const [teamName, setTeamName] = useState("");
+  const setPlayer = useSetRecoilState(playerDataAtom);
+
+  const handleSetTeamName = ({ target: { value } }) => setTeamName(value);
+
+  const handleAddTeam = () => {
+    // TODO: Put this somewhere else.
+    setPlayer(state => ({
+      ...state,
+      teams: {
+        ...state.teams,
+        [teamName]: {
+          // TODO: Figure out a way to configure this.
+          "pet_1": { value: null },
+          "character_1": { value: null },
+          "character_2": { value: null },
+          "character_3": { value: null },
+          "character_4": { value: null },
+          "character_5": { value: null },
+          "character_6": { value: null },
+        }
+      }
+    }));
+
+    onHide();
+  };
+
+  //useEffect(() => nameRef.focus(), [nameRef]);
+
+  // TODO: This seems wrong.
+  if (!show) {
+    return null;
+  }
 
   return (
     <Modal show={show} onHide={onHide} centered>
@@ -113,30 +129,51 @@ const AddTeamModal = ({show, onHide, addTeam, ...props}) => {
       <Modal.Body>
         <Form.Group controlId="player-teams-add-team-name">
           <Form.Label>Name</Form.Label>
-          <Form.Control ref={nameRef} value={teamName} onChange={e => setTeamName(e.target.value)} />
+          <Form.Control ref={nameRef} value={teamName} onChange={handleSetTeamName} />
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>Close</Button>
-        <Button variant="primary" onClick={() => addTeam(teamName)}>Save</Button>
+        <Button variant="primary" onClick={handleAddTeam}>Save</Button>
       </Modal.Footer>
     </Modal>
   );
-}
+};
 
-const RemoveTeamModal = ({teamId, teamName, show, onHide, removeTeam, ...props}) => {
+const RemoveTeamModal = ({ show, onHide }) => {
+  const teamId = useRecoilValue(playerTeamIdAtom);
+  const [player, setPlayer] = useRecoilState(playerDataAtom); // TODO: Try not to use the player this way.
+
+  const handleRemoveTeam = () => {
+    setPlayer(state => {
+      const { teams: { [teamId]: team, ...rest } } = state;
+
+      return {
+        ...state,
+        teams: rest
+      };
+    });
+
+    onHide();
+  };
+
+  // TODO: This seems wrong.
+  if (!show) {
+    return null;
+  }
+
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header>
         <Modal.Title>Remove Team</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Are you sure you want to remove the team <strong>{teamName}</strong>?
+        Are you sure you want to remove the team <strong>{player.teams[teamId].name}</strong>?
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>No</Button>
-        <Button variant="primary" onClick={() => removeTeam(teamId)}>Yes</Button>
+        <Button variant="primary" onClick={handleRemoveTeam}>Yes</Button>
       </Modal.Footer>
     </Modal>
   );
-}
+};

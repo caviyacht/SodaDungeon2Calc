@@ -3,6 +3,7 @@ import { entitiesAtom } from "../atoms/entitiesAtom";
 import { entityId, isObject, pluralize } from "../utils";
 import { imageCollectionSelector } from "./imageCollectionSelector";
 
+// TODO: Put this somewhere common?
 const getEntityOfType = get => (type, name) => get(entitySelector(entityId(type, name)));
 
 export const entitySelector = selectorFamily({

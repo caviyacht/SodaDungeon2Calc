@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Badge, Card, Collapse, Form, InputGroup, Nav, Tab, Table } from "react-bootstrap";
-import { useDataContext } from "../contexts/DataContext";
-import { usePlayerContext } from "../contexts/NewPlayerContext";
+import { useRecoilValue } from "recoil";
+import { entitiesOfTypeSelector } from "../selectors/entityOfTypeSelector";
 import { 
   calculateMemberStats, 
   formatStat, 
@@ -9,24 +9,7 @@ import {
   loadStat,
   map } from "../utils";
 
-export default ({member, team}) => {
-  const playerContext = usePlayerContext();
-
-  const setTeamMember = itemId => playerContext.dispatch({
-    type: "SET_TEAM_MEMBER",
-    payload: { teamId: team.id, memberId: member.id, itemId }
-  });
-
-  const setTeamMemberEquipmentSlot = equipmentSlotId => itemId => playerContext.dispatch({
-    type: "SET_TEAM_MEMBER_EQUIPMENT_SLOT",
-    payload: { teamId: team.id, memberId: member.id, equipmentSlotId, itemId }
-  });
-
-  const setTeamMemberEquipmentSlotSlot = (equipmentSlotId, slotId) => itemId => playerContext.dispatch({
-    type: "SET_TEAM_MEMBER_EQUIPMENT_SLOT_SLOT",
-    payload: { teamId: team.id, memberId: member.id, equipmentSlotId, slotId, itemId }
-  });
-
+export default ({ member }) => {
   return (
     <Card className="team-member">
       <Tab.Container defaultActiveKey={member.id}>
@@ -34,8 +17,8 @@ export default ({member, team}) => {
           <Nav justify variant="tabs">
             <SlotNavItem slot={member} />
 
-            {map(member.slots, ([_, slot]) =>
-              <SlotNavItem slot={slot} />
+            {member.slots.map(slot =>
+              <SlotNavItem key={slot.id} slot={slot} />
             )}
           </Nav>
         </Card.Header>
@@ -43,19 +26,20 @@ export default ({member, team}) => {
         <Card.Body>
           <Tab.Content>
             <Tab.Pane eventKey={member.id}>
-              <SlotItemSelect slot={member} onSelect={setTeamMember} />
+              <SlotItemSelect slot={member} onSelect={() => void 0} />
             </Tab.Pane>
 
-            {map(member.slots, ([_, equipmentSlot]) =>
-              <Tab.Pane eventKey={equipmentSlot.id}>
+            {member.slots.map(equipmentSlot =>
+              <Tab.Pane key={equipmentSlot.id} eventKey={equipmentSlot.id}>
                 <SlotItemSelect 
                   slot={equipmentSlot} 
-                  onSelect={setTeamMemberEquipmentSlot(equipmentSlot.id)} />
+                  onSelect={() => void 0} />
 
-                {map(equipmentSlot.slots, ([_, slot]) =>
+                {equipmentSlot.slots.map(slot =>
                   <SlotItemSelect 
+                    key={slot.id}
                     slot={slot} 
-                    onSelect={setTeamMemberEquipmentSlotSlot(equipmentSlot.id, slot.id)} 
+                    onSelect={() => void 0} 
                     className="mt-2" />
                 )}
               </Tab.Pane>
@@ -71,7 +55,7 @@ export default ({member, team}) => {
   );
 }
 
-const Image = ({src, size}) => {
+const Image = ({ src, size }) => {
   return(
     <span className="d-inline-block align-top" style={{
         width: size,
@@ -84,7 +68,7 @@ const Image = ({src, size}) => {
   );
 }
 
-const SlotNavItem = ({slot}) => {
+const SlotNavItem = ({ slot }) => {
   return (
     <Nav.Item>
       <Nav.Link eventKey={slot.id} className="px-0 pb-1">
@@ -94,8 +78,8 @@ const SlotNavItem = ({slot}) => {
   );
 }
 
-const SlotItemSelect = ({slot, onSelect, ...props}) => {
-  const dataContext = useDataContext();
+const SlotItemSelect = ({ slot, onSelect, ...props }) => {
+  const entities = useRecoilValue(entitiesOfTypeSelector(slot.valueType));
 
   return (
     <InputGroup className={props.className}>
@@ -105,18 +89,19 @@ const SlotItemSelect = ({slot, onSelect, ...props}) => {
 
       <Form.Control 
         as="select" 
+        defaultValue={slot.value.id}
         onChange={e => onSelect(e.target.value)} 
         disabled={slot.value.subtype === "special"}>
 
         <option value="">None</option>
 
-        {map(dataContext.getEntitiesOfType(slot.valueType), ([_, entity]) =>
+        {entities.map(entity =>
           <option 
+            key={entity.id}
             value={entity.id} 
-            selected={entity.id === slot.value.id} 
             disabled={entity.subtype === "special"}>
             
-            {entity.name}
+            {entity.displayName}
           </option>
         )}
       </Form.Control>
