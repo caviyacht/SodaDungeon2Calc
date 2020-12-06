@@ -11,21 +11,12 @@ export default () => {
   return (
     <div>
       <Row>
-        <Col>
-          <h1>Teams</h1>
-          <p className="lead">
-            You're going to need some help.
-          </p>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col xs={12} lg={6} className="mb-4">
+        <Col xs={12} lg={6}>
           <TeamSelector />
         </Col>
       </Row>
 
-      <Row>
+      <Row className="pt-4">
         <Col>
           <PlayerTeam />
         </Col>
@@ -114,7 +105,11 @@ const AddTeamModal = ({ show, onHide }) => {
     onHide();
   };
 
-  //useEffect(() => nameRef.focus(), [nameRef]);
+  useEffect(() => {
+    if (show) {
+      nameRef.current.focus()
+    }
+  }, [show]);
 
   // TODO: This seems wrong.
   if (!show) {

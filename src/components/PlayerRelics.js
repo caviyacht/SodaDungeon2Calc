@@ -11,15 +11,6 @@ export default () => {
 
   return (
     <div>
-      <Row className="mb-4">
-        <Col>
-          <h1>Relics</h1>
-          <p className="lead">
-            Take these, you'll need them.
-          </p>
-        </Col>
-      </Row>
-
       <Row xs={1} lg={2}>
         <Col lg={2} className="mb-4">
           <Nav justify variant="pills" activeKey={activeKey} onSelect={handleNavSelect} className="flex-lg-column">

@@ -1,41 +1,63 @@
 import React from "react";
-import { FormControl, FormGroup, FormLabel, InputGroup } from "react-bootstrap";
-import { useSetRecoilState } from "recoil";
+import { Form, InputGroup } from "react-bootstrap";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { playerEntityLevelSelector } from "../selectors/playerEntityLevelSelector";
+import { playerEntitySelector } from "../selectors/playerEntitySelector";
 import FormGroupImage from "./FormGroupImage";
 
-export default ({ value }) => {
-  const setLevel = useSetRecoilState(playerEntityLevelSelector(value.id));
+// TODO: This feels wrong to accept two arguments like this.
+export default ({ id, value, controlType = "text" }) => {
+  const entity = value || useRecoilValue(playerEntitySelector(id));
+  const setLevel = useSetRecoilState(playerEntityLevelSelector(id || value.id));
 
   const handleSetLevel = ({ target: { value } }) => setLevel(value);
+
+  const control = controlType === "select"
+    ? <EntityLevelSelect entity={entity} onChange={handleSetLevel} />
+    : <EntityLevelInput entity={entity} onChange={handleSetLevel} />
 
   return (
     <div className="d-flex">
       <div className="mr-2" style={{flex: "0 0 70px"}}>
-        <FormGroupImage src={value.image}/>
+        <FormGroupImage src={entity.image}/>
       </div>
 
-      <FormGroup className="w-100">
-        <FormLabel htmlFor={`relic-${value.id}`}>
-          {value.displayName}
-        </FormLabel>
+      <Form.Group controlId={entity.id} className="w-100">
+        <Form.Label>
+          {entity.displayName}
+        </Form.Label>
         
         <InputGroup>
-          <FormControl 
-            id={`relic-${value.id}`} 
-            type="number" 
-            min="1" 
-            max={value.maxLevel || 1000000}
-            value={value.level} 
-            onChange={handleSetLevel} />
-
-          {value.hasOwnProperty("maxLevel") &&
+          {control}
+          
+          {entity.hasOwnProperty("maxLevel") &&
             <InputGroup.Append>
-              <InputGroup.Text className="bg-dark text-light">{"/" + value.maxLevel}</InputGroup.Text>
+              <InputGroup.Text className="bg-dark text-light">{"/" + entity.maxLevel}</InputGroup.Text>
             </InputGroup.Append>
           }
         </InputGroup>
-      </FormGroup>
+      </Form.Group>
     </div>
+  );
+};
+
+const EntityLevelInput = ({ entity, onChange }) => {
+  return (
+    <Form.Control  
+      type="number" 
+      min="1" 
+      max={entity.maxLevel || 1000000}
+      value={entity.level} 
+      onChange={onChange} />
+  );
+};
+
+const EntityLevelSelect = ({ entity, onChange }) => {
+  return (
+    <Form.Control as="select" defaultValue={entity.level} onChange={onChange}>
+      {[...Array(entity.maxLevel + 1).keys()].map(level =>
+        <option key={level} value={level}>{level}</option>
+      )}
+    </Form.Control>
   );
 };

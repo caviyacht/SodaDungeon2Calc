@@ -6,6 +6,8 @@ import PlayerRelics from "./components/PlayerRelics";
 import PlayerCharacters from "./components/PlayerCharacters";
 import PlayerPets from "./components/PlayerPets";
 import AppNavigation from "./components/AppNavigation";
+import AppPageHeader from "./components/AppPageHeader";
+import PageSection from "./components/PageSection";
 
 export default () => {
   return (
@@ -16,34 +18,22 @@ export default () => {
   );
 }
 
+// TODO: Move most of the stuff out of here.
 const AppContent = () => {
-  const [activeKey, setActiveKey] = useState("home");
+  const [pageName, setPageName] = useState("home");
 
   return (
     <>
-      <Tab.Container activeKey={activeKey}>
-        <AppNavigation onSelect={setActiveKey} />
+      <Tab.Container activeKey={pageName}>
+        <AppNavigation onSelect={setPageName} />
+        <AppPageHeader name={pageName} />
 
-        <Container className="pt-4">
+        <Container>
           <Tab.Content>
             <Tab.Pane eventKey="home">
-              <Row className="mb-4">
-                <Col>
-                  <h1>Yet Another Soda Dungeon 2 Calculator</h1>
-                  <p className="lead">
-                    How much harm could another calculator do?
-                  </p>
-                </Col>
-              </Row>
-
-              <Row>
-                <Col>
-                  <h2>Getting Started</h2>
-                  <p className="lead">
-                    Setup your player and team, but don't forget about your relics!
-                  </p>
-                </Col>
-              </Row>
+              <PageSection 
+                title="Getting Started" 
+                description="Setup your player, teams, and relics (don't forget the relics)." />
             </Tab.Pane>
 
             <Tab.Pane eventKey="player">
@@ -80,8 +70,10 @@ const AppContent = () => {
         </Container>
       </Tab.Container>
       
-      <Container fluid className="bg-dark mt-auto">
-        <Container className="text-right p-2">Created by caviyacht</Container>
+      <Container fluid className="mt-auto p-0">
+        <Container fluid className="bg-dark mt-5">
+          <Container className="p-2">Created by caviyacht</Container>
+        </Container>
       </Container>
     </>
   );
