@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Col, Form, InputGroup, Row } from "react-bootstrap";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { imageCollectionSelector } from "../selectors/imageCollectionSelector";
@@ -34,6 +34,13 @@ const DungeonFloorInput = () => {
   const images = useRecoilValue(imageCollectionSelector("icons"));
   const [floor, setFloor] = useRecoilState(playerFloorSelector);
 
+  // TODO: Move this logic into a generic control (for relics, etc).
+  const handleKeyDown = event => {
+    if (event.key === "Enter") {
+      event.target.blur();
+    }
+  };
+
   const handleSetFloor = ({ target: { value } }) => setFloor(value);
 
   return (
@@ -48,8 +55,9 @@ const DungeonFloorInput = () => {
           <Form.Control 
             type="number" 
             min="1" 
-            value={floor}
-            onChange={handleSetFloor} />
+            defaultValue={floor}
+            onBlur={handleSetFloor}
+            onKeyDown={handleKeyDown} />
         </InputGroup>
       </Form.Group>
     </div>

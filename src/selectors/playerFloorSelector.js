@@ -7,6 +7,7 @@ export const playerFloorSelector = selector({
     return get(playerDataAtom).floor;
   },
   set: ({ set }, value) => {
+    console.log("playerFloorSelector", value);
     set(playerDataAtom, state => ({
       ...state,
       floor: value
