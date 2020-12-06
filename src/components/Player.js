@@ -1,9 +1,9 @@
 import React from "react";
 import { Col, Form, InputGroup, Row } from "react-bootstrap";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { imagesState } from "../atoms/imagesState";
-import { rawPlayerState } from "../atoms/rawPlayerState";
-import { playerEntityState } from "../selectors/playerEntityState";
+import { imageCollectionSelector } from "../selectors/imageCollectionSelector";
+import { playerEntitySelector } from "../selectors/playerEntitySelector";
+import { playerFloorSelector } from "../selectors/playerFloorSelector";
 import { entityId } from "../utils";
 import FormGroupImage from "./FormGroupImage";
 
@@ -44,20 +44,15 @@ export default () => {
 }
 
 const DungeonFloorInput = () => {
-  const images = useRecoilValue(imagesState);
-  const [player, setPlayer] = useRecoilState(rawPlayerState);
+  const images = useRecoilValue(imageCollectionSelector("icons"));
+  const [floor, setFloor] = useRecoilState(playerFloorSelector);
 
-  const setFloor = ({ target: { value } }) => {
-    setPlayer(state => ({
-      ...state,
-      floor: value
-    }));
-  };
+  const handleSetFloor = ({ target: { value } }) => setFloor(value);
 
   return (
     <>
       <div className="mr-2" style={{flex: "0 0 70px"}}>
-        <FormGroupImage src={images.icons.stairs}/>
+        <FormGroupImage src={images.stairs}/>
       </div>
 
       <Form.Group controlId="player-dungeon-floor" className="w-100">
@@ -66,8 +61,8 @@ const DungeonFloorInput = () => {
           <Form.Control 
             type="number" 
             min="1" 
-            value={player.floor}
-            onChange={setFloor} />
+            value={floor}
+            onChange={handleSetFloor} />
         </InputGroup>
       </Form.Group>
     </>
@@ -75,11 +70,9 @@ const DungeonFloorInput = () => {
 };
 
 const KitchenLevelSelect = () => {
-  const [kitchen, setKitchen] = useRecoilState(playerEntityState(entityId("upgrade", "kitchen")));
+  const [kitchen, setKitchen] = useRecoilState(playerEntitySelector(entityId("upgrade", "kitchen")));
 
-  const setKitchenLevel = ({ target: { value } }) => {
-    setKitchen(value);
-  };
+  const handleSetKitchenLevel = ({ target: { value } }) => setKitchen({ level: value });
 
   return (
     <>
@@ -90,7 +83,7 @@ const KitchenLevelSelect = () => {
       <Form.Group controlId="player-upgrades-kitchen-level" className="w-100">
         <Form.Label>Kitchen Level</Form.Label>
         <InputGroup>
-          <Form.Control as="select" onChange={setKitchenLevel}>
+          <Form.Control as="select" onChange={handleSetKitchenLevel}>
             {[...Array(kitchen.maxLevel + 1).keys()].map(level =>
               <option value={level} selected={level === kitchen.level}>{level}</option>
             )}

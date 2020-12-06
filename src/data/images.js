@@ -155,6 +155,6 @@ export default {
     "107": "./images/relics/relic_107.png",
     "108": "./images/relics/relic_108.png",
     "109": "./images/relics/relic_109.png",
-    "110s": "./images/relics/relic_110.png"
+    "110": "./images/relics/relic_110.png"
   }
 };

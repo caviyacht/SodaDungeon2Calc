@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Dropdown, Navbar, Nav } from "react-bootstrap";
 import { useRecoilValue } from "recoil";
-import { imagesState } from "../atoms/imagesState";
+import { imageCollectionSelector } from "../selectors/imageCollectionSelector";
 
 export default ({onSelect}) => {
-  const images = useRecoilValue(imagesState);
+  const images = useRecoilValue(imageCollectionSelector("skills"));
 
   return (
     <Navbar variant="dark" bg="dark" onSelect={onSelect}>
@@ -12,7 +12,7 @@ export default ({onSelect}) => {
       <Container className="px-sm-3">
         <Navbar.Brand>
           <img 
-            src={images.skills.burp} 
+            src={images.burp} 
             alt="Burp" 
             className="d-inline-block align-top"
             style={{width: "30px", height: "30px"}} />

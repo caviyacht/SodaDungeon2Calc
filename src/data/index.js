@@ -12,20 +12,24 @@ import stats from "./entities/stats";
 import upgrades from "./entities/upgrades";
 import weapons from "./entities/weapons";
 
-export default {
-  entities: {
-    ...accessories,
-    ...armors,
-    ...characters,
-    ...gems,
-    ...pets,
-    ...relics,
-    ...resource_ores,
-    ...shields,
-    ...skills,
-    ...slots,
-    ...stats,
-    ...upgrades,
-    ...weapons
-  }
+import imagesData from "./images";
+
+export const entities = {
+  ...accessories,
+  ...armors,
+  ...characters,
+  ...gems,
+  ...pets,
+  ...relics,
+  ...resource_ores,
+  ...shields,
+  ...skills,
+  ...slots,
+  ...stats,
+  ...upgrades,
+  ...weapons
+};
+
+export const images = {
+  ...imagesData
 };
