@@ -2,7 +2,10 @@ import React from "react";
 import { Container, Jumbotron } from "react-bootstrap";
 
 const data = {
-  "home": { title: "Yet Another Soda Dungeon 2 Calculator", subtitle: "How much harm could another calculator do?" },
+  "home": { 
+    title: "Yet Another Soda Dungeon 2 Calculator", 
+    subtitle: "I couldn't think of a longer name." 
+  },
   "player": { title: "Player", subtitle: "This is you." },
   "teams": { title: "Teams", subtitle: "Where you're going, you're going to need some help." },
   "relics": { title: "Relics", subtitle: "You won't make it far without these." },
