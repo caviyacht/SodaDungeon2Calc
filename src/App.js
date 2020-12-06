@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Col, Container, Row, Tab } from "react-bootstrap";
 import Player from "./components/Player";
-/*import PlayerTeams from "./components/PlayerTeams";
+//import PlayerTeams from "./components/PlayerTeams";
 import PlayerRelics from "./components/PlayerRelics";
 import PlayerCharacters from "./components/PlayerCharacters";
-import PlayerPets from "./components/PlayerPets";*/
+import PlayerPets from "./components/PlayerPets";
 import AppNavigation from "./components/AppNavigation";
 
 export default () => {
@@ -55,15 +55,15 @@ const AppContent = () => {
             </Tab.Pane>
 
             <Tab.Pane eventKey="relics">
-              {/*<PlayerRelics/>*/}
+              <PlayerRelics />
             </Tab.Pane>
 
             <Tab.Pane eventKey="characters">
-              {/*<PlayerCharacters/>*/}
+              <PlayerCharacters />
             </Tab.Pane>
 
             <Tab.Pane eventKey="pets">
-              {/*<PlayerPets/>*/}
+              <PlayerPets />
             </Tab.Pane>
 
             <Tab.Pane eventKey="items">
