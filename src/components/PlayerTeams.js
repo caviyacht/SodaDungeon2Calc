@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Dropdown, DropdownButton, Form, InputGroup, Modal, Row } from "react-bootstrap";
+import { Button, Col, Dropdown, DropdownButton, Form, InputGroup, Modal, Nav, Row, Tab } from "react-bootstrap";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { playerDataAtom } from "../atoms/playerDataAtom";
 import { playerTeamIdAtom } from "../atoms/playerTeamIdAtom";
@@ -11,17 +11,43 @@ export default () => {
   return (
     <div>
       <Row>
-        <Col xs={12} lg={6}>
+        <Col xs={12} lg={{ span: 5, offset: 2 }}>
           <TeamSelector />
         </Col>
       </Row>
 
-      <Row className="pt-4">
+      <Row xs={1} lg={2}>
         <Col>
-          <PlayerTeam />
+          <SelectedTeam />
         </Col>
       </Row>
     </div>
+  );
+};
+
+const SelectedTeam = () => {
+  return (
+    <Tab.Container defaultActiveKey="team">
+      <Row>
+        <Col lg={2} className="mb-4">
+          <Nav justify variant="pills" className="flex-lg-column">
+            <Nav.Link eventKey="team">Team</Nav.Link>
+            <Nav.Link eventKey="survivability">Survivability</Nav.Link>
+          </Nav>
+        </Col>
+
+        <Col lg={10}>
+          <Tab.Content>
+            <Tab.Pane eventKey="team">
+              <PlayerTeam />
+            </Tab.Pane>
+
+            <Tab.Pane eventKey="survivability">
+            </Tab.Pane>
+          </Tab.Content>
+        </Col>
+      </Row>
+    </Tab.Container>
   );
 };
 

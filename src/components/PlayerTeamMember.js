@@ -2,14 +2,10 @@ import React, { useState } from "react";
 import { Badge, Card, Collapse, Form, InputGroup, Nav, Tab, Table } from "react-bootstrap";
 import { useRecoilValue } from "recoil";
 import { entitiesOfTypeSelector } from "../selectors/entityOfTypeSelector";
-import { 
-  calculateMemberStats, 
-  formatStat, 
-  flattenMemberSkills, 
-  loadStat,
-  map } from "../utils";
+import { formatStat, loadStat } from "../utils";
 
 export default ({ member }) => {
+  console.log(member);
   return (
     <Card className="team-member">
       <Tab.Container defaultActiveKey={member.id}>
@@ -17,7 +13,7 @@ export default ({ member }) => {
           <Nav justify variant="tabs">
             <SlotNavItem slot={member} />
 
-            {member.slots.map(slot =>
+            {Object.entries(member.slots).map(([_, slot]) =>
               <SlotNavItem key={slot.id} slot={slot} />
             )}
           </Nav>
@@ -29,13 +25,13 @@ export default ({ member }) => {
               <SlotItemSelect slot={member} onSelect={() => void 0} />
             </Tab.Pane>
 
-            {member.slots.map(equipmentSlot =>
+            {Object.entries(member.slots).map(([_, equipmentSlot]) =>
               <Tab.Pane key={equipmentSlot.id} eventKey={equipmentSlot.id}>
                 <SlotItemSelect 
                   slot={equipmentSlot} 
                   onSelect={() => void 0} />
 
-                {equipmentSlot.slots.map(slot =>
+                {Object.entries(equipmentSlot.slots).map(([_, slot]) =>
                   <SlotItemSelect 
                     key={slot.id}
                     slot={slot} 
@@ -48,7 +44,7 @@ export default ({ member }) => {
         </Card.Body>
 
         <Card.Footer className="p-0">
-          {/*<Stats member={member} team={team} />*/}
+          <Stats member={member} />
         </Card.Footer>
       </Tab.Container>
     </Card>
@@ -109,9 +105,7 @@ const SlotItemSelect = ({ slot, onSelect, ...props }) => {
   );
 }
 
-const Stats = ({member, team}) => {
-  const dataContext = useDataContext();
-  const playerContext = usePlayerContext();
+const Stats = ({ member }) => {
   const [open, setOpen] = useState({
     stats: false,
     skills: false
@@ -124,9 +118,6 @@ const Stats = ({member, team}) => {
     })
   };
 
-  const stats = calculateMemberStats(member, team, playerContext, dataContext);
-  const skills = flattenMemberSkills(member);
-
   return (
     <Table borderless size="sm" className="mb-0">
       <thead>
@@ -137,18 +128,22 @@ const Stats = ({member, team}) => {
           }}
           onClick={handleSetOpen("stats")}>
 
-          <th>Stats <Badge variant="info" className="ml-2">{stats.length}</Badge></th>
+          <th>
+            Stats <Badge variant="info" className="ml-2">{Object.keys(member.stats).length}</Badge>
+          </th>
+
           <th class="text-right">
-          {open.stats ? "-" : "+"}
+            {open.stats ? "-" : "+"}
           </th>
         </tr>
       </thead>
+
       <Collapse in={open.stats}>
         <tbody>
-          {stats.map(stat =>
+          {Object.entries(member.stats).map(([_, stat]) =>
             <tr style={{borderBottom: "1px solid var(--gray)"}}>
               <th className="bg-dark">
-                {stat.name}
+                {stat.displayName}
                 {stat.scope === "team" && 
                   <Badge variant="info" className="ml-2">Team</Badge>
                 }
@@ -158,7 +153,8 @@ const Stats = ({member, team}) => {
           )}
         </tbody>
       </Collapse>
-      {member.itemType === "character" &&
+
+      {member.valueType === "character" &&
         <>
           <tbody>
             <tr 
@@ -168,28 +164,38 @@ const Stats = ({member, team}) => {
               }}
               onClick={handleSetOpen("skills")}>
 
-              <th>Skills <Badge variant="info" className="ml-2">{skills.length}</Badge></th>
+              <th>
+                Skills <Badge variant="info" className="ml-2">{Object.keys(member.skills).length}</Badge>
+              </th>
               <th class="text-right">
                 {open.skills ? "-" : "+"}
               </th>
             </tr>
           </tbody>
+
           <Collapse in={open.skills}>
             <tbody>
-              {skills.map(skill =>
+              {Object.entries(member.skills).map(([_, skill]) =>
                 <>
-                <tr style={{backgroundColor: "var(--gray-dark)"}}>
-                  <th colSpan="2">
-                    {skill.name}
-                    <Badge variant="info" className="ml-2">{skill.category}</Badge>
-                  </th>
-                </tr>
-                {calculateSkillStats(stats, skill, dataContext).map(stat =>
-                  <tr style={{borderBottom: "1px solid var(--gray)"}}>
-                    <th className="bg-dark">{stat.name}</th>
-                    <td className="text-right">{formatStat(stat)}</td>
+                  <tr style={{backgroundColor: "var(--gray-dark)"}}>
+                    <th colSpan="2">
+                      {skill.displayName}
+                      <Badge variant="info" className="ml-2">{skill.category}</Badge>
+                    </th>
                   </tr>
-                )}
+                  {/* TEMP */}
+                  {Object.entries(skill.stats).map(([_, stat]) =>
+                    <tr key={stat.id} style={{borderBottom: "1px solid var(--gray)"}}>
+                      <th className="bg-dark">{stat.displayName}</th>
+                      <td className="text-right">{formatStat(stat)}</td>
+                    </tr>
+                  )}
+                  {/*calculateSkillStats(stats, skill, dataContext).map(stat =>
+                    <tr style={{borderBottom: "1px solid var(--gray)"}}>
+                      <th className="bg-dark">{stat.displayName}</th>
+                      <td className="text-right">{formatStat(stat)}</td>
+                    </tr>
+                  )*/}
                 </>
               )}
             </tbody>
