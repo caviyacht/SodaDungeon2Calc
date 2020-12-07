@@ -16,7 +16,7 @@ export default () => {
         </Col>
       </Row>
 
-      <Row xs={1} lg={2}>
+      <Row className="pt-4">
         <Col>
           <SelectedTeam />
         </Col>
@@ -28,8 +28,8 @@ export default () => {
 const SelectedTeam = () => {
   return (
     <Tab.Container defaultActiveKey="team">
-      <Row>
-        <Col lg={2} className="mb-4">
+      <Row xs={1} lg={2}>
+        <Col lg={2} className="pb-4">
           <Nav justify variant="pills" className="flex-lg-column">
             <Nav.Link eventKey="team">Team</Nav.Link>
             <Nav.Link eventKey="survivability">Survivability</Nav.Link>

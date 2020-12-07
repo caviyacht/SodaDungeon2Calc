@@ -123,7 +123,7 @@ const Stats = ({ member }) => {
       <thead>
         <tr 
           style={{
-            backgroundColor: "var(--gray)",
+            //backgroundColor: "var(--gray)",
             borderBottom: "1px solid var(--gray-dark)"
           }}
           onClick={handleSetOpen("stats")}>
@@ -132,7 +132,7 @@ const Stats = ({ member }) => {
             Stats <Badge variant="info" className="ml-2">{Object.keys(member.stats).length}</Badge>
           </th>
 
-          <th class="text-right">
+          <th className="text-right">
             {open.stats ? "-" : "+"}
           </th>
         </tr>
@@ -141,7 +141,7 @@ const Stats = ({ member }) => {
       <Collapse in={open.stats}>
         <tbody>
           {Object.entries(member.stats).map(([_, stat]) =>
-            <tr style={{borderBottom: "1px solid var(--gray)"}}>
+            <tr key={stat.id} style={{borderBottom: "1px solid var(--gray)"}}>
               <th className="bg-dark">
                 {stat.displayName}
                 {stat.scope === "team" && 
@@ -159,15 +159,15 @@ const Stats = ({ member }) => {
           <tbody>
             <tr 
               style={{
-                backgroundColor: "var(--gray)",
-                borderBottom: "1px solid var(--gray-dark)"
+                //backgroundColor: "var(--gray)",
+                //borderBottom: "1px solid var(--gray-dark)"
               }}
               onClick={handleSetOpen("skills")}>
 
               <th>
                 Skills <Badge variant="info" className="ml-2">{Object.keys(member.skills).length}</Badge>
               </th>
-              <th class="text-right">
+              <th className="text-right">
                 {open.skills ? "-" : "+"}
               </th>
             </tr>
@@ -176,7 +176,7 @@ const Stats = ({ member }) => {
           <Collapse in={open.skills}>
             <tbody>
               {Object.entries(member.skills).map(([_, skill]) =>
-                <>
+                <React.Fragment key={skill.id}>
                   <tr style={{backgroundColor: "var(--gray-dark)"}}>
                     <th colSpan="2">
                       {skill.displayName}
@@ -196,7 +196,7 @@ const Stats = ({ member }) => {
                       <td className="text-right">{formatStat(stat)}</td>
                     </tr>
                   )*/}
-                </>
+                </React.Fragment>
               )}
             </tbody>
           </Collapse>
