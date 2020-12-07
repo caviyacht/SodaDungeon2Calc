@@ -2,16 +2,12 @@ import React, { useState } from "react";
 import { Badge, Card, Collapse, Form, InputGroup, Nav, Tab, Table } from "react-bootstrap";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { entitiesOfTypeSelector } from "../selectors/entityOfTypeSelector";
+import { equipmentSlotSlotSelector } from "../selectors/equipmentSlotSlotSelector";
+import { memberEquipmentSlotSelector } from "../selectors/memberEquipmentSlotSelector";
 import { playerTeamMemberSelector } from "../selectors/playerTeamMemberSelector";
 import { formatStat, loadStat } from "../utils";
 
 export default ({ member }) => {
-  const setTeamMember = useSetRecoilState(playerTeamMemberSelector(member.name));
-
-  const handleSetTeamMember = ({ target: { value } }) => {
-    setTeamMember(value);
-  };
-
   return (
     <Card className="team-member">
       <Tab.Container defaultActiveKey={member.id}>
@@ -28,17 +24,18 @@ export default ({ member }) => {
         <Card.Body>
           <Tab.Content>
             <Tab.Pane eventKey={member.id}>
-              <SlotItemSelect slot={member} onChange={handleSetTeamMember} />
+              <MemberSlot member={member} />
             </Tab.Pane>
 
             {Object.entries(member.slots).map(([_, equipmentSlot]) =>
               <Tab.Pane key={equipmentSlot.id} eventKey={equipmentSlot.id}>
-                <SlotItemSelect 
-                  slot={equipmentSlot} />
+                <MemberEquipmentSlot member={member} equipmentSlot={equipmentSlot} />
 
                 {Object.entries(equipmentSlot.slots).map(([_, slot]) =>
-                  <SlotItemSelect 
+                  <MemberEquipmentSlotSlot
                     key={slot.id}
+                    member={member}
+                    equipmentSlot={equipmentSlot}
                     slot={slot} 
                     className="mt-2" />
                 )}
@@ -52,6 +49,54 @@ export default ({ member }) => {
         </Card.Footer>
       </Tab.Container>
     </Card>
+  );
+};
+
+const MemberEquipmentSlotSlot = ({ member, equipmentSlot, slot }) => {
+  const setTeamMemberEquipmentSlotSlot = useSetRecoilState(equipmentSlotSlotSelector({
+    memberName: member.name,
+    equipmentSlotName: equipmentSlot.name,
+    slotName: slot.name
+  }));
+
+  const handleSetTeamMemberEquipmentSlotSlot = ({ target: { value } }) => {
+    setTeamMemberEquipmentSlotSlot(value);
+  };
+
+  return (
+    <SlotItemSelect 
+    slot={slot} 
+    onChange={handleSetTeamMemberEquipmentSlotSlot} />
+  );
+};
+
+const MemberEquipmentSlot = ({ member, equipmentSlot }) => {
+  const setTeamMemberEquipmentSlot = useSetRecoilState(memberEquipmentSlotSelector({
+    memberName: member.name,
+    equipmentSlotName: equipmentSlot.name
+  }));
+
+  const handleSetTeamMemberEquipmentSlot = ({ target: { value } }) => {
+    setTeamMemberEquipmentSlot(value);
+  };
+
+  return (
+    <SlotItemSelect 
+    slot={equipmentSlot} 
+    onChange={handleSetTeamMemberEquipmentSlot}
+    isDisabled={member.value.subtype === "special" && equipmentSlot.valueType === "weapon"} />
+  );
+};
+
+const MemberSlot = ({ member }) => {
+  const setTeamMember = useSetRecoilState(playerTeamMemberSelector(member.name));
+
+  const handleSetTeamMember = ({ target: { value } }) => {
+    setTeamMember(value);
+  };
+
+  return (
+    <SlotItemSelect slot={member} onChange={handleSetTeamMember} />
   );
 };
 
@@ -78,7 +123,7 @@ const SlotNavItem = ({ slot }) => {
   );
 };
 
-const SlotItemSelect = ({ slot, onChange, ...props }) => {
+const SlotItemSelect = ({ slot, onChange, isDisabled, ...props }) => {
   const entities = useRecoilValue(entitiesOfTypeSelector(slot.valueType));
 
   return (
@@ -91,7 +136,7 @@ const SlotItemSelect = ({ slot, onChange, ...props }) => {
         as="select" 
         defaultValue={slot.value.id}
         onChange={onChange} 
-        disabled={slot.value.subtype === "special"}>
+        disabled={isDisabled}>
 
         <option value="">None</option>
 
@@ -99,7 +144,7 @@ const SlotItemSelect = ({ slot, onChange, ...props }) => {
           <option 
             key={entity.id}
             value={entity.id} 
-            disabled={entity.subtype === "special"}>
+            disabled={entity.type !== "character" && entity.subtype === "special"}>
             
             {entity.displayName}
           </option>

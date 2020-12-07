@@ -14,7 +14,7 @@ export default ({ id, value, controlType = "text" }) => {
 
   const control = controlType === "select"
     ? <EntityLevelSelect entity={entity} onChange={handleSetLevel} />
-    : <EntityLevelInput entity={entity} onChange={handleSetLevel} />
+    : <EntityLevelInput entity={entity} onBlur={handleSetLevel} />
 
   return (
     <div className="d-flex">
@@ -41,14 +41,21 @@ export default ({ id, value, controlType = "text" }) => {
   );
 };
 
-const EntityLevelInput = ({ entity, onChange }) => {
+const EntityLevelInput = ({ entity, onBlur }) => {
+  const handleKeyDown = event => {
+    if (event.key === "Enter") {
+      event.target.blur();
+    }
+  };
+
   return (
     <Form.Control  
       type="number" 
       min="1" 
       max={entity.maxLevel || 1000000}
       value={entity.level} 
-      onChange={onChange} />
+      onKeyDown={handleKeyDown}
+      onBlur={onBlur} />
   );
 };
 

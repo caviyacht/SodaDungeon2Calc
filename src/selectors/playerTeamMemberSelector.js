@@ -1,15 +1,13 @@
 import { selectorFamily } from "recoil";
-import { playerTeamIdAtom } from "../atoms/playerTeamIdAtom";
-import { playerDataAtom } from "../atoms/playerDataAtom";
 import { getSlotEntity } from "../utils";
 import { playerTeamMemberDataSelector } from "./playerTeamMemberDataSelector";
 import { entitySelector } from "./entitySelector";
+import { playerTeamDataSelector } from "./playerTeamDataSelector";
 
 export const playerTeamMemberSelector = selectorFamily({
   key: "playerTeamMemberSelector",
   get: name => ({ get }) => {
-    const teamId = get(playerTeamIdAtom);
-    const team = get(playerDataAtom).teams[teamId] || {};
+    const team = get(playerTeamDataSelector);
     const slot = team.slots[name];
 
     const entity = getSlotEntity(get)(name, slot);
