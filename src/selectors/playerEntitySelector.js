@@ -11,11 +11,11 @@ export const playerEntitySelector = selectorFamily({
     // Calculate stats.
     const stats = Object.fromEntries(Object
       .entries(entity.stats || {})
-      .map(([statId, stat]) => [
-        statId,
+      .map(([name, stat]) => [
+        name,
         {
           ...stat,
-          value: stat.value * (playerEntity.level || 0)
+          value: levelUpStat(entity.type, stat, playerEntity.level || 0)
         }
       ]));
 
@@ -38,3 +38,15 @@ export const playerEntitySelector = selectorFamily({
     }));
   }
 });
+
+// TODO: Handle every scenario, currently handles:
+// - Relics
+const levelUpStat = (entityType, stat, level) => {
+  switch (entityType) {
+    case "relic":
+      return stat.value * level;
+
+    default:
+      return stat.value;
+  }
+};

@@ -1,20 +1,21 @@
-const isEmpty = (obj) => {
-  for (let key in obj) {
+import { entitySelector } from "./selectors/entitySelector";
+import { playerEntitySelector } from "./selectors/playerEntitySelector";
+
+const isEmpty = (c) => {
+  if (Array.isArray(collection)) {
+    return collection.length === 0;
+  }
+
+  for (_ of collection) {
     return false;
   }
 
   return true;
-}
+};
 
 const isObject = (obj) => {
   return Object.prototype.toString.call(obj) === '[object Object]';
-}
-
-const withContext = (context, func) => func(context);
-
-const filter = (obj, predicate) => Object.fromEntries(Object.entries(obj).filter(predicate));
-
-const map = (obj, selector) => Object.entries(obj).map(([key, value]) => selector([key, value]));
+};
 
 const entityId = (type, name) => type + "-" + name;
 
@@ -25,6 +26,36 @@ const pluralize = (word) => {
 
   return word + "s";
 };
+
+const getEntityOfType = get => (type, name) => get(entitySelector(entityId(type, name)));
+
+const getPlayerEntityOfType = get => (type, name) => get(playerEntitySelector(entityId(type, name)));
+
+const getSlotEntity = get => (name, slot) => {
+  const slotEntity = getEntityOfType(get)("slot", name);
+  const valueEntity = getPlayerEntityOfType(get)(slotEntity.valueType, slot.value);
+
+  const slots = Object
+    .entries(slot.slots || {})
+    .map(([name, slot]) => getSlotEntity(get)(name, slot))
+    .reduce((result, slot) => ({...result, [slot.name]: slot}), {});
+
+  // TODO: Possibly find a new way to convey this.
+  const stats = aggregateStats(valueEntity, slots);
+  const skills = aggregateSkills(valueEntity, slots);
+
+  return {
+    ...slotEntity,
+    value: valueEntity,
+    stats,
+    skills,
+    slots
+  };
+};
+
+
+
+
 
 const loadRelics = (playerContext, dataContext) =>
   Object
@@ -97,6 +128,52 @@ const getMemberStatsSources = (member, team, playerContext, dataContext) => {
   );
 }
 
+
+
+const aggregateStats = (entity, slots) => {
+  const sources = [entity, ...Object.entries(slots).map(([_, slot]) => slot)];
+
+  return sources.reduce((result, source) => {
+    return Object.entries(source.stats).reduce((_, [name, stat]) => {
+      if (result[stat.name] && stat.valueType !== "boolean") {
+        result[stat.name] = {
+          ...result[stat.name],
+          value: result[stat.name].value + stat.value,
+          sources: [...result[stat.name].sources, source]
+        };
+      }
+      else {
+        result[stat.name] = {...stat, sources: [source]};
+      }
+
+      return result;
+    }, result);
+  }, {});
+};
+
+
+const aggregateSkills = (entity, slots) => {
+  const sources = [entity, ...Object.entries(slots).map(([_, slot]) => slot)];
+
+  return sources.reduce((result, source) => {
+    return Object.entries(source.skills).reduce((_, [name, skill]) => {
+      if (result[skill.name]) {
+        result[skill.name] = {
+          ...result[skill.name],
+          sources: [...result[skill.name].sources, source]
+        };
+      }
+      else {
+        result[skill.name] = {...skill, sources: [source]};
+      }
+
+      return result;
+    }, result);
+  }, {});
+};
+
+
+// TODO: Old.
 const calculateMemberStats = (member, team, playerContext, dataContext) => {
   const sources = getMemberStatsSources(member, team, playerContext, dataContext);
 
@@ -171,11 +248,12 @@ const getItemsForSlot = (slot, dataContext) =>
 export {
   isEmpty,
   isObject,
-  withContext,
-  filter,
-  map,
   entityId,
   pluralize,
+
+  getEntityOfType,
+  getPlayerEntityOfType,
+  getSlotEntity,
 
   loadRelics,
 
