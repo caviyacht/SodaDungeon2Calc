@@ -38,7 +38,7 @@ export const entitySelector = selectorFamily({
       Array.isArray(entity.slots)
         ? entity.slots.map(name => {
           if (isObject(name)) {
-            return { ...getEntity("slot", name), ...name };
+            return { ...getEntity("slot", name.name), ...name };
           }
 
           return { ...getEntity("slot", name), value: null };

@@ -57,23 +57,13 @@ const AppContent = () => {
             </Tab.Pane>
 
             <Tab.Pane eventKey="items">
-              <Row className="mb-4">
-                <Col>
-                  <h1>Items</h1>
-                  <p className="lead">
-                    Weapons, shields, armor, oh my! (Coming Soon!)
-                  </p>
-                </Col>
-              </Row>
             </Tab.Pane>
           </Tab.Content>
         </Container>
       </Tab.Container>
       
-      <Container fluid className="mt-auto p-0">
-        <Container fluid className="bg-dark mt-5">
-          <Container className="p-2">Created by caviyacht</Container>
-        </Container>
+      <Container fluid className="bg-dark mt-auto p-0">
+        <Container className="p-2">Created by caviyacht</Container>
       </Container>
     </>
   );
