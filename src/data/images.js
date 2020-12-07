@@ -1,4 +1,4 @@
-export default {
+const images = {
   icons: {
     "accessory": "./images/icons/icon_accessory.png",
     "armor": "./images/icons/icon_armor.png",
@@ -158,3 +158,18 @@ export default {
     "110": "./images/relics/relic_110.png"
   }
 };
+
+// TODO: Possibly do this another way.
+// NOTE: CodeSandbox is killing the page performance, go directly to githack's cdn
+// instead of relying on CodeSandbox's redirect.
+const cdnPrefix = "https://rawcdn.githack.com/caviyacht/YetAnotherSodaDungeon2Calculator/main/public/";
+
+export default Object.entries(images).reduce((result, [name, collection]) => {
+  result[name] = {};
+
+  return Object.entries(collection).reduce((_, [id, value]) => {
+    result[name][id] = cdnPrefix + value;
+
+    return result;
+  }, result);
+}, {});
