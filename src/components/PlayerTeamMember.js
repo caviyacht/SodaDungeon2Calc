@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { Badge, Card, Collapse, Form, InputGroup, Nav, Tab, Table } from "react-bootstrap";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { playerDataAtom } from "../atoms/playerDataAtom";
-import { playerTeamIdAtom } from "../atoms/playerTeamIdAtom";
 import { entitiesOfTypeSelector } from "../selectors/entityOfTypeSelector";
-import { entitySelector } from "../selectors/entitySelector";
 import { playerTeamMemberSelector } from "../selectors/playerTeamMemberSelector";
 import { formatStat, loadStat } from "../utils";
 
 export default ({ member }) => {
-  const teamId = useRecoilValue(playerTeamIdAtom);
   const setTeamMember = useSetRecoilState(playerTeamMemberSelector(member.name));
 
   const handleSetTeamMember = ({ target: { value } }) => {
@@ -57,7 +53,7 @@ export default ({ member }) => {
       </Tab.Container>
     </Card>
   );
-}
+};
 
 const Image = ({ src, size }) => {
   return(
@@ -70,7 +66,7 @@ const Image = ({ src, size }) => {
         backgroundPosition: "50% 50%"
       }}/>
   );
-}
+};
 
 const SlotNavItem = ({ slot }) => {
   return (
@@ -80,7 +76,7 @@ const SlotNavItem = ({ slot }) => {
       </Nav.Link>
     </Nav.Item>
   );
-}
+};
 
 const SlotItemSelect = ({ slot, onChange, ...props }) => {
   const entities = useRecoilValue(entitiesOfTypeSelector(slot.valueType));
@@ -111,7 +107,7 @@ const SlotItemSelect = ({ slot, onChange, ...props }) => {
       </Form.Control>
     </InputGroup>
   );
-}
+};
 
 const Stats = ({ member }) => {
   const [open, setOpen] = useState({
@@ -212,7 +208,7 @@ const Stats = ({ member }) => {
       }
     </Table>
   );
-}
+};
 
 // TODO: Make this work again, leave here for now.
 // TODO: Possibly do this during load?
@@ -236,4 +232,4 @@ const calculateSkillStats = (memberStats, skill, dataContext) => {
     },
     ...skill.stats
   );
-}
+};
