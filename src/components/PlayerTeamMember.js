@@ -5,10 +5,17 @@ import { playerDataAtom } from "../atoms/playerDataAtom";
 import { playerTeamIdAtom } from "../atoms/playerTeamIdAtom";
 import { entitiesOfTypeSelector } from "../selectors/entityOfTypeSelector";
 import { entitySelector } from "../selectors/entitySelector";
+import { playerTeamMemberSelector } from "../selectors/playerTeamMemberSelector";
 import { formatStat, loadStat } from "../utils";
 
 export default ({ member }) => {
-  console.log(member);
+  const teamId = useRecoilValue(playerTeamIdAtom);
+  const setTeamMember = useSetRecoilState(playerTeamMemberSelector(member.name));
+
+  const handleSetTeamMember = ({ target: { value } }) => {
+    setTeamMember(value);
+  };
+
   return (
     <Card className="team-member">
       <Tab.Container defaultActiveKey={member.id}>
@@ -25,7 +32,7 @@ export default ({ member }) => {
         <Card.Body>
           <Tab.Content>
             <Tab.Pane eventKey={member.id}>
-              <SlotItemSelect slot={member} />
+              <SlotItemSelect slot={member} onChange={handleSetTeamMember} />
             </Tab.Pane>
 
             {Object.entries(member.slots).map(([_, equipmentSlot]) =>
@@ -75,30 +82,8 @@ const SlotNavItem = ({ slot }) => {
   );
 }
 
-// THIS DOESN'T WORK, MAKE IT WORK.
-
-const SlotItemSelect = ({ slot, ...props }) => {
+const SlotItemSelect = ({ slot, onChange, ...props }) => {
   const entities = useRecoilValue(entitiesOfTypeSelector(slot.valueType));
-
-  // TODO: Do this in a different spot and a different way.
-  const teamId = useRecoilValue(playerTeamIdAtom);
-  
-  const setPlayerData = useSetRecoilState(playerDataAtom);
-
-  const handleOnChange = ({ target: { value } }) => {
-    const entity = useRecoilValue(entitySelector(value));
-    // WARNING: Really bad code incoming.
-    switch (slot.valueType) {
-      case "character":
-        setPlayerCharacter(setPlayerData)(teamId, slot, entity);
-        break;
-
-      case "pet":
-      case "resource_ore":
-      default:
-        // Weapon/Shield/Armor/Accessory
-    }
-  };
 
   return (
     <InputGroup className={props.className}>
@@ -109,7 +94,7 @@ const SlotItemSelect = ({ slot, ...props }) => {
       <Form.Control 
         as="select" 
         defaultValue={slot.value.id}
-        onChange={handleOnChange} 
+        onChange={onChange} 
         disabled={slot.value.subtype === "special"}>
 
         <option value="">None</option>
@@ -228,38 +213,6 @@ const Stats = ({ member }) => {
     </Table>
   );
 }
-
-// TODO: Put this logic in a selector?
-const setPlayerCharacter = setState => (teamId, slot, valueEntity) => {
-  // When setting the character, need to:
-  // - Copy the equipment
-  // - Remove invalid equipment
-  // - Add equipment
-  const newSlot = Object.entries(slot.slots).reduce((result, [name, slot]) => {
-    if (result[slot.name] && slot.value.subtype !== "special") {
-      result[slot.name] = { ...slot };
-    }
-
-    return result;
-  }, Object.entries(entity.slots).reduce((result, [name, slot]) => ({
-    ...result,
-    [slot.name]: { value: slot.value }
-  }), {}));
-
-  setState(state => ({
-    ...state,
-    teams: {
-      ...state.teams,
-      [teamId]: {
-        ...state.teams[teamId],
-        slots: {
-          ...state.teams[teamId].slots,
-          [slot.name]: newSlot
-        }
-      }
-    }
-  }));
-};
 
 // TODO: Make this work again, leave here for now.
 // TODO: Possibly do this during load?
