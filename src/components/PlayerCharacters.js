@@ -5,7 +5,7 @@ import PlayerEntities from "./PlayerEntities";
 export default () => {
   return (
     <div>
-      <Row xs={1} lg={2}>
+      <Row>
         <Col>
           <PlayerEntities type="character" />
         </Col>
