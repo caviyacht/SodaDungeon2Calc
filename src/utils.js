@@ -1,4 +1,5 @@
 import { entitySelector } from "./selectors/entitySelector";
+import { memberStatsSelector } from "./selectors/memberStatsSelector";
 import { playerEntitiesOfTypeSelector } from "./selectors/playerEntitiesOfTypeSelector";
 import { playerEntitySelector } from "./selectors/playerEntitySelector";
 import { playerTeamMemberSelector } from "./selectors/playerTeamMemberSelector";
@@ -87,8 +88,6 @@ const getMemberStats = get => (name) => {
     getPlayerEntityOfType(get)("upgrade", "kitchen")
   );
 
-  console.log(name, sources);
-
   const stats = aggregateStats(sources);
 
   return [].concat(
@@ -104,6 +103,44 @@ const getMemberStats = get => (name) => {
     },
     ...Object.entries(stats).map(([id, value]) => ({id, ...value }))
   ).reduce((result, stat) => ({ ...result, [stat.name]: stat }), {});
+};
+
+const getMemberSkills = get => (name) => {
+  const stats = get(memberStatsSelector(name));
+  const member = get(playerTeamMemberSelector(name));
+
+  const memberAtkTotal = stats["atk_total"];
+
+  const skills = Object.entries(member.skills).reduce((result, [name, skill]) => {
+    const boost = stats[`${skill.category}_boost`];
+    const atkMultiplier = skill.stats["atk_multiplier"];
+
+    if (!atkMultiplier) {
+      result[name] = {
+        ...skill
+      };
+    }
+    else {
+      result[name] = {
+        ...skill,
+        stats: {
+          ["atk_total"]: {
+            ...getEntityOfType(get)("stat", "atk_total"),
+            value: Math.floor(
+              memberAtkTotal.value 
+                * (1 + boost.value) 
+                * (atkMultiplier || { value: 1 }).value
+            )
+          },
+          ...skill.stats
+        }
+      };
+    }
+
+    return result;
+  }, {});
+
+  return skills;
 };
 
 const aggregateStats = (sources) => {
@@ -143,13 +180,7 @@ const aggregateSkills = (sources) => {
   }, {});
 };
 
-// TODO: This isn't consistent with the other functions.
-const calculateTeamStats = (team, playerContext, dataContext) =>
-  team.members.map(member => ({
-    member,
-    stats: calculateMemberStats(member, team, playerContext, dataContext)
-  }));
-
+// TODO: Possibly return the formatted value in the object.
 const formatStat = (stat) => {
   switch (stat.valueType) {
     case "percent":
@@ -180,6 +211,7 @@ export {
   getSlotEntity,
 
   getMemberStats,
+  getMemberSkills,
 
   formatStat
 };

@@ -4,6 +4,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { entitiesOfTypeSelector } from "../selectors/entitiesOfTypeSelector";
 import { equipmentSlotSlotSelector } from "../selectors/equipmentSlotSlotSelector";
 import { memberEquipmentSlotSelector } from "../selectors/memberEquipmentSlotSelector";
+import { memberSkillsSelector } from "../selectors/memberSkillsSelector";
 import { memberStatsSelector } from "../selectors/memberStatsSelector";
 import { playerTeamMemberSelector } from "../selectors/playerTeamMemberSelector";
 import { formatStat, loadStat } from "../utils";
@@ -170,6 +171,7 @@ const Stats = ({ member }) => {
   };
 
   const stats = useRecoilValue(memberStatsSelector(member.name));
+  const skills = useRecoilValue(memberSkillsSelector(member.name));
 
   return (
     <Table borderless size="sm" className="mb-0">
@@ -228,7 +230,7 @@ const Stats = ({ member }) => {
 
           <Collapse in={open.skills}>
             <tbody>
-              {Object.entries(member.skills).map(([_, skill]) =>
+              {Object.entries(skills).map(([_, skill]) =>
                 <React.Fragment key={skill.id}>
                   <tr style={{backgroundColor: "var(--gray-dark)"}}>
                     <th colSpan="2">
@@ -236,19 +238,12 @@ const Stats = ({ member }) => {
                       <Badge variant="info" className="ml-2">{skill.category}</Badge>
                     </th>
                   </tr>
-                  {/* TEMP */}
                   {Object.entries(skill.stats).map(([_, stat]) =>
                     <tr key={stat.id} style={{borderBottom: "1px solid var(--gray)"}}>
                       <th className="bg-dark">{stat.displayName}</th>
                       <td className="text-right">{formatStat(stat)}</td>
                     </tr>
                   )}
-                  {/*calculateSkillStats(stats, skill, dataContext).map(stat =>
-                    <tr style={{borderBottom: "1px solid var(--gray)"}}>
-                      <th className="bg-dark">{stat.displayName}</th>
-                      <td className="text-right">{formatStat(stat)}</td>
-                    </tr>
-                  )*/}
                 </React.Fragment>
               )}
             </tbody>
@@ -256,29 +251,5 @@ const Stats = ({ member }) => {
         </>
       }
     </Table>
-  );
-};
-
-// TODO: Make this work again, leave here for now.
-// TODO: Possibly do this during load?
-const calculateSkillStats = (memberStats, skill, dataContext) => {
-  const memberAtkTotal = memberStats.filter(stat => stat.id === "atk_total")[0];
-  const memberBoost = memberStats.filter(stat => stat.id === `${skill.category}_boost`)[0];
-  const skillAtkMultiplier = skill.stats.filter(stat => stat.id === "atk_multiplier")[0];
-  
-  if (!skillAtkMultiplier) {
-    return skill.stats;
-  }
-
-  return [].concat(
-    {
-      ...loadStat("atk_total", dataContext),
-      value: Math.floor(
-        memberAtkTotal.value 
-          * (1 + memberBoost.value) 
-          * (skillAtkMultiplier || { value: 1 }).value
-      )
-    },
-    ...skill.stats
   );
 };
