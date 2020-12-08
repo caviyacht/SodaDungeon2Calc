@@ -18,18 +18,38 @@ export default ({onSelect}) => {
             style={{width: "30px", height: "30px"}} />
         </Navbar.Brand>
         <Navbar.Collapse>
-          <Nav className="mr-auto">
-            <Nav.Item><Nav.Link eventKey="home">Home</Nav.Link></Nav.Item>
-            <Nav.Item><Nav.Link eventKey="player">Player</Nav.Link></Nav.Item>
-            <Nav.Item><Nav.Link eventKey="teams">Teams</Nav.Link></Nav.Item>
-            <Nav.Item><Nav.Link eventKey="relics">Relics</Nav.Link></Nav.Item>
-            <Nav.Item><Nav.Link eventKey="characters" className="d-none d-md-block">Characters</Nav.Link></Nav.Item>
-            <Nav.Item><Nav.Link eventKey="pets" className="d-none d-md-block">Pets</Nav.Link></Nav.Item>
-            <Nav.Item><Nav.Link eventKey="items" className="d-none d-md-block">Items</Nav.Link></Nav.Item>
+          <Nav className="w-100 justify-content-around justify-content-md-start">
+            <Nav.Item>
+              <Nav.Link eventKey="home">Home</Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link eventKey="player">Player</Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link eventKey="teams">Teams</Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link eventKey="relics">Relics</Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item className="d-none d-md-block">
+              <Nav.Link eventKey="characters">Characters</Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item className="d-none d-md-block">
+              <Nav.Link eventKey="pets">Pets</Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item className="d-none d-md-block">
+              <Nav.Link eventKey="items">Items</Nav.Link>
+            </Nav.Item>
 
             <Dropdown as={Nav.Item} className="d-md-none">
               <Dropdown.Toggle as={Nav.Link}>Other</Dropdown.Toggle>
-              <Dropdown.Menu align="right">
+              <Dropdown.Menu align="right" className="bg-default">
                 <Dropdown.Item eventKey="characters">Characters</Dropdown.Item>
                 <Dropdown.Item eventKey="pets">Pets</Dropdown.Item>
                 <Dropdown.Item eventKey="items">Items</Dropdown.Item>

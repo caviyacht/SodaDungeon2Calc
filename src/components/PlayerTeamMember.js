@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { Badge, Card, Collapse, Form, InputGroup, Nav, Tab, Table } from "react-bootstrap";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { entitiesOfTypeSelector } from "../selectors/entityOfTypeSelector";
+import { entitiesOfTypeSelector } from "../selectors/entitiesOfTypeSelector";
 import { equipmentSlotSlotSelector } from "../selectors/equipmentSlotSlotSelector";
 import { memberEquipmentSlotSelector } from "../selectors/memberEquipmentSlotSelector";
+import { memberStatsSelector } from "../selectors/memberStatsSelector";
 import { playerTeamMemberSelector } from "../selectors/playerTeamMemberSelector";
 import { formatStat, loadStat } from "../utils";
 
 export default ({ member }) => {
   return (
-    <Card className="team-member">
+    <Card className="custom-card">
       <Tab.Container defaultActiveKey={member.id}>
         <Card.Header className="bg-transparent">
           <Nav justify variant="tabs">
@@ -37,7 +38,7 @@ export default ({ member }) => {
                     member={member}
                     equipmentSlot={equipmentSlot}
                     slot={slot} 
-                    className="mt-2" />
+                    className="pt-2" />
                 )}
               </Tab.Pane>
             )}
@@ -52,7 +53,7 @@ export default ({ member }) => {
   );
 };
 
-const MemberEquipmentSlotSlot = ({ member, equipmentSlot, slot }) => {
+const MemberEquipmentSlotSlot = ({ member, equipmentSlot, slot, ...props }) => {
   const setTeamMemberEquipmentSlotSlot = useSetRecoilState(equipmentSlotSlotSelector({
     memberName: member.name,
     equipmentSlotName: equipmentSlot.name,
@@ -66,7 +67,8 @@ const MemberEquipmentSlotSlot = ({ member, equipmentSlot, slot }) => {
   return (
     <SlotItemSelect 
     slot={slot} 
-    onChange={handleSetTeamMemberEquipmentSlotSlot} />
+    onChange={handleSetTeamMemberEquipmentSlotSlot}
+    className={props.className} />
   );
 };
 
@@ -167,6 +169,8 @@ const Stats = ({ member }) => {
     })
   };
 
+  const stats = useRecoilValue(memberStatsSelector(member.name));
+
   return (
     <Table borderless size="sm" className="mb-0">
       <thead>
@@ -178,7 +182,7 @@ const Stats = ({ member }) => {
           onClick={handleSetOpen("stats")}>
 
           <th>
-            Stats <Badge variant="info" className="ml-2">{Object.keys(member.stats).length}</Badge>
+            Stats <Badge variant="info" className="ml-2">{Object.keys(stats).length}</Badge>
           </th>
 
           <th className="text-right">
@@ -189,7 +193,7 @@ const Stats = ({ member }) => {
 
       <Collapse in={open.stats}>
         <tbody>
-          {Object.entries(member.stats).map(([_, stat]) =>
+          {Object.entries(stats).map(([_, stat]) =>
             <tr key={stat.id} style={{borderBottom: "1px solid var(--gray)"}}>
               <th className="bg-dark">
                 {stat.displayName}

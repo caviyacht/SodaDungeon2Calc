@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { useRecoilValue } from "recoil";
-import { playerEntitiesOfTypeSelector } from "../selectors/playerEntityOfTypeSelector";
+import { playerEntitiesOfTypeSelector } from "../selectors/playerEntitiesOfTypeSelector";
 import PlayerEntity from "./PlayerEntity";
 
 // TODO: There has to be a better way without having to pass in the
