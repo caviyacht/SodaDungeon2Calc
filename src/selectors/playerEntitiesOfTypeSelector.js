@@ -1,5 +1,5 @@
 import { selectorFamily } from "recoil";
-import { entitiesOfTypeSelector } from "./entityOfTypeSelector";
+import { entitiesOfTypeSelector } from "./entitiesOfTypeSelector";
 import { playerEntitySelector } from "./playerEntitySelector";
 
 export const playerEntitiesOfTypeSelector = selectorFamily({
