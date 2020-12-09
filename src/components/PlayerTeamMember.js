@@ -131,18 +131,18 @@ const SlotNavItem = ({ slot }) => {
         }
 
         {isEquipmentWithSlots &&
-          <Row noGutters className="px-1">
-            <Col className="mr-1" style={{maxWidth: "38px"}}>
+          <Row noGutters className="justify-content-around px-1">
+            <Col>
               <Image src={slot.value.image || slot.image } size="38px" />
             </Col>
 
-            <Col style={{maxWidth: "19px"}}>
+            <Col>
               <Row noGutters xs={1}>
-                <Col>
-                  {Object.entries(slot.slots).map(([name, slot]) =>
+                {Object.entries(slot.slots).map(([name, slot]) =>
+                  <Col>
                     <Image block src={slot.value.image || slot.image} size="19px" />
-                  )}
-                </Col>
+                  </Col>
+                )}
               </Row>
             </Col>
           </Row>
