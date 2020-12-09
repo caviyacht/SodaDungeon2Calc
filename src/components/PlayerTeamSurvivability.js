@@ -18,7 +18,7 @@ export default () => {
 
   return (
     <Row>
-      <Col>
+      <Col xs={12} lg={6}>
         <Card className="custom-card">
           <Tab.Container defaultActiveKey={firstCharacter.id}>
             <Card.Header className="bg-transparent">
