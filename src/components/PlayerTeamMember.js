@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Badge, Card, Collapse, Form, InputGroup, Nav, Tab, Table } from "react-bootstrap";
+import { Badge, Card, Col, Collapse, Form, InputGroup, Nav, Row, Tab, Table } from "react-bootstrap";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { entitiesOfTypeSelector } from "../selectors/entitiesOfTypeSelector";
 import { equipmentSlotSlotSelector } from "../selectors/equipmentSlotSlotSelector";
@@ -104,9 +104,11 @@ const MemberSlot = ({ member }) => {
   );
 };
 
-const Image = ({ src, size }) => {
+const Image = ({ src, size}) => {
   return(
-    <span className="d-inline-block align-top" style={{
+    <span 
+      className="d-inline-block"
+      style={{
         width: size,
         height: size,
         backgroundImage: `url(${src})`,
@@ -118,10 +120,33 @@ const Image = ({ src, size }) => {
 };
 
 const SlotNavItem = ({ slot }) => {
+  const isEquipmentWithSlots = slot.subtype === "equipment" 
+    && Object.entries(slot.slots).length > 0;
+
   return (
     <Nav.Item>
-      <Nav.Link eventKey={slot.id} className="px-0 pb-1">
-        <Image src={slot.value.image || slot.image } size="38px" />
+      <Nav.Link eventKey={slot.id} className="px-0 pb-1" style={{fontSize: "0"}}>
+        {!isEquipmentWithSlots &&
+          <Image src={slot.value.image || slot.image } size="38px" />
+        }
+
+        {isEquipmentWithSlots &&
+          <Row noGutters className="px-1">
+            <Col className="mr-1" style={{maxWidth: "38px"}}>
+              <Image src={slot.value.image || slot.image } size="38px" />
+            </Col>
+
+            <Col style={{maxWidth: "19px"}}>
+              <Row noGutters xs={1}>
+                <Col>
+                  {Object.entries(slot.slots).map(([name, slot]) =>
+                    <Image block src={slot.value.image || slot.image} size="19px" />
+                  )}
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        }
       </Nav.Link>
     </Nav.Item>
   );

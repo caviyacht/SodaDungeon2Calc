@@ -17,7 +17,7 @@ export default () => {
         </Col>
       </Row>
 
-      <Row className="pt-4">
+      <Row>
         <Col>
           <SelectedTeam />
         </Col>
