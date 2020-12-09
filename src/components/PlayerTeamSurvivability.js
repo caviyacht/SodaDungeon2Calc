@@ -82,12 +82,22 @@ const Survivability = ({ member }) => {
       <tbody>
         <SurvivabilityRow title="Attack" type="strike" isBackAttack={false} stats={stats} />
         <SurvivabilityRow title="Poison (3 ticks)" type="psn" isBackAttack={false} stats={stats} />
-        <SurvivabilityRow title="Burn (3 ticks)" type="burn" isBackAttack={false} stats={stats} />
+        {!hasBurnPrevention(stats) &&
+          <SurvivabilityRow title="Burn (3 ticks)" type="burn" isBackAttack={false} stats={stats} />
+        }
         <SurvivabilityRow title="Dark Slash" type="dark_slash" isBackAttack={false} stats={stats} />
-        <SurvivabilityRow title="Back Attack" type="strike" isBackAttack={true} stats={stats} />
-        <SurvivabilityRow title="Poison Back Attack" type="psn" isBackAttack={true} stats={stats} />
-        <SurvivabilityRow title="Burn Back Attack" type="burn" isBackAttack={true} stats={stats} />
-        <SurvivabilityRow title="Dark Slash Back Attack" type="dark_slash" isBackAttack={true} stats={stats} />
+        {!hasBackAtkBonusPrevention(stats) &&
+          <SurvivabilityRow title="Back Attack" type="strike" isBackAttack={true} stats={stats} />
+        }
+        {!hasBackAtkBonusPrevention(stats) &&
+          <SurvivabilityRow title="Poison Back Attack" type="psn" isBackAttack={true} stats={stats} />
+        }
+        {(!hasBurnPrevention(stats) && !hasBackAtkBonusPrevention(stats)) &&
+          <SurvivabilityRow title="Burn Back Attack" type="burn" isBackAttack={true} stats={stats} />
+        }
+        {!hasBackAtkBonusPrevention(stats) &&
+          <SurvivabilityRow title="Dark Slash Back Attack" type="dark_slash" isBackAttack={true} stats={stats} />
+        }
       </tbody>
     </Table>
   );
@@ -116,11 +126,20 @@ const getStatOrDefault = (name, stats, defaultValue) => {
   return stat
     ? stat.value
     : defaultValue;
-}
+};
+
+const hasBackAtkBonusPrevention = stats => {
+  return getStatOrDefault("prevents_back_atk_bonus", stats, false);
+};
+
+const hasBurnPrevention = stats => {
+  return getStatOrDefault("prevents_burn", stats, false);
+};
 
 const calculateAttackDamagePercent = (type, isBackAttack, stats, floor) => {
-  const preventsBackAtkBonus = getStatOrDefault("prevents_back_atk_bonus", stats, false);
-  const preventsBurn = getStatOrDefault("prevents_burn", stats, false);
+  // TODO: Remove this logic later.
+  const preventsBackAtkBonus = hasBackAtkBonusPrevention(stats);
+  const preventsBurn = hasBurnPrevention(stats);
 
   // TODO: I hate this.
   const enemyAttack = 10.1 + Math.floor(
