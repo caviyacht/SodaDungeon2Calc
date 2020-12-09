@@ -53,7 +53,7 @@ const EntityLevelInput = ({ entity, onBlur }) => {
       type="number" 
       min="1" 
       max={entity.maxLevel || 1000000}
-      value={entity.level} 
+      defaultValue={entity.level} 
       onKeyDown={handleKeyDown}
       onBlur={onBlur} />
   );

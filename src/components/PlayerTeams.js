@@ -6,6 +6,7 @@ import { playerTeamIdAtom } from "../atoms/playerTeamIdAtom";
 import { imageCollectionSelector } from "../selectors/imageCollectionSelector";
 import FormGroupImage from "./FormGroupImage";
 import PlayerTeam from "./PlayerTeam";
+import PlayerTeamSurvivability from "./PlayerTeamSurvivability";
 
 export default () => {
   return (
@@ -43,6 +44,7 @@ const SelectedTeam = () => {
             </Tab.Pane>
 
             <Tab.Pane eventKey="survivability">
+              <PlayerTeamSurvivability />
             </Tab.Pane>
           </Tab.Content>
         </Col>

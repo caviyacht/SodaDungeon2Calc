@@ -7,7 +7,7 @@ import { memberEquipmentSlotSelector } from "../selectors/memberEquipmentSlotSel
 import { memberSkillsSelector } from "../selectors/memberSkillsSelector";
 import { memberStatsSelector } from "../selectors/memberStatsSelector";
 import { playerTeamMemberSelector } from "../selectors/playerTeamMemberSelector";
-import { formatStat, loadStat } from "../utils";
+import { formatStat } from "../utils";
 
 export default ({ member }) => {
   return (
