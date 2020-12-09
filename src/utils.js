@@ -4,7 +4,7 @@ import { playerEntitiesOfTypeSelector } from "./selectors/playerEntitiesOfTypeSe
 import { playerEntitySelector } from "./selectors/playerEntitySelector";
 import { playerTeamMemberSelector } from "./selectors/playerTeamMemberSelector";
 
-const isEmpty = (c) => {
+const isEmpty = (collection) => {
   if (Array.isArray(collection)) {
     return collection.length === 0;
   }

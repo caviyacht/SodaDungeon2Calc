@@ -43,6 +43,9 @@ export const playerEntitySelector = selectorFamily({
 // - Relics
 const levelUpStat = (entityType, stat, level) => {
   switch (entityType) {
+    case "upgrade":
+      return stat.value * level;
+      
     case "relic":
       return stat.value * level;
 
