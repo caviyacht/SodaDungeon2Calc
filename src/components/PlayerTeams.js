@@ -89,9 +89,9 @@ const TeamSelector = () => {
               title="Actions"
               id="player-teams-actions-dropdown">
 
-              <Dropdown.Item onClick={handleModalShow("add")}>Add Team</Dropdown.Item>
+              {/*<Dropdown.Item onClick={handleModalShow("add")}>Add Team</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item onClick={handleModalShow("remove")}>Remove Team</Dropdown.Item>
+            <Dropdown.Item onClick={handleModalShow("remove")}>Remove Team</Dropdown.Item>*/}
             </DropdownButton>
           </InputGroup.Append>
         </InputGroup>
