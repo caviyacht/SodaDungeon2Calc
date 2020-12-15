@@ -1,5 +1,5 @@
 export default {
-  floor: 6438221,
+  floor: 7392171,
   entities: {
     "pet-rock": { level: 8 },
     "character-darkmage": { level: 50 },
@@ -10,8 +10,8 @@ export default {
     "character-nurse": { level: 50 },
     "character-dual_wield": { level: 50 },
     "upgrade-kitchen": { level: 10 },
-    "relic-hp": { level: 270700, isFavorite: true },
-    "relic-gold_find": { level: 660900, isFavorite: true },
+    "relic-hp": { level: 275000, isFavorite: true },
+    "relic-gold_find": { level: 864200, isFavorite: true },
     "relic-mp": { level: 4000 },
     "relic-atk": { level: 40000, isFavorite: true },
     "relic-crit_chance": { level: 250 },
@@ -31,7 +31,7 @@ export default {
     "relic-dark_lord": { level: 200000, isFavorite: true },
     "relic-carpenter": { level: 1000 },
     "relic-nurse": { level: 100000, isFavorite: true },
-    "relic-dual_wield": { level: 141600, isFavorite: true }
+    "relic-dual_wield": { level: 142000, isFavorite: true }
   },
   teams: {
     "default": {
