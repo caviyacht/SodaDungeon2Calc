@@ -13,7 +13,14 @@ export default {
     internalId: "143",
     displayName: "Karuta", 
     stats: { "hp": 54, "evade": 0.34 }, 
-    slots: ["resource_ore_1"] 
+    slots: ["resource_bar_1"] 
+  },
+  "armor-gold_armor": {
+    type: "armor",
+    name: "gold",
+    internalId: "147",
+    displayName: "Gold Armor",
+    stats: { "hp": 62, "gold_find": 57 }
   },
   "armor-platinum_armor": { 
     type: "armor", 
@@ -21,6 +28,6 @@ export default {
     internalId: "162",
     displayName: "Platinum Armor", 
     stats: { "hp": 227, "hp_boost": 0.14, "dmg_reduction": 0.24 }, 
-    slots: ["resource_ore_1"] 
+    slots: ["resource_bar_1"] 
   },
 };

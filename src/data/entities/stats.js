@@ -27,6 +27,7 @@ export default {
   "stat-chance_to_burn": { type: "stat", name: "chance_to_burn", displayName: "Chance to Burn", valueType: "percent" },
   "stat-chance_to_psn": { type: "stat", name: "chance_to_psn", displayName: "Chance to Poison", valueType: "percent" },
   "stat-chance_for_food": { type: "stat", name: "chance_for_food", displayName: "Chance for Food", valueType: "percent" },
+  "stat-spd": { type: "stat", name: "spd", displayName: "Speed", valueType: "number" },
 
   // Custom stats
   "stat-hp_boost_kitchen": { type: "stat", name: "hp_boost_kitchen", displayName: "HP Boost (kitchen)", valueType: "percent" },

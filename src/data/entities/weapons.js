@@ -13,7 +13,7 @@ export default {
     internalId: "102",
     displayName: "Frying Pan", 
     stats: { "atk": 28, "chance_for_food": 0.25, "chance_to_burn": 0.10 }, 
-    slots: ["resource_ore_1"] 
+    slots: ["resource_bar_1"] 
   },
   "weapon-saber": { 
     type: "weapon", 
@@ -21,7 +21,7 @@ export default {
     internalId: "103",
     displayName: "Saber", 
     stats: { "atk": 26, "crit_chance": 0.39, "crit_bonus": 0.59, "evade": 0.29 }, 
-    slots: ["resource_ore_1"] 
+    slots: ["resource_bar_1"] 
   },
   "weapon-skull_blade": { 
     type: "weapon", 
@@ -29,7 +29,7 @@ export default {
     internalId: "120",
     displayName: "Skull Blade", 
     stats: { "atk": 33, "crit_chance": 0.34, "crit_bonus": 0.84, "dmg_reduction": 0.19 }, 
-    slots: ["resource_ore_1"], 
+    slots: ["resource_bar_1"], 
     skills: ["skull_bash"] 
   },
   "weapon-staff_of_awareness": { 
@@ -38,7 +38,7 @@ export default {
     internalId: "140",
     displayName: "Staff of Awareness", 
     stats: { "atk": 33, "magic_boost": 0.28, "item_find": 28 }, 
-    slots: ["resource_ore_1"] 
+    slots: ["resource_bar_1"] 
   },
   "weapon-grand_sceptor": { 
     type: "weapon", 
@@ -46,7 +46,7 @@ export default {
     internalId: "156",
     displayName: "Grand Scepter", 
     stats: { "atk": 68, "magic_boost": 0.48 }, 
-    slots: ["resource_ore_1", "gem_1"] 
+    slots: ["resource_bar_1", "gem_1"] 
   },
   "weapon-glass_warden": {
     type: "weapon",
@@ -54,7 +54,7 @@ export default {
     internalId: "168",
     displayName: "Glass Warden",
     stats: { "atk": 28, "crit_chance": 0.10, "crit_bonus": 2.09 },
-    slots: ["resource_ore_1"],
+    slots: ["resource_bar_1"],
     skills: ["judgement"]
   },
   "weapon-essence_reaver": { 
@@ -63,7 +63,7 @@ export default {
     internalId: "170",
     displayName: "Essence Reaver", 
     stats: { "atk": 118, "crit_chance": 0.24, "crit_bonus": 1.34 }, 
-    slots: ["resource_ore_1", "gem_1"] 
+    slots: ["resource_bar_1", "gem_1"] 
   },
   "weapon-iron_skillet": { 
     type: "weapon", 

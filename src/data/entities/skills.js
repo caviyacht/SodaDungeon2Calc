@@ -211,5 +211,12 @@ export default {
     displayName: "Dark Flame",
     category: "magic",
     stats: { "atk_multiplier": 0.8, "chance_to_burn": 1.00 }
+  },
+  "skill-party_protection": {
+    type: "skill",
+    name: "party_protection",
+    displayName: "Party Protection",
+    category: "passive",
+    stats: { }
   }
 };

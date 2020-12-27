@@ -40,5 +40,12 @@ export default {
     internalId: "130",
     displayName: "Back Protector", 
     stats: { "hp_boost": 0.10, "prevents_back_atk_bonus": true } 
+  },
+  "accessory-slow_stone": {
+    type: "accessory",
+    name: "slow_stone",
+    internalId: "179",
+    displayName: "Slow Stone",
+    stats: { "spd": -50 }
   }
 };

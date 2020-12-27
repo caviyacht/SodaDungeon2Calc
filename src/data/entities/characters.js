@@ -267,6 +267,6 @@ export default {
       "mastery_xp_boost": 0.07
     }, 
     slots: [{ name: "weapon_1", value: "iron_skillet" }, "armor_1", "accessory_1"],
-    skills: ["strike", "cook"]
+    skills: ["strike", "cook", "party_protection"]
   }
 };

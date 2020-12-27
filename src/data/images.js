@@ -21,7 +21,7 @@ const images = {
     "accessory_3": "./images/icons/icon_craft_accessory.png",
     "armor_1": "./images/icons/icon_craft_armor.png",
     "gem_1": "./images/icons/icon_craft_gem.png",
-    "resource_ore_1": "./images/icons/icon_craft_resource.png",
+    "resource_bar_1": "./images/icons/icon_craft_resource.png",
     "shield_1": "./images/icons/icon_craft_shield.png",
     "weapon_1": "./images/icons/icon_craft_weapon.png",
     "weapon_2": "./images/icons/icon_craft_weapon.png",
@@ -76,6 +76,7 @@ const images = {
   },
   armors: {
     "143": "./images/items/armors/i143_male.png",
+    "147": "./images/items/armors/i147_male.png",
     "162": "./images/items/armors/i162_male.png"
   },
   accessories: {
@@ -84,7 +85,16 @@ const images = {
     "100": "./images/items/accessories/i100.png",
     "127": "./images/items/accessories/i127.png",
     "129": "./images/items/accessories/i129.png",
-    "130": "./images/items/accessories/i130.png"
+    "130": "./images/items/accessories/i130.png",
+    "179": "./images/items/accessories/i179.png"
+  },
+  resource_bars: {
+    "9": "./images/items/resource_bars/i9.png",
+    "30": "./images/items/resource_bars/i31.png",
+    "31": "./images/items/resource_bars/i32.png",
+    "32": "./images/items/resource_bars/i33.png",
+    "33": "./images/items/resource_bars/i34.png",
+    "34": "./images/items/resource_bars/i35.png"
   },
   resource_ores: {
     "15": "./images/items/resource_ores/i15.png",

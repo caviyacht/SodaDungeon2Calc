@@ -4,6 +4,7 @@ import characters from "./entities/characters";
 import gems from "./entities/gems";
 import pets from "./entities/pets";
 import relics from "./entities/relics";
+import resource_bars from "./entities/resource_bars";
 import resource_ores from "./entities/resource_ores";
 import shields from "./entities/shields";
 import skills from "./entities/skills";
@@ -21,6 +22,7 @@ export const entities = {
   ...gems,
   ...pets,
   ...relics,
+  ...resource_bars,
   ...resource_ores,
   ...shields,
   ...skills,

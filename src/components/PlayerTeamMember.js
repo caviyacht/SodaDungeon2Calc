@@ -68,9 +68,9 @@ const MemberEquipmentSlotSlot = ({ member, equipmentSlot, slot, ...props }) => {
 
   return (
     <SlotItemSelect 
-    slot={slot} 
-    onChange={handleSetTeamMemberEquipmentSlotSlot}
-    className={props.className} />
+      slot={slot} 
+      onChange={handleSetTeamMemberEquipmentSlotSlot}
+      className={props.className} />
   );
 };
 
@@ -86,9 +86,9 @@ const MemberEquipmentSlot = ({ member, equipmentSlot }) => {
 
   return (
     <SlotItemSelect 
-    slot={equipmentSlot} 
-    onChange={handleSetTeamMemberEquipmentSlot}
-    isDisabled={member.value.subtype === "special" && equipmentSlot.valueType === "weapon"} />
+      slot={equipmentSlot} 
+      onChange={handleSetTeamMemberEquipmentSlot}
+      isDisabled={member.value.subtype === "special" && equipmentSlot.valueType === "weapon"} />
   );
 };
 

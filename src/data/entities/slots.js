@@ -89,10 +89,10 @@ export default {
     name: "gem_1", 
     valueType: "gem" 
   },
-  "slot-resource_ore_1": { 
+  "slot-resource_bar_1": { 
     type: "slot", 
     subtype: "equipment_slot", // TODO: Maybe use `equipment_plating`?
-    name: "resource_ore_1", 
-    valueType: "resource_ore" 
+    name: "resource_bar_1", 
+    valueType: "resource_bar" 
   }
 };
