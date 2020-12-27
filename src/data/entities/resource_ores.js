@@ -22,7 +22,7 @@ export default {
     name: "platinum_ore",
     internalId: "18",
     displayName: "Platinum Ore", 
-    stats: { "hp_boost": 0.08 } 
+    stats: { "hp_boost": 0.10 } 
   },
   "resource_ore-uranium_ore": { 
     type: "resource_ore", 
