@@ -90,11 +90,11 @@ const images = {
   },
   resource_bars: {
     "9": "./images/items/resource_bars/i9.png",
-    "30": "./images/items/resource_bars/i31.png",
-    "31": "./images/items/resource_bars/i32.png",
-    "32": "./images/items/resource_bars/i33.png",
-    "33": "./images/items/resource_bars/i34.png",
-    "34": "./images/items/resource_bars/i35.png"
+    "30": "./images/items/resource_bars/i30.png",
+    "31": "./images/items/resource_bars/i31.png",
+    "32": "./images/items/resource_bars/i32.png",
+    "33": "./images/items/resource_bars/i33.png",
+    "34": "./images/items/resource_bars/i34.png"
   },
   resource_ores: {
     "15": "./images/items/resource_ores/i15.png",
