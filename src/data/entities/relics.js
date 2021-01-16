@@ -107,7 +107,7 @@ export default {
     name: "status_resist",
     internalId: "9", 
     groupId: "2", 
-    maxLevel: 50, 
+    maxLevel: 52, 
     stats: { "status_resist": 0.0025 } 
   },
   "relic-dmg_reflection": { 
@@ -205,5 +205,13 @@ export default {
     internalId: "110", 
     groupId: "3", 
     stats: { "hp": 2, "atk": 2 } 
+  },
+  "relic-wizard": { 
+    type: "relic", 
+    subtype: "character", 
+    name: "wizard",
+    internalId: "111", 
+    groupId: "3", 
+    stats: { "hp": 2, "mp": 2, "atk": 2 } 
   }
 };

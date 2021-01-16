@@ -268,5 +268,30 @@ export default {
     }, 
     slots: [{ name: "weapon_1", value: "iron_skillet" }, "armor_1", "accessory_1"],
     skills: ["strike", "cook", "party_protection"]
+  },
+  "character-wizard": {
+    type: "character",
+    name: "wizard",
+    displayName: "Wizard",
+    maxLevel: 50,
+    stats: {
+      "hp": 69,
+      "hp_boost": 0.09,
+      "atk": 21,
+      "atk_boost": 0.09,
+      "mp": 43,
+      "crit_chance": 0.02,
+      "crit_bonus": 0.07,
+      "magic_boost": 0.25,
+      "phys_boost": 0.05,
+      "dmg_reduction": 0.07,
+      "status_resist": 0.02,
+      "hp_regen": 6,
+      "essence_find": 0.03,
+      "gold_find": 0.02,
+      "item_find": 1
+    },
+    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1", "accessory_2"],
+    skills: ["strike", "eviscerate", "foretell", "precognition", "defend"]
   }
 };

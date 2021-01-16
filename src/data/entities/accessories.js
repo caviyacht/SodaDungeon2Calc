@@ -20,6 +20,13 @@ export default {
     displayName: "Phantasmal Claw", 
     skills: ["phantasmal_claw"] 
   },
+  "accessory-copper_bracelet": { 
+    type: "accessory", 
+    name: "copper_bracelet",
+    internalId: "126",
+    displayName: "Copper Bracelet", 
+    stats: { "status_resist": 0.30 }
+  },
   "accessory-dark_amulet": { 
     type: "accessory", 
     name: "dark_amulet",
@@ -40,6 +47,13 @@ export default {
     internalId: "130",
     displayName: "Back Protector", 
     stats: { "hp_boost": 0.10, "prevents_back_atk_bonus": true } 
+  },
+  "accessory-rooster_head": {
+    type: "accessory",
+    name: "rooster_head",
+    internalId: "174",
+    displayName: "Doodle Charm",
+    stats: { "prevents_sleep": true }
   },
   "accessory-slow_stone": {
     type: "accessory",

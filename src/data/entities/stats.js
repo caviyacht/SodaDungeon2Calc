@@ -41,6 +41,7 @@ export default {
   "stat-stuns_target": { type: "stat", name: "stuns_target", displayName: "Stuns Target", valueType: "boolean" },
   "stat-strikes_target_twice": { type: "stat", name: "strikes_target_twice", displayName: "Strikes Target Twice", valueType: "boolean" },
   "stat-chance_to_halve_target_hp": { type: "stat", name: "chance_to_halve_target_hp", displayName: "Chance to halve Target HP", valueType: "boolean" },
+  "stat-prevents_sleep": { type: "stat", name: "prevents_sleep", displayName: "Prevents Sleep", valueType: "boolean" },
 
   // Special stats
   "stat-hp_total": { type: "stat", name: "hp_total", displayName: "HP (total)", valueType: "number" },

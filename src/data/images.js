@@ -56,7 +56,8 @@ const images = {
     "nurse": "./images/portraits/char_portrait_nurse_1.png",
     "psychic": "./images/portraits/char_portrait_psychic_1.png",
     "soda_junkie": "./images/portraits/char_portrait_soda_junkie_1.png",
-    "thief": "./images/portraits/char_portrait_thief_1.png"
+    "thief": "./images/portraits/char_portrait_thief_1.png",
+    "wizard": "./images/portraits/char_portrait_wizard_1.png"
   },
   weapons: {
     "99": "./images/items/weapons/i99.png",
@@ -165,7 +166,8 @@ const images = {
     "107": "./images/relics/relic_107.png",
     "108": "./images/relics/relic_108.png",
     "109": "./images/relics/relic_109.png",
-    "110": "./images/relics/relic_110.png"
+    "110": "./images/relics/relic_110.png",
+    "111": ""
   }
 };
 

@@ -9,7 +9,8 @@ export default {
     type: "resource_bar", 
     name: "copper_bar",
     internalId: "30",
-    displayName: "Copper Bar" 
+    displayName: "Copper Bar",
+    stats: { "status_resist": 0.03 }
   },
   "resource_bar-silver_bar": { 
     type: "resource_bar", 
@@ -22,7 +23,7 @@ export default {
     name: "gold_bar",
     internalId: "32",
     displayName: "Gold Bar",
-    stats: { "gold_multiplier": 0.10 }
+    stats: { "gold_multiplier": 0.05 }
   },
   "resource_bar-platinum_bar": { 
     type: "resource_bar", 

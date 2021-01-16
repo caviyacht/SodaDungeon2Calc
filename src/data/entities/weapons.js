@@ -72,5 +72,5 @@ export default {
     internalId: "178",
     displayName: "Iron Skillet", 
     stats: { "atk": 20 }
-  }
+  },
 };
