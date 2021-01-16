@@ -96,6 +96,70 @@ export default {
         }
       }
     },
+    "beta": {
+      name: "Beta",
+      slots: {
+        "pet_1": { value: "rock" },
+        "character_1": {
+          value: "wizard",
+          slots: {
+            "weapon_1": { value: "skull_blade", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "shield_1": { value: "shield_of_the_divine", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "armor_1": { value: "platinum_armor", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "accessory_1": { value: "phantasmal_claw" },
+            "accessory_2": { value: "rooster_head" }
+          }
+        },
+        "character_2": {
+          value: "huntress",
+          slots: {
+            "weapon_1": { value: "skull_blade", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "shield_1": { value: "shield_of_the_divine", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "armor_1": { value: "platinum_armor", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "accessory_1": { value: "phantasmal_claw" },
+            "accessory_2": { value: "rooster_head" }
+          }
+        },
+        "character_3": {
+          value: "nurse",
+          slots: {
+            "weapon_1": { value: "skull_blade", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "shield_1": { value: "shield_of_the_divine", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "armor_1": { value: "platinum_armor", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "accessory_1": { value: "rooster_head" }
+          }
+        },
+        "character_4": {
+          value: "huntress",
+          slots: {
+            "weapon_1": { value: "skull_blade", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "shield_1": { value: "shield_of_the_divine", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "armor_1": { value: "platinum_armor", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "accessory_1": { value: "dark_amulet" },
+            "accessory_2": { value: "copper_bracelet" }
+          }
+        },
+        "character_5": {
+          value: "huntress",
+          slots: {
+            "weapon_1": { value: "skull_blade", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "shield_1": { value: "shield_of_the_divine", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "armor_1": { value: "platinum_armor", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "accessory_1": { value: "dark_amulet" },
+            "accessory_2": { value: "copper_bracelet" }
+          }
+        },
+        "character_6": {
+          value: "thief",
+          slots: {
+            "weapon_1": { value: "skull_blade", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "shield_1": { value: "shield_of_the_divine", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "armor_1": { value: "platinum_armor", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "accessory_1": { value: "phantasmal_claw" }
+          }
+        }
+      }
+    },
     "mining": {
       name: "Mining",
       slots: {
