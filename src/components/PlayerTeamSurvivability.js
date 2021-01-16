@@ -71,41 +71,34 @@ const SlotNavItem = ({ slot }) => {
 const Survivability = ({ member }) => {
   const stats = useRecoilValue(memberStatsSelector(member.name));
 
+  const showBackAtk = !hasBackAtkBonusPrevention(stats);
+  const showBurn = !hasBurnPrevention(stats);
+
   return (
     <Table borderless size="sm" className="mb-0" style={{backgroundColor: "rgba(255,255,255,.075)"}}>
       <thead>
         <tr style={{borderBottom: "1px solid var(--gray)"}}>
           <th></th>
-          <th className="text-right">Damage %</th>
+          <th className="text-right">Dmg %</th>
+          {showBackAtk && <th className="text-right">Back Dmg %</th>}
         </tr>
       </thead>
       <tbody>
-        <SurvivabilityRow title="Attack" type="strike" isBackAttack={false} stats={stats} />
-        <SurvivabilityRow title="Poison (3 ticks)" type="psn" isBackAttack={false} stats={stats} />
-        {!hasBurnPrevention(stats) &&
-          <SurvivabilityRow title="Burn (3 ticks)" type="burn" isBackAttack={false} stats={stats} />
+        <SurvivabilityRow title="Attack" type="strike" stats={stats} showBackAtk={showBackAtk} />
+        <SurvivabilityRow title="Poison" type="psn" stats={stats} showBackAtk={showBackAtk} />
+        {showBurn &&
+          <SurvivabilityRow title="Burn" type="burn" stats={stats} showBackAtk={showBackAtk} />
         }
-        <SurvivabilityRow title="Dark Slash" type="dark_slash" isBackAttack={false} stats={stats} />
-        {!hasBackAtkBonusPrevention(stats) &&
-          <SurvivabilityRow title="Back Attack" type="strike" isBackAttack={true} stats={stats} />
-        }
-        {!hasBackAtkBonusPrevention(stats) &&
-          <SurvivabilityRow title="Poison Back Attack" type="psn" isBackAttack={true} stats={stats} />
-        }
-        {(!hasBurnPrevention(stats) && !hasBackAtkBonusPrevention(stats)) &&
-          <SurvivabilityRow title="Burn Back Attack" type="burn" isBackAttack={true} stats={stats} />
-        }
-        {!hasBackAtkBonusPrevention(stats) &&
-          <SurvivabilityRow title="Dark Slash Back Attack" type="dark_slash" isBackAttack={true} stats={stats} />
-        }
+        <SurvivabilityRow title="Dark Slash" type="dark_slash" stats={stats} showBackAtk={showBackAtk}  />
       </tbody>
     </Table>
   );
 };
 
-const SurvivabilityRow = ({stats, title, type, isBackAttack}) => {
+const SurvivabilityRow = ({stats, title, type, showBackAtk}) => {
   const floor = useRecoilValue(playerFloorSelector);
-  const value = calculateAttackDamagePercent(type, isBackAttack, stats, floor);
+  const value = calculateAttackDamagePercent(type, false, stats, floor);
+  const backAtkValue = calculateAttackDamagePercent(type, true, stats, floor);
 
   return (
     <tr style={{borderBottom: "1px solid var(--gray)"}}>
@@ -116,6 +109,14 @@ const SurvivabilityRow = ({stats, title, type, isBackAttack}) => {
           value
         })}
       </td>
+      {showBackAtk &&
+        <td className="text-right">
+          {formatStat({ // TODO: Abuse of the method.
+            valueType: "percent",
+            value: backAtkValue
+          })}
+        </td>
+      }
     </tr>
   );
 };
