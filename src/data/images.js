@@ -84,9 +84,11 @@ const images = {
     "97": "./images/items/accessories/i97.png",
     "98": "./images/items/accessories/i98.png",
     "100": "./images/items/accessories/i100.png",
+    "126": "./images/items/accessories/i126.png",
     "127": "./images/items/accessories/i127.png",
     "129": "./images/items/accessories/i129.png",
     "130": "./images/items/accessories/i130.png",
+    "174": "./images/items/accessories/i174.png",
     "179": "./images/items/accessories/i179.png"
   },
   resource_bars: {

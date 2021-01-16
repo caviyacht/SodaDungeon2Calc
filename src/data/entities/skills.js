@@ -218,5 +218,26 @@ export default {
     displayName: "Party Protection",
     category: "passive",
     stats: { }
+  },
+  "skill-eviscerate": {
+    type: "skill",
+    name: "eviscerate",
+    displayName: "Eviscerate",
+    category: "magic",
+    stats: { }
+  },
+  "skill-foretell": {
+    type: "skill",
+    name: "foretell",
+    displayName: "Foretell",
+    category: "magic",
+    stats: { }
+  },
+  "skill-precognition": {
+    type: "skill",
+    name: "precognition",
+    displayName: "Precognition",
+    category: "passive",
+    stats: { }
   }
 };

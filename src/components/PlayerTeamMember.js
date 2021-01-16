@@ -131,7 +131,7 @@ const SlotNavItem = ({ slot }) => {
         }
 
         {isEquipmentWithSlots &&
-          <Row noGutters className="justify-content-around px-1">
+          <Row noGutters className="justify-content-around">
             <Col>
               <Image src={slot.value.image || slot.image } size="38px" />
             </Col>
