@@ -1,5 +1,5 @@
 export default {
-  floor: 9400000,
+  floor: 11500000,
   entities: {
     "pet-rock": { level: 8 },
     "character-darkmage": { level: 50 },
@@ -10,7 +10,7 @@ export default {
     "character-nurse": { level: 50 },
     "character-dual_wield": { level: 50 },
     "upgrade-kitchen": { level: 10 },
-    "relic-hp": { level: 450000, isFavorite: true },
+    "relic-hp": { level: 677000, isFavorite: true },
     "relic-gold_find": { level: 1000800, isFavorite: true },
     "relic-mp": { level: 10000 },
     "relic-atk": { level: 100000, isFavorite: true },
@@ -33,7 +33,7 @@ export default {
     "relic-nurse": { level: 100000, isFavorite: true },
     "relic-dual_wield": { level: 200000 },
     "relic-chef": { level: 1 },
-    "relic-huntress": { level: 200000, isFavorite: true },
+    "relic-huntress": { level: 300000, isFavorite: true },
     "relic-wizard": { level: 200000, isFavorite: true }
   },
   teams: {
@@ -155,7 +155,7 @@ export default {
             "weapon_1": { value: "skull_blade", slots: { "resource_bar_1": { value: "gold_bar" } } },
             "shield_1": { value: "shield_of_the_divine", slots: { "resource_bar_1": { value: "gold_bar" } } },
             "armor_1": { value: "platinum_armor", slots: { "resource_bar_1": { value: "gold_bar" } } },
-            "accessory_1": { value: "phantasmal_claw" }
+            "accessory_1": { value: "dark_amulet" }
           }
         }
       }

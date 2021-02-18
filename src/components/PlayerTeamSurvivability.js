@@ -90,6 +90,7 @@ const Survivability = ({ member }) => {
           <SurvivabilityRow title="Burn" type="burn" stats={stats} showBackAtk={showBackAtk} />
         }
         <SurvivabilityRow title="Dark Slash" type="dark_slash" stats={stats} showBackAtk={showBackAtk}  />
+        <SurvivabilityRow title="Laser (Janitor)" type="laser" stats={stats} showBackAtk={false} />
       </tbody>
     </Table>
   );
@@ -146,6 +147,7 @@ const calculateAttackDamagePercent = (type, isBackAttack, stats, floor) => {
   const enemyAttack = 10.1 + Math.floor(
     floor 
       * (type === "dark_slash" ? 0.156 : 0.12) 
+      * (type === "laser" ? 2.5 : 1.0)
       * (isBackAttack && !preventsBackAtkBonus ? 1.5 : 1.0));
       
   const dmgReduction = getStatOrDefault("dmg_reduction", stats, 0.00);
