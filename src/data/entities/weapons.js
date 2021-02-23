@@ -73,4 +73,12 @@ export default {
     displayName: "Iron Skillet", 
     stats: { "atk": 20 }
   },
+  "weapon-ganalar": { 
+    type: "weapon", 
+    subtype: "special",
+    name: "ganalar",
+    internalId: "180",
+    displayName: "Ganalar", 
+    stats: { "atk": 53, "magic_boost": 0.78, "dmg_reduction": 0.19, "evade": 0.19  }
+  },
 };

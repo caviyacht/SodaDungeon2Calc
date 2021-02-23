@@ -1,5 +1,5 @@
 export default {
-  floor: 11500000,
+  floor: 13200000,
   entities: {
     "pet-rock": { level: 8 },
     "character-darkmage": { level: 50 },
@@ -10,9 +10,9 @@ export default {
     "character-nurse": { level: 50 },
     "character-dual_wield": { level: 50 },
     "upgrade-kitchen": { level: 10 },
-    "relic-hp": { level: 677000, isFavorite: true },
-    "relic-gold_find": { level: 1000800, isFavorite: true },
-    "relic-mp": { level: 10000 },
+    "relic-hp": { level: 1000000, isFavorite: true },
+    "relic-gold_find": { level: 2161000, isFavorite: true },
+    "relic-mp": { level: 100000 },
     "relic-atk": { level: 100000, isFavorite: true },
     "relic-crit_chance": { level: 250 },
     "relic-essence_find": { level: 100 },
@@ -27,14 +27,14 @@ export default {
     "relic-dmg_reflection": { level: 100 },
     "relic-darkmage": { level: 11000 },
     "relic-miner": { level: 1000 },
-    "relic-thief": { level: 200000, isFavorite: true },
+    "relic-thief": { level: 300000, isFavorite: true },
     "relic-dark_lord": { level: 300000 },
     "relic-carpenter": { level: 1000 },
-    "relic-nurse": { level: 100000, isFavorite: true },
+    "relic-nurse": { level: 300000, isFavorite: true },
     "relic-dual_wield": { level: 200000 },
     "relic-chef": { level: 1 },
     "relic-huntress": { level: 300000, isFavorite: true },
-    "relic-wizard": { level: 200000, isFavorite: true }
+    "relic-wizard": { level: 700000, isFavorite: true }
   },
   teams: {
     "default": {
