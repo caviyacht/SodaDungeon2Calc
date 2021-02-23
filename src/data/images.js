@@ -67,7 +67,8 @@ const images = {
     "140": "./images/items/weapons/i140.png",
     "156": "./images/items/weapons/i156.png",
     "170": "./images/items/weapons/i170.png",
-    "178": "./images/items/weapons/i178.png"
+    "178": "./images/items/weapons/i178.png",
+    "180": "./images/items/weapons/i180.png"
   },
   shields: {
     "142": "./images/items/shields/i142.png",

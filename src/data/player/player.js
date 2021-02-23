@@ -42,65 +42,6 @@ export default {
       slots: {
         "pet_1": { value: "rock" },
         "character_1": {
-          value: "nurse",
-          slots: {
-            "weapon_1": { value: "skull_blade", slots: { "resource_bar_1": { value: null } } },
-            "shield_1": { value: "shield_of_the_divine", slots: { "resource_bar_1": { value: null } } },
-            "armor_1": { value: "platinum_armor", slots: { "resource_bar_1": { value: null } } },
-            "accessory_1": { value: "back_protector" }
-          }
-        },
-        "character_2": {
-          value: "dark_lord",
-          slots: {
-            "weapon_1": { value: "aphotic_blade" },
-            "accessory_1": { value: "phantasmal_claw" },
-            "accessory_2": { value: "back_protector" },
-            "accessory_3": { value: "silver_necklace" }
-          }
-        },
-        "character_3": {
-          value: "thief",
-          slots: {
-            "weapon_1": { value: "skull_blade", slots: { "resource_bar_1": { value: null } } },
-            "shield_1": { value: "shield_of_the_divine", slots: { "resource_bar_1": { value: null } } },
-            "armor_1": { value: "platinum_armor", slots: { "resource_bar_1": { value: null } } },
-            "accessory_1": { value: "phantasmal_claw" }
-          }
-        },
-        "character_4": {
-          value: "dual_wield",
-          slots: {
-            "weapon_1": { value: "saber", slots: { "resource_bar_1": { value: null } } },
-            "weapon_2": { value: "saber", slots: { "resource_bar_1": { value: null } } },
-            "armor_1": { value: "karuta", slots: { "resource_bar_1": { value: null } } },
-            "accessory_1": { value: "dark_amulet" }
-          }
-        },
-        "character_5": {
-          value: "dual_wield",
-          slots: {
-            "weapon_1": { value: "saber", slots: { "resource_bar_1": { value: null } } },
-            "weapon_2": { value: "saber", slots: { "resource_bar_1": { value: null } } },
-            "armor_1": { value: "karuta", slots: { "resource_bar_1": { value: null } } },
-            "accessory_1": { value: "dark_amulet" }
-          }
-        },
-        "character_6": {
-          value: "chef",
-          slots: {
-            "weapon_1": { value: "iron_skillet" },
-            "armor_1": { value: "gold_armor", slots: { "resource_bar_1": { value: null } } },
-            "accessory_1": { value: "slow_stone" }
-          }
-        }
-      }
-    },
-    "beta": {
-      name: "Beta",
-      slots: {
-        "pet_1": { value: "rock" },
-        "character_1": {
           value: "wizard",
           slots: {
             "weapon_1": { value: "skull_blade", slots: { "resource_bar_1": { value: "gold_bar" } } },
@@ -111,6 +52,15 @@ export default {
           }
         },
         "character_2": {
+          value: "nurse",
+          slots: {
+            "weapon_1": { value: "ganalar", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "shield_1": { value: "shield_of_the_divine", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "armor_1": { value: "karuta", slots: { "resource_bar_1": { value: "gold_bar" } } },
+            "accessory_1": { value: "phantasmal_claw" }
+          }
+        },
+        "character_3": {
           value: "huntress",
           slots: {
             "weapon_1": { value: "skull_blade", slots: { "resource_bar_1": { value: "gold_bar" } } },
@@ -118,15 +68,6 @@ export default {
             "armor_1": { value: "platinum_armor", slots: { "resource_bar_1": { value: "gold_bar" } } },
             "accessory_1": { value: "phantasmal_claw" },
             "accessory_2": { value: "rooster_head" }
-          }
-        },
-        "character_3": {
-          value: "nurse",
-          slots: {
-            "weapon_1": { value: "skull_blade", slots: { "resource_bar_1": { value: "gold_bar" } } },
-            "shield_1": { value: "shield_of_the_divine", slots: { "resource_bar_1": { value: "gold_bar" } } },
-            "armor_1": { value: "platinum_armor", slots: { "resource_bar_1": { value: "gold_bar" } } },
-            "accessory_1": { value: "rooster_head" }
           }
         },
         "character_4": {
