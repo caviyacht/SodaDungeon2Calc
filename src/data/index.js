@@ -12,6 +12,7 @@ import slots from "./entities/slots";
 import stats from "./entities/stats";
 import upgrades from "./entities/upgrades";
 import weapons from "./entities/weapons";
+import masteryRewards from "./entities/masteryRewards";
 
 import imagesData from "./images";
 
@@ -29,7 +30,8 @@ export const entities = {
   ...slots,
   ...stats,
   ...upgrades,
-  ...weapons
+  ...weapons,
+  ...masteryRewards
 };
 
 export const images = {

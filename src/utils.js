@@ -94,15 +94,25 @@ const getMemberStats = get => (name) => {
     {
       ...getEntityOfType(get)("stat", "hp_total"),
       value: Math.floor(stats["hp"].value 
-        * (1 + stats["hp_boost"].value) 
-        * (1 + stats["hp_boost_kitchen"].value))
+        * (1 + getStatValueOrDefault(stats, "hp_boost", 0)) 
+        * (1 + getStatValueOrDefault(stats, "hp_boost_kitchen", 0)))
     },
     {
       ...getEntityOfType(get)("stat", "atk_total"),
-      value: Math.floor(stats["atk"].value * (1 + stats["atk_boost"].value))
+      value: Math.floor(stats["atk"].value * (1 + getStatValueOrDefault(stats, "atk_boost", 0)))
     },
     ...Object.entries(stats).map(([id, value]) => ({id, ...value }))
   ).reduce((result, stat) => ({ ...result, [stat.name]: stat }), {});
+};
+
+const getStatValueOrDefault = (stats, name, defaultValue) => {
+  const stat = stats[name];
+
+  if (!stat) {
+    return defaultValue;
+  }
+
+  return stat.value;
 };
 
 const getMemberSkills = get => (name) => {

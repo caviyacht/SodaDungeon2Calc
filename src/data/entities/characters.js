@@ -5,24 +5,22 @@ export default {
     displayName: "Soda Junkie",
     maxLevel: 50,
     stats: {
-      "hp": 62,
-      "hp_boost": 0.09,
-      "atk": 19,
-      "atk_boost": 0.09,
-      "mp": 16,
-      "crit_chance": 0.02,
-      "crit_bonus": 0.07,
-      "phys_boost": 0.05,
-      "evade": 0.08,
-      "dmg_reduction": 0.02,
-      "status_resist": 0.02,
-      "hp_regen": 6,
-      "essence_find": 0.03,
-      "gold_find": 0.02,
-      "item_find": 1,
+      "hp": 10,
+      "atk": 1,
+      "mp": 5
     },
     slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"],
-    skills: ["strike"]
+    skills: ["strike"],
+    masteryRewards: {
+      "4": { stats: { "hp": 2 } },
+      "9": { stats: { "evade": 0.01 } },
+      "15": { stats: { "evade": 0.03 } },
+      "18": { stats: { "evade": 0.01 } },
+      "19": { stats: { "evade": 0.01 } },
+      "24": { stats: { "evade": 0.02 } },
+      "25": { stats: { }, skills: ["burp"] },
+      "50": { stats: { }, relics: ["soda_junkie"] }
+    }
   },
   "character-carpenter": {
     type: "character",
@@ -30,24 +28,20 @@ export default {
     displayName: "Carpenter",
     maxLevel: 50,
     stats: {
-      "hp": 63,
-      "hp_boost": 0.09,
-      "atk": 23,
-      "atk_boost": 0.12,
-      "mp": 23,
-      "crit_chance": 0.02,
-      "crit_bonus": 0.07,
-      "phys_boost": 0.05,
-      "evade": 0.04,
-      "dmg_reduction": 0.04,
-      "status_resist": 0.02,
-      "hp_regen": 6,
-      "essence_find": 0.03,
-      "gold_find": 0.02,
-      "item_find": 1
+      "hp": 13,
+      "atk": 1,
+      "mp": 10
     },
     slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"],
-    skills: ["strike", "sharpen", "swift_metal", "defend"]
+    skills: ["strike", "sharpen", "swift_metal", "defend"],
+    masteryRewards: {
+      "15": { stats: { "atk_boost": 0.03 } },
+      "18": { stats: { "atk": 2 } },
+      "19": { stats: { "atk": 2 } },
+      "23": { stats: { "mp": 5 } },
+      "25": { stats: { }, skills: ["sharpen"] },
+      "50": { stats: { }, relics: ["carpenter"] }
+    }
   },
   "character-miner": {
     type: "character",
@@ -55,24 +49,21 @@ export default {
     displayName: "Miner",
     maxLevel: 50,
     stats: {
-      "hp": 61,
-      "hp_boost": 0.09,
-      "atk": 20,
-      "atk_boost": 0.09,
-      "mp": 33,
-      "crit_chance": 0.02,
-      "crit_bonus": 0.07,
-      "phys_boost": 0.05,
-      "dmg_reduction": 0.02,
-      "status_resist": 0.02,
-      "hp_regen": 6,
-      "essence_find": 0.03,
-      "gold_find": 0.02,
-      "item_find": 1,
-      "ore_find": 27
+      "hp": 11,
+      "atk": 2,
+      "mp": 20
     },
     slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"],
-    skills: ["strike", "transmute", "pickaxe", "defend"]
+    skills: ["strike", "transmute", "pickaxe", "defend"],
+    masteryRewards: {
+      "9": { stats: { "ore_find": 2 } },
+      "15": { stats: { "ore_find": 5 } },
+      "18": { stats: { "ore_find": 2 } },
+      "19": { stats: { "ore_find": 2 } },
+      "24": { stats: { "ore_find": 2 } },
+      "25": { stats: { }, skills: ["transmute"] },
+      "50": { stats: { }, relics: ["miner"] }
+    }
   },
   "character-nurse": { 
     type: "character",
@@ -80,23 +71,21 @@ export default {
     displayName: "Nurse", 
     maxLevel: 50,
     stats: {
-      "hp": 63,
-      "hp_boost": 0.09,
-      "atk": 19,
-      "atk_boost": 0.09,
-      "mp": 43,
-      "crit_chance": 0.02,
-      "crit_bonus": 0.07,
-      "phys_boost": 0.05,
-      "dmg_reduction": 0.02,
-      "status_resist": 0.14,
-      "hp_regen": 6,
-      "essence_find": 0.03,
-      "gold_find": 0.02,
-      "item_find": 1
+      "hp": 13,
+      "atk": 1,
+      "mp": 30
     }, 
     slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"],
-    skills: ["strike", "group_heal", "biohazard", "first_aid", "defend"]
+    skills: ["strike", "group_heal", "biohazard", "first_aid", "defend"],
+    masteryRewards: {
+      "9": { stats: { "status_resist": 0.02 } },
+      "15": { stats: { "status_resist": 0.05 } },
+      "18": { stats: { "status_resist": 0.02 } },
+      "19": { stats: { "status_resist": 0.02 } },
+      "24": { stats: { "status_resist": 0.02 } },
+      "25": { stats: { }, skills: ["group_heal"] },
+      "50": { stats: { }, relics: ["nurse"] }
+    }
   },
   "character-psychic": {
     type: "character",
@@ -104,25 +93,22 @@ export default {
     displayName: "Mystic",
     maxLevel: 50,
     stats: {
-      "hp": 65,
-      "hp_boost": 0.09,
-      "atk": 21,
-      "atk_boost": 0.09,
-      "mp": 41,
-      "crit_chance": 0.02,
-      "crit_bonus": 0.07,
-      "magic_boost": 0.34,
-      "phys_boost": 0.05,
-      "dmg_reduction": 0.02,
-      "status_resist": 0.02,
-      "hp_regen": 6,
-      "mp_regen": 9,
-      "essence_find": 0.03,
-      "gold_find": 0.02,
-      "item_find": 1
+      "hp": 15,
+      "atk": 3,
+      "mp": 30
     },
     slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"],
-    skills: ["strike", "recharge", "torment", "defend"]
+    skills: ["strike", "recharge", "torment", "defend"],
+    masteryRewards: {
+      "9": { stats: { "mp_regen": 2 } },
+      "15": { stats: { "mp_regen": 5 } },
+      "17": { stats: { "magic_boost": 0.03 } },
+      "18": { stats: { "mp_regen": 2 } },
+      "19": { stats: { "magic_boost": 0.03 } },
+      "24": { stats: { "magic_boost": 0.03 } },
+      "25": { stats: { }, skills: ["recharge"] },
+      "50": { stats: { }, relics: ["psychic"] }
+    }
   },
   "character-thief": {
     type: "character",
@@ -130,24 +116,21 @@ export default {
     displayName: "Thief",
     maxLevel: 50,
     stats: {
-      "hp": 67,
-      "hp_boost": 0.09,
-      "atk": 20,
-      "atk_boost": 0.09,
-      "mp": 18,
-      "crit_chance": 0.02,
-      "crit_bonus": 0.07,
-      "phys_boost": 0.05,
-      "evade": 0.06,
-      "dmg_reduction": 0.02,
-      "status_resist": 0.02,
-      "hp_regen": 6,
-      "essence_find": 0.03,
-      "gold_find": 0.02,
-      "item_find": 1
+      "hp": 17,
+      "atk": 2,
+      "mp": 20
     },
     slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"],
-    skills: ["strike", "ransack", "pilfer", "defend"]
+    skills: ["strike", "ransack", "pilfer", "defend"],
+    masteryRewards: {
+      "9": { stats: { "crit_chance": 0.01 } },
+      "15": { stats: { "crit_chance": 0.03 } },
+      "18": { stats: { "evade": 0.03 } },
+      "19": { stats: { "crit_chance": 0.01 } },
+      "24": { stats: { "evade": 0.03 } },
+      "25": { stats: { }, skills: ["ransack"] },
+      "50": { stats: { }, relics: ["thief"] }
+    }
   },
   "character-huntress": {
     type: "character",
@@ -155,24 +138,21 @@ export default {
     displayName: "Huntress",
     maxLevel: 50,
     stats: {
-      "hp": 67,
-      "hp_boost": 0.09,
-      "atk": 20,
-      "atk_boost": 0.09,
-      "mp": 18,
-      "crit_chance": 0.02,
-      "crit_bonus": 0.07,
-      "phys_boost": 0.05,
-      "dmg_reduction": 0.02,
-      "dmg_reflection": 0.16,
-      "status_resist": 0.02,
-      "hp_regen": 6,
-      "essence_find": 0.03,
-      "gold_find": 0.02,
-      "item_find": 1
+      "hp": 17,
+      "atk": 2,
+      "mp": 5
     },
     slots: ["weapon_1", "shield_1", "armor_1", "accessory_1", "accessory_2"],
-    skills: ["strike", "mark", "defend"]
+    skills: ["strike", "mark", "defend"],
+    masteryRewards: {
+      "9": { stats: { "dmg_reflection": 0.02 } },
+      "15": { stats: { "dmg_reflection": 0.05 } },
+      "18": { stats: { "dmg_reflection": 0.03 } },
+      "19": { stats: { "dmg_reflection": 0.03 } },
+      "24": { stats: { "dmg_reflection": 0.03 } },
+      "25": { stats: { }, skills: ["mark"] },
+      "50": { stats: { }, relics: ["huntress"] }
+    }
   },
   "character-darkmage": {
     type: "character",
@@ -180,24 +160,16 @@ export default {
     displayName: "Darkmage",
     maxLevel: 50,
     stats: {
-      "hp": 69,
-      "hp_boost": 0.09,
-      "atk": 21,
-      "atk_boost": 0.09,
-      "mp": 43,
-      "crit_chance": 0.02,
-      "crit_bonus": 0.07,
-      "magic_boost": 0.25,
-      "phys_boost": 0.05,
-      "dmg_reduction": 0.07,
-      "status_resist": 0.02,
-      "hp_regen": 6,
-      "essence_find": 0.03,
-      "gold_find": 0.02,
-      "item_find": 1
+      "hp": 19,
+      "atk": 3,
+      "mp": 30
     },
     slots: ["weapon_1", "shield_1", "armor_1", "accessory_1", "accessory_2"],
-    skills: ["strike", "curse", "noxin", "defend"]
+    skills: ["strike", "curse", "noxin", "defend"],
+    masteryRewards: {
+      "25": { stats: { }, skills: ["curse"] },
+      "50": { stats: { }, relics: ["darkmage"] }
+    }
   },
   "character-dual_wield": {
     type: "character",
@@ -205,22 +177,20 @@ export default {
     displayName: "Blademaster",
     maxLevel: 50,
     stats: {
-      "hp": 70,
-      "hp_boost": 0.09,
-      "atk": 36,
-      "atk_boost": 0.09,
-      "crit_chance": 0.02,
-      "crit_bonus": 0.07,
-      "phys_boost": 0.05,
-      "dmg_reduction": 0.07,
-      "status_resist": 0.02,
-      "hp_regen": 6,
-      "essence_find": 0.03,
-      "gold_find": 0.02,
-      "item_find": 1
+      "hp": 20,
+      "atk": 5
     },
     slots: ["weapon_1", "weapon_2", "armor_1", "accessory_1"],
-    skills: ["strike", "stun", "dual_strike"]
+    skills: ["strike", "stun", "dual_strike"],
+    masteryRewards: {
+      "4": { stats: { "atk": 2 } },
+      "8": { stats: { "atk": 2 } },
+      "13": { stats: { "atk": 2 } },
+      "17": { stats: { "atk": 2 } },
+      "25": { stats: { }, skills: ["stun"] },
+      "29": { stats: { "atk": 5 } },
+      "50": { stats: { }, relics: ["dual_wield"] }
+    }
   },
   "character-dark_lord": {
     type: "character",
@@ -229,23 +199,18 @@ export default {
     displayName: "Dark Lord", 
     maxLevel: 50,
     stats: {
-      "hp": 100,
-      "hp_boost": 0.09,
-      "atk": 38,
-      "atk_boost": 0.09,
-      "mp": 43,
-      "crit_chance": 0.02,
-      "crit_bonus": 0.07,
-      "phys_boost": 0.05,
-      "dmg_reduction": 0.07,
-      "status_resist": 0.02,
-      "hp_regen": 6,
-      "essence_find": 0.03,
-      "gold_find": 0.02,
-      "item_find": 1
+      "hp": 50,
+      "atk": 20,
+      "mp": 30
     }, 
     slots: [{ name: "weapon_1", value: "aphotic_blade" }, "accessory_1", "accessory_2", "accessory_3"],
-    skills: ["strike", "shadow_slicer_2", "defend"]
+    skills: ["strike", "shadow_slicer_2", "defend"],
+    masteryRewards: {
+      "5": { stats: { "atk": 1 } },
+      "10": { stats: { } },
+      "25": { stats: { }, skills: ["dark_savior"] },
+      "50": { stats: { }, relics: ["dark_lord"] }
+    }
   },
   "character-chef": { 
     type: "character",
@@ -254,44 +219,49 @@ export default {
     displayName: "Chef", 
     maxLevel: 50,
     stats: {
-      "hp": 43,
-      "hp_boost": 0.02,
-      "atk": 14,
-      "atk_boost": 0.02,
-      "dmg_reduction": 0.05,
-      "essence_find": 0.11,
-      "gold_find": 0.20,
-      "item_find": 10,
-      "chance_for_dungeon_keys": 0.02,
-      "ore_find": 4,
-      "mastery_xp_boost": 0.07
+      "hp": 25
     }, 
     slots: [{ name: "weapon_1", value: "iron_skillet" }, "armor_1", "accessory_1"],
     skills: ["strike", "cook", "party_protection"]
   },
   "character-wizard": {
     type: "character",
+    subtype: "special",
     name: "wizard",
     displayName: "Wizard",
     maxLevel: 50,
     stats: {
-      "hp": 69,
-      "hp_boost": 0.09,
-      "atk": 21,
-      "atk_boost": 0.09,
-      "mp": 43,
-      "crit_chance": 0.02,
-      "crit_bonus": 0.07,
-      "magic_boost": 0.25,
-      "phys_boost": 0.05,
-      "dmg_reduction": 0.07,
-      "status_resist": 0.02,
-      "hp_regen": 6,
-      "essence_find": 0.03,
-      "gold_find": 0.02,
-      "item_find": 1
+      "hp": 25,
+      "atk": 5,
+      "mp": 35
     },
     slots: ["weapon_1", "shield_1", "armor_1", "accessory_1", "accessory_2"],
-    skills: ["strike", "eviscerate", "foretell", "precognition", "defend"]
+    skills: ["strike", "eviscerate", "foretell", "precognition", "defend"],
+    masteryRewards: {
+      "15": { stats: { "evade": 0.01 } },
+      "19": { stats: { "evade": 0.01 } },
+      "25": { stats: { }, skills: ["foretell"] },
+      "44": { stats: { "evade": 0.02 } },
+      "45": { stats: { "chance_for_dungeon_keys": 0.05 } },
+      "50": { stats: { }, relics: ["wizard"] }
+    }
+  },
+  "character-blacksmith": {
+    type: "character",
+    subtype: "special",
+    name: "blacksmith",
+    displayName: "Blacksmith",
+    maxLevel: 50,
+    stats: {
+      "hp": 1,
+      "atk": 1,
+      "mp": 1
+    },
+    slots: ["weapon_1", "shield_1", "armor_1", "accessory_1"],
+    skills: ["strike", "revenge", "defend"],
+    masteryRewards: {
+      "25": { stats: { }, skills: ["revenge"] },
+      "50": { stats: { }, relics: ["blacksmith"] }
+    }
   }
 };
