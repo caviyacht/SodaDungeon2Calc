@@ -170,7 +170,7 @@ const images = {
     "108": "./images/relics/relic_108.png",
     "109": "./images/relics/relic_109.png",
     "110": "./images/relics/relic_110.png",
-    "111": ""
+    "111": "./images/relics/relic_111.png"
   }
 };
 
