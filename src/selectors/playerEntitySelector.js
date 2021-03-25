@@ -19,6 +19,8 @@ export const playerEntitySelector = selectorFamily({
         }
       ]));
 
+if (/character/.test(id)) console.log(entity);
+
     return {
       ...entity,
       stats,

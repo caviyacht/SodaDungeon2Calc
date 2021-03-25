@@ -8,8 +8,6 @@ export const memberStatsSelector = selectorFamily({
   get: name => ({ get }) => {
     const stats = getMemberStats(get)(name);
 
-console.log(name, stats);
-
     return stats;
   }
 });

@@ -1,6 +1,7 @@
 import { selectorFamily } from "recoil";
 import { entitiesAtom } from "../atoms/entitiesAtom";
-import { isObject, pluralize, getEntityOfType } from "../utils";
+import { isObject, pluralize, getEntityOfType, entityId } from "../utils";
+import { entitiesOfTypeSelector } from "./entitiesOfTypeSelector";
 import { imageCollectionSelector } from "./imageCollectionSelector";
 
 export const entitySelector = selectorFamily({
@@ -58,6 +59,27 @@ export const entitySelector = selectorFamily({
     const imageCollection = get(imageCollectionSelector(imageCollectionId));
     const image = imageCollection[entity.internalId || entity.name];
 
+    // Mastery Rewards
+    // TODO: Figure out another way.
+    const masteryRewards = /^character-/.test(id)
+        ? Object
+            .entries(entity.masteryRewards || {})
+            .reduce((result, [name, value]) => {
+              if (result[name]) {
+                result[name] = { ...result[name], ...value };
+              }
+              else {
+                // TODO: Pretty sure this line isn't needed, as it is always replacing.
+                result[name] = value;
+              }
+
+              return {
+                ...result
+              };
+            }, get(entitiesOfTypeSelector("masteryReward"))
+                .reduce((result, value) => ({ ...result, [value.name]: value }), {}))
+        : {};
+
     // Special Case: Load the display name for relics.
     const displayName = entity.displayName || (
       entity.type === "relic"
@@ -72,7 +94,8 @@ export const entitySelector = selectorFamily({
       stats,
       skills,
       slots,
-      value
+      value,
+      masteryRewards
     };
   }
 });

@@ -62,6 +62,15 @@ const getSlotEntity = get => (name, slot) => {
   };
 };
 
+const getMemberMasteryRewardStats = character => {
+  const result = Object
+    .entries(character.masteryRewards || {})
+    .filter(([name, _]) => character.level >= name)
+    .map(([_, value]) => value);
+
+  return result;
+};
+
 const getMemberStats = get => (name) => {
   const member = get(playerTeamMemberSelector(name));
 
@@ -72,6 +81,9 @@ const getMemberStats = get => (name) => {
   const sources = [].concat(
     // Self.
     member,
+
+    // Mastery Reward Stats.
+    getMemberMasteryRewardStats(member.value),
 
     // TODO: Make a new selector just because.
     // Pet.
