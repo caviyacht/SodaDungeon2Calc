@@ -102,19 +102,49 @@ const getMemberStats = get => (name) => {
 
   const stats = aggregateStats(sources);
 
+  const boostedStats = Object
+    .entries(stats)
+    .reduce((result, [name, value]) => ({ ...result, [name]: boostStat(value, stats) }), {});
+
   return [].concat(
     {
       ...getEntityOfType(get)("stat", "hp_total"),
-      value: Math.floor(stats["hp"].value 
-        * (1 + getStatValueOrDefault(stats, "hp_boost", 0)) 
-        * (1 + getStatValueOrDefault(stats, "hp_boost_kitchen", 0)))
+      value: Math.floor(boostedStats["hp"].value 
+        * (1 + getStatValueOrDefault(boostedStats, "hp_boost", 0)) 
+        * (1 + getStatValueOrDefault(boostedStats, "hp_boost_kitchen", 0)))
     },
     {
       ...getEntityOfType(get)("stat", "atk_total"),
-      value: Math.floor(stats["atk"].value * (1 + getStatValueOrDefault(stats, "atk_boost", 0)))
+      value: Math.floor(boostedStats["atk"].value * (1 + getStatValueOrDefault(boostedStats, "atk_boost", 0)))
     },
-    ...Object.entries(stats).map(([id, value]) => ({id, ...value }))
+    ...Object.entries(boostedStats).map(([id, value]) => ({id, ...value }))
   ).reduce((result, stat) => ({ ...result, [stat.name]: stat }), {});
+};
+
+const boostStat = (stat, stats) => {
+  if (stat.valueType !== "number"
+    && stat.valueType !== "percent"
+    && stat.valueType !== "multiplier") {
+      // Only certain value types allowed.
+      return stat;
+  }
+
+  if (stat.name === "all_stat_boost"
+    || stat.name === "spd"
+    || stat.name === "max_hp"
+    || stat.name === "max_mp"
+    || stat.name === "ore_bust"
+    || stat.name === "hp_boost_kitchen") { // Custom: hp_boost_kitchen
+      // Only certain stats allowed.
+      return stat;
+  }
+
+  const allStatBoost = getStatValueOrDefault(stats, "all_stat_boost", 0);
+
+  return {
+    ...stat,
+    value: stat.value * (1 + allStatBoost)
+  }
 };
 
 const getStatValueOrDefault = (stats, name, defaultValue) => {

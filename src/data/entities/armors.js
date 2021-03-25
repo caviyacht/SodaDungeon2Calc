@@ -22,6 +22,14 @@ export default {
     displayName: "Gold Armor",
     stats: { "hp": 62, "gold_find": 57 }
   },
+  "armor-radioactive_suit": {
+    type: "armor",
+    name: "radioactive_suit",
+    internalId: "161",
+    displayName: "Radioactive Suit",
+    stats: { "hp": 28, "dmg_reflection": 2.18, "atk_boost": 0.14, "all_stat_boost": 0.14 },
+    slots: ["resource_bar_1"]
+  },
   "armor-platinum_armor": { 
     type: "armor", 
     name: "platinum_armor",

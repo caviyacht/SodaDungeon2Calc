@@ -79,6 +79,7 @@ const images = {
   armors: {
     "143": "./images/items/armors/i143_male.png",
     "147": "./images/items/armors/i147_male.png",
+    "161": "./images/items/armors/i161_male.png",
     "162": "./images/items/armors/i162_male.png"
   },
   accessories: {

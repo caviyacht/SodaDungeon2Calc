@@ -3,7 +3,8 @@ export default {
     type: "resource_bar", 
     name: "iron_bar",
     internalId: "9",
-    displayName: "Iron Bar" 
+    displayName: "Iron Bar",
+    stats: { "atk_boost": 0.05 }
   },
   "resource_bar-copper_bar": { 
     type: "resource_bar", 
@@ -16,7 +17,8 @@ export default {
     type: "resource_bar", 
     name: "silver_bar",
     internalId: "31",
-    displayName: "Silver Bar" 
+    displayName: "Silver Bar",
+    stats: { "crit_bonus": 0.50 }
   },
   "resource_bar-gold_bar": { 
     type: "resource_bar", 
@@ -36,6 +38,7 @@ export default {
     type: "resource_bar", 
     name: "uranium_bar",
     internalId: "34",
-    displayName: "Uranium Bar"
+    displayName: "Uranium Bar",
+    stats: { "all_stat_boost": 0.07 }
   }
 };

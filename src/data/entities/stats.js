@@ -29,6 +29,7 @@ export default {
   "stat-chance_for_food": { type: "stat", name: "chance_for_food", displayName: "Chance for Food", valueType: "percent" },
   "stat-spd": { type: "stat", name: "spd", displayName: "Speed", valueType: "number" },
   "stat-gold_multiplier": { type: "stat", name: "gold_multiplier", displayName: "Gold Multiplier", valueType: "multiplier" },
+  "stat-all_stat_boost": { type: "stat", name: "all_stat_boost", displayName: "All Stat Boost", valueType: "percent" },
 
   // Custom stats
   "stat-hp_boost_kitchen": { type: "stat", name: "hp_boost_kitchen", displayName: "HP Boost (kitchen)", valueType: "percent" },
